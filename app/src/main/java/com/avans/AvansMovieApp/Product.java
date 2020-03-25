@@ -1,4 +1,4 @@
-package com.marcellohaddeman.bolcomproject;
+package com.avans.AvansMovieApp;
 
 import androidx.annotation.NonNull;
 

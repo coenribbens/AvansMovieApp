@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Bol.com Project</string>
-    <string name="search">Zoek</string>
-    <string name="search_for">Zoek voor</string>
-    <string name="error_msg">Iets is verkeer gegaan...</string>
+    <string name="app_name">AvansMovieApp </string>
 </resources>

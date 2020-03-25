@@ -1,16 +1,17 @@
-package com.marcellohaddeman.bolcomproject;
+package com.avans.AvansMovieApp;
 
-import android.app.Person;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+
+import com.avans.avans_movie_app.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

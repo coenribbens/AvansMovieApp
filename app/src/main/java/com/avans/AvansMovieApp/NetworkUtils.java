@@ -1,4 +1,4 @@
-package com.marcellohaddeman.bolcomproject;
+package com.avans.AvansMovieApp;
 
 import android.net.Uri;
 import android.util.Log;
@@ -9,8 +9,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
-
-import javax.net.ssl.HttpsURLConnection;
 
 public final class NetworkUtils {
 
