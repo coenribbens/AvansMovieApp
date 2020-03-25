@@ -1,6 +1,3 @@
 <resources>
-    <string name="app_name">Bol.com Project</string>
-    <string name="search_for">Search for ...</string>
-    <string name="search">Search</string>
-    <string name="error_msg">Something went wrong...</string>
+    <string name="app_name">AvansMovieApp </string>
 </resources>
