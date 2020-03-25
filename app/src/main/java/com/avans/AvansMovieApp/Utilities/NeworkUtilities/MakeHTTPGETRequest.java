@@ -1,8 +1,6 @@
-package com.avans.AvansMovieApp.Utilities;
+package com.avans.AvansMovieApp.Utilities.NeworkUtilities;
 
-import android.app.Activity;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,6 +33,6 @@ public class MakeHTTPGETRequest extends AsyncTask<String, Integer, String> {
     }
 
     protected void onPostExecute(String response) {
-        // do the callback
+        // do the callback on this.context (implements HTTPGETRequestable)
     }
 }

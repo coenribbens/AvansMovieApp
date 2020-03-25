@@ -1,23 +1,21 @@
 package com.avans.AvansMovieApp;
 
 import android.os.AsyncTask;
-import android.view.View;
+import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
-
-import com.avans.avans_movie_app.R;
+import com.avans.AvansMovieApp.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.URL;
 import java.util.ArrayList;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity {
     private EditText searchBar;
@@ -30,25 +28,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Objecten initialiseren
-        this.searchBar = findViewById(R.id.search_bar);
-        this.searchButton = findViewById(R.id.btn_search_button);
-        this.recyclerView = findViewById(R.id.rv_product_items);
+        //
 
 
-        //OnClick voor de searchknop activeren.
-        this.searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FetchSearchResults fetchSearchResults = new FetchSearchResults();
 
-                fetchSearchResults.execute(NetworkUtils.buildURL(searchBar.getText().toString()));
-            }
-        });
     }
 
+    /*
     protected void productsReceived(ArrayList<Product> products){
-        //TODO de products received in een arraylist van producten veranderen en deze naar de RecycleViewAdapter sturen.
         RecycleViewAdapter recycleViewAdapter = new RecycleViewAdapter(products, this);
         this.recyclerView.setAdapter(recycleViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -105,5 +92,7 @@ public class MainActivity extends AppCompatActivity {
             productsReceived(products);
         }
     }
+    */
 }
+
 
