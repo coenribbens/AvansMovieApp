@@ -1,5 +1,8 @@
 package com.avans.AvansMovieApp.Model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
 public class DetailedMovie {
@@ -34,6 +37,72 @@ public class DetailedMovie {
         this.overview = overview;
     }
 
+
+    //Methods implemented from Parcelable.
+    protected Movie(Parcel in) {
+        originalTitle = in.readString();
+        title = in.readString();
+        genreNames = in.createStringArrayList();
+        homepage = in.readString();
+        originalLanguage = in.readString();
+        if (in.readByte() == 0) {
+            popularity = null;
+        } else {
+            popularity = in.readInt();
+        }
+        posterPath = in.readString();
+        productionCompaniesNames = in.createStringArrayList();
+        if (in.readByte() == 0) {
+            runTime = null;
+        } else {
+            runTime = in.readInt();
+        }
+        tagLine = in.readString();
+        overview = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(originalTitle);
+        dest.writeString(title);
+        dest.writeStringList(genreNames);
+        dest.writeString(homepage);
+        dest.writeString(originalLanguage);
+        if (popularity == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(popularity);
+        }
+        dest.writeString(posterPath);
+        dest.writeStringList(productionCompaniesNames);
+        if (runTime == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(runTime);
+        }
+        dest.writeString(tagLine);
+        dest.writeString(overview);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(Parcel in) {
+            return new Movie(in);
+        }
+
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
+    //End of methods implemented from Parcelable.
 
     public String getOriginalTitle() {
         return originalTitle;

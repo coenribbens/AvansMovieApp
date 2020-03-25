@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">AvansMovieApp </string>
+    <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut dignissim, mauris eu hendrerit dapibus, leo velit accumsan justo, eget fringilla velit mauris et nibh. Cras congue turpis tortor, sed viverra libero semper tristique. Donec commodo sapien quis urna pharetra, a cursus sem accumsan. Mauris vulputate turpis dui, in consequat velit vestibulum sit amet. Curabitur quis ipsum vestibulum, vulputate mauris non, congue ante. Cras viverra lobortis erat vel commodo. Vestibulum porta sit amet mauris a tincidunt.</string>
+    <string name="release_date">Release date:</string>
+    <string name="original_language">Original Language:</string>
+    <string name="runtime">Runtime:</string>
+    <string name="genres">Genres:</string>
+    <string name="production_companies">Production Companies:</string>
 </resources>
