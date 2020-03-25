@@ -1,12 +1,15 @@
 package com.avans.AvansMovieApp.Utilities.JSONUtiliies;
 
+import com.avans.AvansMovieApp.MainActivity;
+import com.avans.AvansMovieApp.Model.DetailedMovie;
 import com.avans.AvansMovieApp.Model.SmallMovie;
+import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
+import com.avans.AvansMovieApp.Utilities.NeworkUtilities.MakeHTTPGETRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ParseJSONPopularToMovies {
@@ -58,6 +61,7 @@ public class ParseJSONPopularToMovies {
     public ArrayList<SmallMovie> getSmallMovies() {
         return smallMovies;
     }
+
 
 
 }

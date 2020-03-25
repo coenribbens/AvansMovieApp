@@ -1,9 +1,8 @@
 package com.avans.AvansMovieApp.Model;
 
 import java.util.ArrayList;
-import java.util.Date;
 
-public class CompleteMovie {
+public class DetailedMovie {
 
     private String originalTitle;
     private String title;
@@ -13,13 +12,14 @@ public class CompleteMovie {
     private Integer popularity;
     private String posterPath;
     private ArrayList<String> productionCompaniesNames;
-    private Date releaseDate;
+    // private String releaseDate
+    private String releaseDate;
     private Integer runTime;
     private String tagLine;
     private String overview;
 
 
-    public CompleteMovie(String originalTitle, String title, ArrayList<String> genreNames, String homepage, String originalLanguage, Integer popularity, String posterPath, ArrayList<String> productionCompaniesNames, Date releaseDate, Integer runTime, String tagLine, String overview) {
+    public DetailedMovie(String originalTitle, String title, ArrayList<String> genreNames, String homepage, String originalLanguage, Integer popularity, String posterPath, ArrayList<String> productionCompaniesNames, String releaseDate, Integer runTime, String tagLine, String overview) {
         this.originalTitle = originalTitle;
         this.title = title;
         this.genreNames = genreNames;
@@ -67,7 +67,7 @@ public class CompleteMovie {
         return productionCompaniesNames;
     }
 
-    public Date getReleaseDate() {
+    public String getReleaseDate() {
         return releaseDate;
     }
 
@@ -115,7 +115,7 @@ public class CompleteMovie {
         this.productionCompaniesNames = productionCompaniesNames;
     }
 
-    public void setReleaseDate(Date releaseDate) {
+    public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
 
