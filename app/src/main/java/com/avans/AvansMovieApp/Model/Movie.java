@@ -4,22 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Movie {
-
-    /*
-    -originalTitle
-    -title - zit misschien een verschil tussen met de originalTitle
-    -genreNames - Array met de verschillende genres
-    -homepage - dit is een URL die ik nodig heb voor het delen.
-    -originalLanguage
-    -popularity
-    -posterPath - URL naar een plaatje
-    -productionCompaniesNames
-    -releaseDate
-    -runTime
-    -tagLine
-    -overview
-     */
-
+    
     private String originalTitle;
     private String title;
     private ArrayList<Genre> genreNames;
