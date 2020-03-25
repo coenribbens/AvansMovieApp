@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.avans.AvansMovieApp.Model.DetailedMovie;
+import com.avans.AvansMovieApp.Model.SmallMovie;
 import com.avans.AvansMovieApp.Utilities.JSONUtiliies.MovieIdDetailedMovieConvertable;
 import com.avans.AvansMovieApp.Utilities.JSONUtiliies.ParseJSONPopularToMovies;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
@@ -14,7 +15,11 @@ import com.avans.AvansMovieApp.Utilities.NeworkUtilities.MakeHTTPGETRequest;
 import org.json.JSONException;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements HTTPRequestable {
     private EditText searchBar;
@@ -29,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        this.recyclerView = findViewById(R.id.rv_movie_items);
 
         //
 
@@ -48,7 +54,17 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable {
         // process the body e.g. by parsing it
         ParseJSONPopularToMovies parser = new ParseJSONPopularToMovies(HTTPGETResponse);
 
-        //parser.fetchSmallMovies();
+        try{
+            parser.fetchSmallMovies();
+            ArrayList<SmallMovie> movies = parser.getSmallMovies();
+            MovieRecycleViewAdapter movieRecycleViewAdapter = new MovieRecycleViewAdapter(movies, this);
+            this.recyclerView.setAdapter(movieRecycleViewAdapter);
+            this.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
         //Log.v("{{PARSING}}",parser.getSmallMovies().toString());
         //parser.initializeMovieIdToDetailedMovie(100);
 
