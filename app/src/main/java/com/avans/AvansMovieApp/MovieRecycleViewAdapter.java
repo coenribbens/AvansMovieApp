@@ -45,7 +45,9 @@ public class MovieRecycleViewAdapter extends RecyclerView.Adapter<MovieRecycleVi
 
         //Get all the genre names from the List and concatenate these together.
         holder.language.setText(movies.get(position).getOriginalLanguage());
+
         holder.context = this.context;
+        holder.movie = movies.get(position);
 
 
     }
@@ -76,6 +78,7 @@ public class MovieRecycleViewAdapter extends RecyclerView.Adapter<MovieRecycleVi
                 public void onClick(View v) {
                     Intent intent = new Intent(context, MovieDetailActivity.class);
                     intent.putExtra("movieid", movie.getId());
+                    context.startActivity(intent);
                 }
             });
 

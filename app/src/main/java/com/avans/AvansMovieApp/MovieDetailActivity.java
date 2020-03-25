@@ -91,26 +91,30 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
         this.mOverview.setText(movie.getOverview());
         this.mReleaseDateContent.setText(movie.getReleaseDate().toString());
         this.mOriginalLanguageContent.setText(movie.getOriginalLanguage());
-        this.mRuntimeContent.setText(movie.getRunTime());
-        StringBuilder genres = new StringBuilder();
-        for(String genre : movie.getGenreNames()){
-            if(genres.length() == 0){
-                genres.append(genre);
+        this.mRuntimeContent.setText(movie.getRunTime() + "");
+        if(movie.getGenreNames() != null){
+            StringBuilder genres = new StringBuilder();
+            for(String genre : movie.getGenreNames()){
+                if(genres.length() == 0){
+                    genres.append(genre);
+                }
+                else {
+                    genres.append(", ").append(genre);
+                }
             }
-            else {
-                genres.append(", ").append(genre);
-            }
+            this.mGenresContent.setText(genres);
         }
-        this.mGenresContent.setText(genres);
-        StringBuilder productionCompanies = new StringBuilder();
-        for(String productionCompany : movie.getProductionCompaniesNames()){
-            if(productionCompanies.length() == 0){
-                productionCompanies.append(productionCompany);
+        if (movie.getProductionCompaniesNames() != null){
+            StringBuilder productionCompanies = new StringBuilder();
+            for(String productionCompany : movie.getProductionCompaniesNames()){
+                if(productionCompanies.length() == 0){
+                    productionCompanies.append(productionCompany);
+                }
+                else {
+                    productionCompanies.append(", ").append(productionCompany);
+                }
             }
-            else {
-                productionCompanies.append(", ").append(productionCompany);
-            }
+            this.mProductionCompaniesContent.setText(productionCompanies);
         }
-        this.mProductionCompaniesContent.setText(productionCompanies);
     }
 }
