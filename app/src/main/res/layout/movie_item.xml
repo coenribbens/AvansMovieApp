@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/cv_product_item_layout"
+    android:id="@+id/cv_movie_item_layout"
     android:padding="10dp"
     >
 

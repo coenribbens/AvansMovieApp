@@ -49,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
 
     protected void productsReceived(ArrayList<Product> products){
         //TODO de products received in een arraylist van producten veranderen en deze naar de RecycleViewAdapter sturen.
-        RecycleViewAdapter recycleViewAdapter = new RecycleViewAdapter(products, this);
-        this.recyclerView.setAdapter(recycleViewAdapter);
+        MovieRecycleViewAdapter movieRecycleViewAdapter = new MovieRecycleViewAdapter(products, this);
+        this.recyclerView.setAdapter(movieRecycleViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
