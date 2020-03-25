@@ -3,7 +3,7 @@ package com.avans.AvansMovieApp.Model;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Movie {
+public class CompleteMovie {
 
     private String originalTitle;
     private String title;
@@ -19,7 +19,7 @@ public class Movie {
     private String overview;
 
 
-    public Movie(String originalTitle, String title, ArrayList<String> genreNames, String homepage, String originalLanguage, Integer popularity, String posterPath, ArrayList<String> productionCompaniesNames, Date releaseDate, Integer runTime, String tagLine, String overview) {
+    public CompleteMovie(String originalTitle, String title, ArrayList<String> genreNames, String homepage, String originalLanguage, Integer popularity, String posterPath, ArrayList<String> productionCompaniesNames, Date releaseDate, Integer runTime, String tagLine, String overview) {
         this.originalTitle = originalTitle;
         this.title = title;
         this.genreNames = genreNames;
