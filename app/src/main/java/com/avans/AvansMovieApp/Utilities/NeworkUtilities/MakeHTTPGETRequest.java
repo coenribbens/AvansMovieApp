@@ -32,7 +32,8 @@ public class MakeHTTPGETRequest extends AsyncTask<String, Integer, String> {
         return response;
     }
 
-    protected void onPostExecute(String response) {
+    protected void onPostExecute(String responseBody) {
         // do the callback on this.context (implements HTTPGETRequestable)
+        context.ProcessHTTPGETResponse(responseBody);
     }
 }
