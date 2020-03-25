@@ -146,5 +146,13 @@
             app:layout_constraintStart_toStartOf="@+id/tv_movie_detail_genres_content"
             app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_genres_content" />
 
+        <ImageButton
+            android:id="@+id/ib_movie_detail_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_share_black_24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_production_companies_content" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

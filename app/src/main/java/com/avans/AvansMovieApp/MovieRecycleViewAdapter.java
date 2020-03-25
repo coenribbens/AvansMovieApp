@@ -40,7 +40,7 @@ public class MovieRecycleViewAdapter extends RecyclerView.Adapter<MovieRecycleVi
     public void onBindViewHolder(@NonNull final MovieViewHolder holder, int position) {
         Glide.with(this.context)
                 .asBitmap()
-                .load(movies.get(position).getPosterPath())
+                .load("https://image.tmdb.org/t/p/w600_and_h900_bestv2" + movies.get(position).getPosterPath())
                 .into(holder.image);
         holder.movieTitle.setText(movies.get(position).getTitle());
 
