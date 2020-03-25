@@ -1,28 +1,28 @@
 package com.avans.AvansMovieApp;
 
-import android.os.AsyncTask;
-import android.view.View;
+import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.avans.AvansMovieApp.Model.DetailedMovie;
+import com.avans.AvansMovieApp.Utilities.JSONUtiliies.MovieIdDetailedMovieConvertable;
+import com.avans.AvansMovieApp.Utilities.JSONUtiliies.ParseJSONPopularToMovies;
+import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
+import com.avans.AvansMovieApp.Utilities.NeworkUtilities.MakeHTTPGETRequest;
+
+import org.json.JSONException;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-
-import com.avans.avans_movie_app.R;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.net.URL;
-import java.util.ArrayList;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements HTTPRequestable {
     private EditText searchBar;
     private Button searchButton;
     private RecyclerView recyclerView;
+    private final String apiKey = "b966d45d0ab662f523ce11044a9394ef"; // maybe putting the api key in plaintext in here is a bad idea
+
+
 
 
     @Override
@@ -30,80 +30,34 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Objecten initialiseren
-        this.searchBar = findViewById(R.id.search_bar);
-        this.searchButton = findViewById(R.id.btn_search_button);
-        this.recyclerView = findViewById(R.id.rv_product_items);
+        //
+
+        MakeHTTPGETRequest makeReq = new MakeHTTPGETRequest(MainActivity.this);
+        makeReq.execute("https://api.themoviedb.org/3/movie/popular?api_key=b966d45d0ab662f523ce11044a9394ef&language=en-US&page=1");
 
 
-        //OnClick voor de searchknop activeren.
-        this.searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FetchSearchResults fetchSearchResults = new FetchSearchResults();
 
-                fetchSearchResults.execute(NetworkUtils.buildURL(searchBar.getText().toString()));
-            }
-        });
+
     }
 
-    protected void productsReceived(ArrayList<Product> products){
-        //TODO de products received in een arraylist van producten veranderen en deze naar de RecycleViewAdapter sturen.
-        MovieRecycleViewAdapter movieRecycleViewAdapter = new MovieRecycleViewAdapter(products, this);
-        this.recyclerView.setAdapter(movieRecycleViewAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+    @Override
+    public void ProcessHTTPResponseBody(String HTTPGETResponse) {
+
+        Log.v("{{REQUEST-1}}",HTTPGETResponse);
+        // process the body e.g. by parsing it
+        ParseJSONPopularToMovies parser = new ParseJSONPopularToMovies(HTTPGETResponse);
+
+        //parser.fetchSmallMovies();
+        //Log.v("{{PARSING}}",parser.getSmallMovies().toString());
+        //parser.initializeMovieIdToDetailedMovie(100);
+
+        //Log.v("{{PARSEE-1}}",            parser.getMovieIdToDetailedMovie().toString());
+
+
     }
 
-    protected class FetchSearchResults extends AsyncTask<URL, Void, ArrayList<Product>>{
 
-
-
-        @Override
-        protected ArrayList<Product> doInBackground(URL... urls) {
-
-            String jsonProductResponse = null;
-            ArrayList<Product> productArrayList = new ArrayList<>();
-
-            try{
-                //TODO Afmaken afhandeling van de JSON string.
-                jsonProductResponse = NetworkUtils
-                        .getResponseFromHttpUrl(urls[0]);
-
-                //JSON Parsing
-                //Classes aanmaken
-                JSONObject jsonRootObject = new JSONObject(jsonProductResponse);
-                JSONArray jsonProductsArray = jsonRootObject.getJSONArray("products");
-                JSONObject jsonProductObject;
-                JSONArray jsonProductImages;
-
-                //Informatie uit de JSON halen
-                for(int x = 0; x < jsonProductsArray.length();x++){
-                    jsonProductObject = jsonProductsArray.getJSONObject(x);
-                    String productName = jsonProductObject.getString("title");
-                    String productSummary = jsonProductObject.getString("summary");
-                    double productPrice = jsonProductObject.getJSONObject("offerData")
-                            .getJSONArray("offers")
-                            .getJSONObject(0).getDouble("price");
-
-                    ArrayList<String> productImages = new ArrayList<>();
-                    jsonProductImages = jsonProductObject.getJSONArray("images");
-
-                    for(int y = 0; y < jsonProductImages.length(); y++){
-                        productImages.add(jsonProductImages.getJSONObject(y).getString("url"));
-                    }
-                    productArrayList.add(new Product(productName, productSummary, productPrice, productImages));
-                }
-
-            } catch (Exception e){
-                e.printStackTrace();
-            }
-            return productArrayList;
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<Product> products) {
-            productsReceived(products);
-        }
-    }
 }
+
 

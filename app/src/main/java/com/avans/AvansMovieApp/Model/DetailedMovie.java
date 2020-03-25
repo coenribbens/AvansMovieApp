@@ -4,9 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
-import java.util.Date;
 
-public class Movie implements Parcelable {
+public class DetailedMovie {
 
     private String originalTitle;
     private String title;
@@ -16,13 +15,14 @@ public class Movie implements Parcelable {
     private Integer popularity;
     private String posterPath;
     private ArrayList<String> productionCompaniesNames;
-    private Date releaseDate;
+    // private String releaseDate
+    private String releaseDate;
     private Integer runTime;
     private String tagLine;
     private String overview;
 
 
-    public Movie(String originalTitle, String title, ArrayList<String> genreNames, String homepage, String originalLanguage, Integer popularity, String posterPath, ArrayList<String> productionCompaniesNames, Date releaseDate, Integer runTime, String tagLine, String overview) {
+    public DetailedMovie(String originalTitle, String title, ArrayList<String> genreNames, String homepage, String originalLanguage, Integer popularity, String posterPath, ArrayList<String> productionCompaniesNames, String releaseDate, Integer runTime, String tagLine, String overview) {
         this.originalTitle = originalTitle;
         this.title = title;
         this.genreNames = genreNames;
@@ -136,7 +136,7 @@ public class Movie implements Parcelable {
         return productionCompaniesNames;
     }
 
-    public Date getReleaseDate() {
+    public String getReleaseDate() {
         return releaseDate;
     }
 
@@ -184,7 +184,7 @@ public class Movie implements Parcelable {
         this.productionCompaniesNames = productionCompaniesNames;
     }
 
-    public void setReleaseDate(Date releaseDate) {
+    public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
 
