@@ -9,11 +9,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.avans.AvansMovieApp.Model.Movie;
-import com.avans.avans_movie_app.R;
+import com.avans.AvansMovieApp.Model.DetailedMovie;
+import com.avans.AvansMovieApp.Utilities.JSONUtiliies.GetDetailedMovieFromMovieId;
+import com.avans.AvansMovieApp.Utilities.JSONUtiliies.MovieIdDetailedMovieConvertable;
 import com.bumptech.glide.Glide;
 
-public class MovieDetailActivity extends AppCompatActivity {
+public class MovieDetailActivity extends AppCompatActivity implements MovieIdDetailedMovieConvertable {
     private TextView mTitle;
     private TextView mYear;
     private ImageView mImageView;
@@ -30,13 +31,16 @@ public class MovieDetailActivity extends AppCompatActivity {
     private TextView mProductionCompaniesContent;
     private ImageButton mShare;
 
-    private Movie movie;
+    private DetailedMovie movie;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.movie_detail);
-        this.movie = getIntent().getParcelableExtra("movie");
+        int movieId = getIntent().getIntExtra("movieid", 0);
+        GetDetailedMovieFromMovieId getDetailedMovieFromMovieId = new GetDetailedMovieFromMovieId(movieId, this);
+        getDetailedMovieFromMovieId.initializeMovieIdToDetailedMovieRequest();
+
 
         //Assigning all the mValues with their view equivalents.
         this.mTitle = findViewById(R.id.tv_movie_detail_title);
@@ -55,9 +59,31 @@ public class MovieDetailActivity extends AppCompatActivity {
         this.mProductionCompaniesContent = findViewById(R.id.tv_movie_detail_production_companies_content);
         this.mShare = findViewById(R.id.ib_movie_detail_share);
 
+        //Add logic for the share button.
+        this.mShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "Check out this movie!\n" +
+                        movie.getTitle() + "\n" +
+                        movie.getHomepage());
+                sendIntent.setType("text/plain");
+
+                Intent shareIntent = Intent.createChooser(sendIntent, null);
+                startActivity(shareIntent);
+
+            }
+        });
+
+    }
+
+    @Override
+    public void processConversionResult(DetailedMovie detailedMovie) {
+        this.movie = detailedMovie;
         //Extract all the data from the movie and put it in the corresponding views.
         this.mTitle.setText(movie.getTitle());
-        this.mYear.setText(movie.getReleaseDate().getYear());
+        this.mYear.setText(movie.getReleaseDate());
         Glide.with(this)
                 .asBitmap()
                 .load("https://image.tmdb.org/t/p/w600_and_h900_bestv2" + movie.getPosterPath())
@@ -86,23 +112,5 @@ public class MovieDetailActivity extends AppCompatActivity {
             }
         }
         this.mProductionCompaniesContent.setText(productionCompanies);
-
-        //Add logic for the share button.
-        this.mShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "Check out this movie!\n" +
-                        movie.getTitle() + "\n" +
-                        movie.getHomepage());
-                sendIntent.setType("text/plain");
-
-                Intent shareIntent = Intent.createChooser(sendIntent, null);
-                startActivity(shareIntent);
-
-            }
-        });
-
     }
 }

@@ -27,7 +27,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_movie_item_genre"
+        android:id="@+id/tv_movie_item_language"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Genre"

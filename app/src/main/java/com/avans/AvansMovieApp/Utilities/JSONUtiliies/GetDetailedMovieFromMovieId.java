@@ -7,7 +7,7 @@ import com.avans.AvansMovieApp.Utilities.NeworkUtilities.MakeHTTPGETRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class getDetailedMovieFromMovieId implements HTTPRequestable {
+public class GetDetailedMovieFromMovieId implements HTTPRequestable {
 
     // to use this convetor, implement the interface MovieIdDetailedMovieConvertable
     // TODO: think about a better sollution. This is hard because of the asynchroness
@@ -15,13 +15,15 @@ public class getDetailedMovieFromMovieId implements HTTPRequestable {
 
     private DetailedMovie detailedMovie;
     private Integer movieId;
+    private MovieIdDetailedMovieConvertable context;
 
-    public getDetailedMovieFromMovieId(Integer movieId) {
+    public GetDetailedMovieFromMovieId(Integer movieId, MovieIdDetailedMovieConvertable context) {
         this.movieId = movieId;
+        this.context = context;
     }
 
     public void initializeMovieIdToDetailedMovieRequest() {
-        MakeHTTPGETRequest makeReq = new MakeHTTPGETRequest(getDetailedMovieFromMovieId.this);
+        MakeHTTPGETRequest makeReq = new MakeHTTPGETRequest(GetDetailedMovieFromMovieId.this);
         makeReq.execute(String.format("https://api.themoviedb.org/3/movie/%d?api_key=b966d45d0ab662f523ce11044a9394ef&language=en-US", this.movieId));
     }
     @Override
@@ -46,6 +48,7 @@ public class getDetailedMovieFromMovieId implements HTTPRequestable {
                     JSONdetailedMovie.getString("overview")
 
             );
+            context.processConversionResult(this.detailedMovie);
         } catch (JSONException e) {
             e.printStackTrace();
         }

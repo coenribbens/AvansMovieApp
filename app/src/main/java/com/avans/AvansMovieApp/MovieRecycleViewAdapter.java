@@ -11,8 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.avans.AvansMovieApp.Model.Movie;
-import com.avans.avans_movie_app.R;
+import com.avans.AvansMovieApp.Model.SmallMovie;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
@@ -20,10 +19,10 @@ import java.util.ArrayList;
 public class MovieRecycleViewAdapter extends RecyclerView.Adapter<MovieRecycleViewAdapter.MovieViewHolder> {
     private static final String TAG = "RecycleViewAdapter";
 
-    private ArrayList<Movie> movies;
+    private ArrayList<SmallMovie> movies;
     private Context context;
 
-    public MovieRecycleViewAdapter(ArrayList<Movie> movies, Context context){
+    public MovieRecycleViewAdapter(ArrayList<SmallMovie> movies, Context context){
         this.movies = movies;
         this.context = context;
     }
@@ -45,16 +44,7 @@ public class MovieRecycleViewAdapter extends RecyclerView.Adapter<MovieRecycleVi
         holder.movieTitle.setText(movies.get(position).getTitle());
 
         //Get all the genre names from the List and concatenate these together.
-        StringBuilder genres = new StringBuilder();
-        for(String genre : movies.get(position).getGenreNames()){
-            if(genres.length() == 0){
-                genres.append(genre);
-            }
-            else {
-                genres.append(", ").append(genre);
-            }
-        }
-        holder.genres.setText(genres);
+        holder.language.setText(movies.get(position).getOriginalLanguage());
         holder.context = this.context;
 
 
@@ -72,20 +62,20 @@ public class MovieRecycleViewAdapter extends RecyclerView.Adapter<MovieRecycleVi
 
         ImageView image;
         TextView movieTitle;
-        TextView genres;
+        TextView language;
         Context context;
-        Movie movie;
+        SmallMovie movie;
 
         public MovieViewHolder(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.iv_movie_item_image);
             movieTitle = itemView.findViewById(R.id.tv_movie_item_title);
-            genres = itemView.findViewById(R.id.tv_movie_item_genre);
+            language = itemView.findViewById(R.id.tv_movie_item_language);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, MovieDetailActivity.class);
-                    intent.putExtra("movie", MovieViewHolder.this.movie);
+                    intent.putExtra("movieid", movie.getId());
                 }
             });
 
