@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Movie {
-    
+
     private String originalTitle;
     private String title;
-    private ArrayList<Genre> genreNames;
+    private ArrayList<String> genreNames;
     private String homepage;
     private String originalLanguage;
     private Integer popularity;
@@ -19,7 +19,7 @@ public class Movie {
     private String overview;
 
 
-    public Movie(String originalTitle, String title, ArrayList<Genre> genreNames, String homepage, String originalLanguage, Integer popularity, String posterPath, ArrayList<String> productionCompaniesNames, Date releaseDate, Integer runTime, String tagLine, String overview) {
+    public Movie(String originalTitle, String title, ArrayList<String> genreNames, String homepage, String originalLanguage, Integer popularity, String posterPath, ArrayList<String> productionCompaniesNames, Date releaseDate, Integer runTime, String tagLine, String overview) {
         this.originalTitle = originalTitle;
         this.title = title;
         this.genreNames = genreNames;
@@ -43,7 +43,7 @@ public class Movie {
         return title;
     }
 
-    public ArrayList<Genre> getGenreNames() {
+    public ArrayList<String> getGenreNames() {
         return genreNames;
     }
 
@@ -91,7 +91,7 @@ public class Movie {
         this.title = title;
     }
 
-    public void setGenreNames(ArrayList<Genre> genreNames) {
+    public void setGenreNames(ArrayList<String> genreNames) {
         this.genreNames = genreNames;
     }
 
