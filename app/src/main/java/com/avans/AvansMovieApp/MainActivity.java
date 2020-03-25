@@ -5,28 +5,22 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.avans.AvansMovieApp.Model.DetailedMovie;
 import com.avans.AvansMovieApp.Model.SmallMovie;
-import com.avans.AvansMovieApp.Utilities.JSONUtiliies.MovieIdDetailedMovieConvertable;
+import com.avans.AvansMovieApp.Model.GlobalSettings;
 import com.avans.AvansMovieApp.Utilities.JSONUtiliies.ParseJSONPopularToMovies;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.MakeHTTPGETRequest;
-
-import org.json.JSONException;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements HTTPRequestable {
     private EditText searchBar;
     private Button searchButton;
     private RecyclerView recyclerView;
-    private final String apiKey = "b966d45d0ab662f523ce11044a9394ef"; // maybe putting the api key in plaintext in here is a bad idea
-
 
 
 
@@ -38,20 +32,22 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable {
 
         //
 
+
+        Log.v("{{TAG}}", GlobalSettings.id);
+        Log.v("{{TAG}}", GlobalSettings.language);
+
+
         MakeHTTPGETRequest makeReq = new MakeHTTPGETRequest(MainActivity.this);
-        makeReq.execute("https://api.themoviedb.org/3/movie/popular?api_key=b966d45d0ab662f523ce11044a9394ef&language=en-US&page=1");
-
-
-
-
+        String baseUrl = "";
+        makeReq.execute(
+                String.format("https://api.themoviedb.org/3/movie/popular?api_key=%s&language=%s&page=1", GlobalSettings.apiKey, GlobalSettings.language)
+        );
     }
 
 
     @Override
     public void ProcessHTTPResponseBody(String HTTPGETResponse) {
 
-        Log.v("{{REQUEST-1}}",HTTPGETResponse);
-        // process the body e.g. by parsing it
         ParseJSONPopularToMovies parser = new ParseJSONPopularToMovies(HTTPGETResponse);
 
         try{
@@ -65,11 +61,6 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable {
         catch (Exception e){
             e.printStackTrace();
         }
-        //Log.v("{{PARSING}}",parser.getSmallMovies().toString());
-        //parser.initializeMovieIdToDetailedMovie(100);
-
-        //Log.v("{{PARSEE-1}}",            parser.getMovieIdToDetailedMovie().toString());
-
 
     }
 

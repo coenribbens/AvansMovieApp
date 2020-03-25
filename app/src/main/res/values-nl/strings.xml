@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">AvansMovieApp </string>
+    <string name="release_date">Premiere datum</string>
+    <string name="original_language">Originele taal</string>
+    <string name="runtime">Draaitijd</string>
+    <string name="genres">Genres</string>
+    <string name="production_companies">Producitemaatschappijen</string>
 </resources>

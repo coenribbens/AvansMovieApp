@@ -1,6 +1,7 @@
 package com.avans.AvansMovieApp.Utilities.JSONUtiliies;
 
 import com.avans.AvansMovieApp.Model.DetailedMovie;
+import com.avans.AvansMovieApp.Model.GlobalSettings;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.MakeHTTPGETRequest;
 
@@ -24,7 +25,7 @@ public class GetDetailedMovieFromMovieId implements HTTPRequestable {
 
     public void initializeMovieIdToDetailedMovieRequest() {
         MakeHTTPGETRequest makeReq = new MakeHTTPGETRequest(GetDetailedMovieFromMovieId.this);
-        makeReq.execute(String.format("https://api.themoviedb.org/3/movie/%d?api_key=b966d45d0ab662f523ce11044a9394ef&language=en-US", this.movieId));
+        makeReq.execute(String.format("https://api.themoviedb.org/3/movie/%d?api_key=%s&language=%s", this.movieId, GlobalSettings.apiKey, GlobalSettings.language));
     }
     @Override
 
