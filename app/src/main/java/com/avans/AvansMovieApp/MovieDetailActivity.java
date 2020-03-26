@@ -1,5 +1,6 @@
 package com.avans.AvansMovieApp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,9 +11,11 @@ import android.widget.TextView;
 
 import com.avans.AvansMovieApp.Model.DetailedMovie;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetDetailedMovieFromMovieId;
+import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetReviews;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetYoutubeIdFromMovieId;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.MovieIdDetailedMovieConvertable;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.MovieIdYoutubeIdConvertable;
+import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
 import com.bumptech.glide.Glide;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -50,6 +53,8 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
 
         GetYoutubeIdFromMovieId getYoutubeIdFromMovieId = new GetYoutubeIdFromMovieId(movieId,this);
         getYoutubeIdFromMovieId.initializeMovieIdToYoutubeIdRequest();
+
+        GetReviews getReviews = new GetReviews((HTTPRequestable) MovieDetailActivity.this, movieId);
 
 
         //Assigning all the mValues with their view equivalents.

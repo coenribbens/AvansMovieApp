@@ -12,6 +12,7 @@ import com.avans.AvansMovieApp.Model.CompactMovie;
 import com.avans.AvansMovieApp.Model.GlobalVariables;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.CreateNewSession;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetPopularMovies;
+import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetReviews;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetSearchedMovies;
 import com.avans.AvansMovieApp.Utilities.JSONUtiliies.ParseJSONPopularToCompactMovie;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
@@ -64,6 +65,8 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable {
         CreateNewSession createNewSession = new CreateNewSession();
         createNewSession.initializeCreateNewSessionRequest();
         Log.v("{{SESS}}",""+ GlobalVariables.SESSION_TOKEN);
+
+        String x = new String(new GetReviews(1))
     }
 
 
