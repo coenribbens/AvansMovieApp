@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable,T
     private Button searchButton;
     private RecyclerView recyclerView;
     private Integer page = 1;
-    private boolean backButtonBooleanIsInSearchRecyclerView = false; // boolean to check if in a search and want to go to popular movies
+    private boolean backButtonBooleanIsInSearchRecyclerView = false;
 
 
     // TODO: save session id on rotate,lifecyclevent
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable,T
             backButtonBooleanIsInSearchRecyclerView = true;
         }
 
-        
+
         try{
             parser.fetchSmallMovies();
             ArrayList<CompactMovie> movies = parser.getCompactMovies();
