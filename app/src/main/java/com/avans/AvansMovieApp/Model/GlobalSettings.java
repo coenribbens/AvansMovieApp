@@ -16,11 +16,11 @@ public class GlobalSettings {
     public static String deviceId = UUID.randomUUID().toString(); // make this persistent
     public static String language = Locale.getDefault().toLanguageTag(); // in ISO 639-1 format as specified by the API
 
-    public static String sessionId;
+    public static String sessionToken;
 
 
-    public static void setSessionId(String sessionId) {
-        GlobalSettings.sessionId = sessionId;
+    public static void setSessionToken(String sessionToken) {
+        GlobalSettings.sessionToken = sessionToken;
     }
 
     public static void setdeviceId(String deviceId) {

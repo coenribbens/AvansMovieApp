@@ -7,6 +7,7 @@ import android.widget.EditText;
 
 import com.avans.AvansMovieApp.Model.SmallMovie;
 import com.avans.AvansMovieApp.Model.GlobalSettings;
+import com.avans.AvansMovieApp.Utilities.JSONUtiliies.CreateNewSession;
 import com.avans.AvansMovieApp.Utilities.JSONUtiliies.ParseJSONPopularToMovies;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.MakeHTTPGETRequest;
@@ -23,6 +24,8 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable {
     private RecyclerView recyclerView;
 
 
+    // TODO: save session id on rotate,lifecyclevent
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,15 +36,17 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable {
         //
 
 
-        Log.v("{{TAG}}", GlobalSettings.id);
-        Log.v("{{TAG}}", GlobalSettings.language);
-
-
         MakeHTTPGETRequest makeReq = new MakeHTTPGETRequest(MainActivity.this);
         String baseUrl = "";
         makeReq.execute(
                 String.format("https://api.themoviedb.org/3/movie/popular?api_key=%s&language=%s&page=1", GlobalSettings.apiKeyV3, GlobalSettings.language)
         );
+
+
+        //!!!! TODO RM
+        CreateNewSession createNewSession = new CreateNewSession();
+        createNewSession.initializeCreateNewSessionRequest();
+        Log.v("{{SESS}}",""+GlobalSettings.sessionToken);
     }
 
 
@@ -63,6 +68,8 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable {
         }
 
     }
+
+
 
 
 }
