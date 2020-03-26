@@ -38,14 +38,8 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable {
         setContentView(R.layout.activity_main);
         this.recyclerView = findViewById(R.id.rv_movie_items);
 
-        //
-
-
         MakeHTTPGETRequest makeReq = new MakeHTTPGETRequest(MainActivity.this);
-        String baseUrl = "";
-        makeReq.execute(
-                String.format(GlobbalConstants.V3_BASE_URL + API_ENDPOINT + HTTP_GET_PARAMETERS)
-        );
+        makeReq.execute(GlobbalConstants.V3_BASE_URL + API_ENDPOINT + HTTP_GET_PARAMETERS);
 
 
         //!!!! TODO RM
