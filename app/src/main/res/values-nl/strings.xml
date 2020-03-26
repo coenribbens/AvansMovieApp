@@ -6,4 +6,8 @@
     <string name="runtime">Draaitijd</string>
     <string name="genres">Genres</string>
     <string name="production_companies">Producitemaatschappijen</string>
+    <string name="pop_main_ac_title">20 populariste films</string>
+    <string name="mov_detail_ac_title">"Details voor film: "</string>
+    <string name="sharing_text">Check deze film!\n</string>
+    <string name="searchbar_text">Zoek naar een film</string>
 </resources>

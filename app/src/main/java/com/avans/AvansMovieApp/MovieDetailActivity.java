@@ -77,7 +77,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
             public void onClick(View v) {
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "Check out this movie!\n" +
+                sendIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.sharing_text) +
                         movie.getTitle() + "\n" +
                         movie.getHomepage());
                 sendIntent.setType("text/plain");
@@ -116,6 +116,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
         this.movie = detailedMovie;
         //Extract all the data from the movie and put it in the corresponding views.
         this.mTitle.setText(movie.getTitle());
+        setTitle(getResources().getText(R.string.mov_detail_ac_title) + this.movie.getTitle());
         this.mYear.setText(movie.getReleaseDate());
         Glide.with(this)
                 .asBitmap()

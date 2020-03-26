@@ -6,4 +6,8 @@
     <string name="runtime">Runtime:</string>
     <string name="genres">Genres:</string>
     <string name="production_companies">Production Companies:</string>
+    <string name="pop_main_ac_title">20 most  popular movies</string>
+    <string name="mov_detail_ac_title">"Details for movie: "</string>
+    <string name="sharing_text">Check out this movie!\n</string>
+    <string name="searchbar_text">Search for a movie</string>
 </resources>
