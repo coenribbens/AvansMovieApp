@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity"
+
     >
 
     <EditText
@@ -13,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_width="0dp"
         android:layout_marginRight="16dp"
-        android:hint="@string/search_for"
+        android:hint="@string/searchbar_text"
         app:layout_constraintEnd_toStartOf="@+id/btn_search_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,14 +26,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_bar"
-        android:id="@+id/rv_product_items"
+        android:id="@+id/rv_movie_items"
         />
 
     <Button
         android:id="@+id/btn_search_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/search"
+        android:text="search"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

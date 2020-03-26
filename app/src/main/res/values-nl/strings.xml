@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Bol.com Project</string>
-    <string name="search">Zoek</string>
-    <string name="search_for">Zoek voor</string>
-    <string name="error_msg">Iets is verkeer gegaan...</string>
+    <string name="app_name">AvansMovieApp </string>
+    <string name="release_date">Premiere datum</string>
+    <string name="original_language">Originele taal</string>
+    <string name="runtime">Draaitijd</string>
+    <string name="genres">Genres</string>
+    <string name="production_companies">Producitemaatschappijen</string>
+    <string name="pop_main_ac_title">20 populariste films</string>
+    <string name="mov_detail_ac_title">"Details voor film: "</string>
+    <string name="sharing_text">Check deze film!\n</string>
+    <string name="searchbar_text">Zoek naar een film</string>
 </resources>

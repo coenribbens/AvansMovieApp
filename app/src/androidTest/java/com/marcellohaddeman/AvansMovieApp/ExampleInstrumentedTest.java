@@ -1,4 +1,4 @@
-package com.marcellohaddeman.bolcomproject;
+package com.avans.AvansMovieApp;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.marcellohaddeman.bolcomproject", appContext.getPackageName());
+        assertEquals("com.avans.AvansMovieApp ", appContext.getPackageName());
     }
 }
