@@ -31,10 +31,8 @@ public class GetYoutubeIdFromMovieId implements HTTPRequestable {
     public void ProcessHTTPResponseBody(String HTTPGETResponse) {
 
         try {
-           this.youtubeId = new JSONObject(HTTPGETResponse)
-                   .getJSONArray("results")
-                   .getJSONObject(0)
-                   .getString("key"); // not sure if we should get key or id. Logic says we should get the id, but key looks more like the correct value to me
+           ParseJSONYoutubeId parser = new ParseJSONYoutubeId(HTTPGETResponse);
+           this.youtubeId =  parser.parseYoutubeId();
             context.processMovieIdYoutubeIdConversionResult(this.youtubeId);
         } catch (JSONException e) {
             context.processMovieIdYoutubeIdConversionResult(null);
