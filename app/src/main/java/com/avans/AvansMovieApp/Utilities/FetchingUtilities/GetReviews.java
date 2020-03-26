@@ -16,18 +16,26 @@ public class GetReviews {
         private int MOVIEID;
         private String API_ENDPOINT2 = "/reviews";
         private String HTTP_GET_PARAMETERS = String.format("?api_key=%s&language=%s&page=1", GlobalVariables.API_KEY_V3, GlobalVariables.LANG);
+        private String Fullrequest;
 
-        public GetReviews(HTTPRequestable context, int MOVIEID) {
+        public GetReviews( HTTPRequestable context, int MOVIEID) {
             this.context = context;
             MakeHTTPGETRequest makeReq = new MakeHTTPGETRequest(this.context);
             makeReq.execute(GlobalVariables.V3_BASE_URL + API_ENDPOINT1 + "/" + MOVIEID + API_ENDPOINT2 + HTTP_GET_PARAMETERS );
 
         }
 
+    public GetReviews( int MOVIEID) {
 
-    public String testReqeust(){
-     String x =  GlobalVariables.V3_BASE_URL + API_ENDPOINT1 + "/" + MOVIEID + API_ENDPOINT2 + HTTP_GET_PARAMETERS ;
-     return x;
+        MakeHTTPGETRequest makeReq = new MakeHTTPGETRequest(this.context);
+        makeReq.execute(GlobalVariables.V3_BASE_URL + API_ENDPOINT1 + "/" + MOVIEID + API_ENDPOINT2 + HTTP_GET_PARAMETERS );
+        Fullrequest = GlobalVariables.V3_BASE_URL + API_ENDPOINT1 + "/" + MOVIEID + API_ENDPOINT2 + HTTP_GET_PARAMETERS;
+
+    }
+
+
+    public String GetReqeustString(){
+    return this.Fullrequest;
     }
 
 

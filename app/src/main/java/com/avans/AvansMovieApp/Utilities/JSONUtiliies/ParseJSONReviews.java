@@ -2,6 +2,7 @@ package com.avans.AvansMovieApp.Utilities.JSONUtiliies;
 
 
 import com.avans.AvansMovieApp.Model.CompactMovie;
+import com.avans.AvansMovieApp.Model.Review;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -10,7 +11,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class ParseJSONReviews {
-    private ArrayList<CompactMovie> compactMovies = new ArrayList<CompactMovie>();
+    private ArrayList<Review> Reviews = new ArrayList<Review>();
     private String rawResponseBody;
 
     public ParseJSONReviews(String rawResponseBody){
@@ -25,10 +26,10 @@ public class ParseJSONReviews {
 
 
 
-            compactMovies.add(
+            Reviews.add(
                     new Review(
                             reviewJSONObj.getString("author"),
-                            reviewJSONObj.getInt("content")));
+                            reviewJSONObj.getString("content")));
 
 
 
