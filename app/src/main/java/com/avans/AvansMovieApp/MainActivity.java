@@ -7,7 +7,7 @@ import android.widget.EditText;
 
 import com.avans.AvansMovieApp.Model.CompactMovie;
 import com.avans.AvansMovieApp.Model.GlobalVariables;
-import com.avans.AvansMovieApp.Utilities.JSONUtiliies.CreateNewSession;
+import com.avans.AvansMovieApp.Utilities.FetchingUtilities.CreateNewSession;
 import com.avans.AvansMovieApp.Utilities.JSONUtiliies.ParseJSONPopularToMovies;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.MakeHTTPGETRequest;

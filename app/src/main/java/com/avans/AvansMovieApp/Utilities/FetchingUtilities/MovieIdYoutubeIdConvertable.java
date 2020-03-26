@@ -1,4 +1,4 @@
-package com.avans.AvansMovieApp.Utilities.JSONUtiliies;
+package com.avans.AvansMovieApp.Utilities.FetchingUtilities;
 
 public interface MovieIdYoutubeIdConvertable {
 

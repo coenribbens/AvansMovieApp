@@ -3,17 +3,16 @@ package com.avans.AvansMovieApp;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.avans.AvansMovieApp.Model.DetailedMovie;
-import com.avans.AvansMovieApp.Utilities.JSONUtiliies.GetDetailedMovieFromMovieId;
-import com.avans.AvansMovieApp.Utilities.JSONUtiliies.GetYoutubeIdFromMovieId;
-import com.avans.AvansMovieApp.Utilities.JSONUtiliies.MovieIdDetailedMovieConvertable;
-import com.avans.AvansMovieApp.Utilities.JSONUtiliies.MovieIdYoutubeIdConvertable;
+import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetDetailedMovieFromMovieId;
+import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetYoutubeIdFromMovieId;
+import com.avans.AvansMovieApp.Utilities.FetchingUtilities.MovieIdDetailedMovieConvertable;
+import com.avans.AvansMovieApp.Utilities.FetchingUtilities.MovieIdYoutubeIdConvertable;
 import com.bumptech.glide.Glide;
 
 import androidx.appcompat.app.AppCompatActivity;
