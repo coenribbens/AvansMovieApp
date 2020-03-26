@@ -1,7 +1,7 @@
 package com.avans.AvansMovieApp.Utilities.JSONUtiliies;
 
 import com.avans.AvansMovieApp.Model.DetailedMovie;
-import com.avans.AvansMovieApp.Model.GlobalSettings;
+import com.avans.AvansMovieApp.Model.GlobbalConstants;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.MakeHTTPGETRequest;
 
@@ -15,6 +15,9 @@ public class GetDetailedMovieFromMovieId implements HTTPRequestable {
     private Integer movieId;
     private MovieIdDetailedMovieConvertable context;
 
+    private String API_ENDPOINT = "/movie/";
+    private String HTTP_GET_PARAMETERS = String.format("?api_key=%s&language=%s", GlobbalConstants.API_KEY_V3, GlobbalConstants.LANG);
+
     public GetDetailedMovieFromMovieId(Integer movieId, MovieIdDetailedMovieConvertable context) {
         this.movieId = movieId;
         this.context = context;
@@ -22,7 +25,7 @@ public class GetDetailedMovieFromMovieId implements HTTPRequestable {
 
     public void initializeMovieIdToDetailedMovieRequest() {
         MakeHTTPGETRequest makeReq = new MakeHTTPGETRequest(GetDetailedMovieFromMovieId.this);
-        makeReq.execute(String.format("https://api.themoviedb.org/3/movie/%d?api_key=%s&language=%s", this.movieId, GlobalSettings.API_KEY_V3, GlobalSettings.LANG));
+        makeReq.execute(GlobbalConstants.V3_BASE_URL + API_ENDPOINT + + this.movieId + HTTP_GET_PARAMETERS);
     }
     @Override
 

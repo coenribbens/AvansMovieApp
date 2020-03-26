@@ -2,7 +2,7 @@ package com.avans.AvansMovieApp.Model;
 
 import java.util.ArrayList;
 
-public class SmallMovie {
+public class CompactMovie {
 
     private Integer popularity;
     private Integer voteCount;
@@ -21,7 +21,7 @@ public class SmallMovie {
     // private Date releaseDate
 
 
-    public SmallMovie(Integer popularity, Integer voteCount, boolean video, String posterPath, Integer id, boolean adult, String backdropPath, String originalLanguage, String originalTitle, ArrayList<Integer> genreIds, String title, Integer voteAverage, String overview, String releaseDate) {
+    public CompactMovie(Integer popularity, Integer voteCount, boolean video, String posterPath, Integer id, boolean adult, String backdropPath, String originalLanguage, String originalTitle, ArrayList<Integer> genreIds, String title, Integer voteAverage, String overview, String releaseDate) {
         this.popularity = popularity;
         this.voteCount = voteCount;
         this.video = video;

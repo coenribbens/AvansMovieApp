@@ -1,10 +1,6 @@
 package com.avans.AvansMovieApp.Utilities.JSONUtiliies;
 
-import com.avans.AvansMovieApp.MainActivity;
-import com.avans.AvansMovieApp.Model.DetailedMovie;
-import com.avans.AvansMovieApp.Model.SmallMovie;
-import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
-import com.avans.AvansMovieApp.Utilities.NeworkUtilities.MakeHTTPGETRequest;
+import com.avans.AvansMovieApp.Model.CompactMovie;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,7 +10,7 @@ import java.util.ArrayList;
 
 public class ParseJSONPopularToMovies {
 
-    private ArrayList<SmallMovie> smallMovies = new ArrayList<SmallMovie>();
+    private ArrayList<CompactMovie> compactMovies = new ArrayList<CompactMovie>();
     private String rawResponseBody;
 
     public ParseJSONPopularToMovies(String rawResponseBody){
@@ -36,8 +32,8 @@ public class ParseJSONPopularToMovies {
                 genreIds.add(JSONgenreIds.getInt(ii));
             }
 
-            smallMovies.add(
-                    new SmallMovie(
+            compactMovies.add(
+                    new CompactMovie(
                             movieJSONObj.getInt("popularity"),
                             movieJSONObj.getInt("vote_count"),
                             movieJSONObj.getBoolean("video"),
@@ -58,8 +54,8 @@ public class ParseJSONPopularToMovies {
 
     }
 
-    public ArrayList<SmallMovie> getSmallMovies() {
-        return smallMovies;
+    public ArrayList<CompactMovie> getCompactMovies() {
+        return compactMovies;
     }
 
 

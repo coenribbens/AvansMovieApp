@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.avans.AvansMovieApp.Model.SmallMovie;
+import com.avans.AvansMovieApp.Model.CompactMovie;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
@@ -19,10 +19,10 @@ import java.util.ArrayList;
 public class MovieRecycleViewAdapter extends RecyclerView.Adapter<MovieRecycleViewAdapter.MovieViewHolder> {
     private static final String TAG = "RecycleViewAdapter";
 
-    private ArrayList<SmallMovie> movies;
+    private ArrayList<CompactMovie> movies;
     private Context context;
 
-    public MovieRecycleViewAdapter(ArrayList<SmallMovie> movies, Context context){
+    public MovieRecycleViewAdapter(ArrayList<CompactMovie> movies, Context context){
         this.movies = movies;
         this.context = context;
     }
@@ -66,7 +66,7 @@ public class MovieRecycleViewAdapter extends RecyclerView.Adapter<MovieRecycleVi
         TextView movieTitle;
         TextView language;
         Context context;
-        SmallMovie movie;
+        CompactMovie movie;
 
         public MovieViewHolder(@NonNull View itemView) {
             super(itemView);

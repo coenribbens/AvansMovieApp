@@ -3,6 +3,7 @@ package com.avans.AvansMovieApp;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -93,15 +94,18 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
     public void processMovieIdYoutubeIdConversionResult(final String youtubeId){
 
 
-        // TODO: A dedicated button should be added for this functionality, but I dont want to fuck up the layout files
+        if( youtubeId != null){
         this.mTrailer.setOnClickListener(new View.OnClickListener() {
-
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + youtubeId));
                 intent.putExtra("VIDEO_ID", youtubeId);
                 startActivity(intent);
+                }
             }
-        });
+        );
+        }else{
+            this.mTrailer.setVisibility(View.GONE);
+        }
 
 
 

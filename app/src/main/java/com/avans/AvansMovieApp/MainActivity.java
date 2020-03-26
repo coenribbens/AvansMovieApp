@@ -5,8 +5,8 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.avans.AvansMovieApp.Model.SmallMovie;
-import com.avans.AvansMovieApp.Model.GlobalSettings;
+import com.avans.AvansMovieApp.Model.CompactMovie;
+import com.avans.AvansMovieApp.Model.GlobbalConstants;
 import com.avans.AvansMovieApp.Utilities.JSONUtiliies.CreateNewSession;
 import com.avans.AvansMovieApp.Utilities.JSONUtiliies.ParseJSONPopularToMovies;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
@@ -26,6 +26,11 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable {
 
     // TODO: save session id on rotate,lifecyclevent
 
+    private String API_ENDPOINT = "/movie/popular";
+    private String HTTP_GET_PARAMETERS = String.format("?api_key=%s&language=%s&page=1", GlobbalConstants.API_KEY_V3, GlobbalConstants.LANG);
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,14 +44,14 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable {
         MakeHTTPGETRequest makeReq = new MakeHTTPGETRequest(MainActivity.this);
         String baseUrl = "";
         makeReq.execute(
-                String.format("https://api.themoviedb.org/3/movie/popular?api_key=%s&language=%s&page=1", GlobalSettings.API_KEY_V3, GlobalSettings.LANG)
+                String.format(GlobbalConstants.V3_BASE_URL + API_ENDPOINT + HTTP_GET_PARAMETERS)
         );
 
 
         //!!!! TODO RM
         CreateNewSession createNewSession = new CreateNewSession();
         createNewSession.initializeCreateNewSessionRequest();
-        Log.v("{{SESS}}",""+GlobalSettings.SESSION_TOKEN);
+        Log.v("{{SESS}}",""+ GlobbalConstants.SESSION_TOKEN);
     }
 
 
@@ -57,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable {
 
         try{
             parser.fetchSmallMovies();
-            ArrayList<SmallMovie> movies = parser.getSmallMovies();
+            ArrayList<CompactMovie> movies = parser.getCompactMovies();
             MovieRecycleViewAdapter movieRecycleViewAdapter = new MovieRecycleViewAdapter(movies, this);
             this.recyclerView.setAdapter(movieRecycleViewAdapter);
             this.recyclerView.setLayoutManager(new LinearLayoutManager(this));
