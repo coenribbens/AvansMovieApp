@@ -22,11 +22,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MainActivity extends AppCompatActivity implements HTTPRequestable {
+public class MainActivity extends AppCompatActivity implements HTTPRequestable,TitleSettable {
     private EditText searchBar;
     private Button searchButton;
     private RecyclerView recyclerView;
     private Integer page = 1;
+    private boolean backButtonBooleanIsInSearchRecyclerView = false; // boolean to check if in a search and want to go to popular movies
 
 
     // TODO: save session id on rotate,lifecyclevent
@@ -67,12 +68,34 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable {
     }
 
 
+    public void changeTitle(String titleText){
+        setTitle(titleText);
+    }
+
+
+    @Override
+    public void onBackPressed() {
+       if(backButtonBooleanIsInSearchRecyclerView){
+           setTitle(getResources().getText(R.string.pop_main_ac_title));
+           GetPopularMovies getPopularMovies = new GetPopularMovies(this);
+           getPopularMovies.getPopularMovies();
+       } else{
+           super.onBackPressed();
+       }
+
+    }
+
+
     @Override
     public void ProcessHTTPResponseBody(String HTTPGETResponse) {
 
-        //Log.v("resp",HTTPGETResponse);
         ParseJSONPopularToCompactMovie parser = new ParseJSONPopularToCompactMovie(HTTPGETResponse);
 
+        if(getTitle() != getResources().getString(R.string.pop_main_ac_title)){
+            backButtonBooleanIsInSearchRecyclerView = true;
+        }
+
+        
         try{
             parser.fetchSmallMovies();
             ArrayList<CompactMovie> movies = parser.getCompactMovies();
