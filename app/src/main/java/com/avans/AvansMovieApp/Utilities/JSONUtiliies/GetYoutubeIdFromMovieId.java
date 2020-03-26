@@ -20,7 +20,7 @@ public class GetYoutubeIdFromMovieId implements HTTPRequestable {
 
     public void initializeMovieIdToYoutubeIdRequest() {
         MakeHTTPGETRequest makeReq = new MakeHTTPGETRequest(GetYoutubeIdFromMovieId.this);
-        makeReq.execute(String.format("https://api.themoviedb.org/3/movie/%d/videos?api_key=%s&language=%s", this.movieId, GlobalSettings.apiKeyV3, GlobalSettings.language));
+        makeReq.execute(String.format("https://api.themoviedb.org/3/movie/%d/videos?api_key=%s&language=%s", this.movieId, GlobalSettings.API_KEY_V3, GlobalSettings.LANG));
     }
 
 
