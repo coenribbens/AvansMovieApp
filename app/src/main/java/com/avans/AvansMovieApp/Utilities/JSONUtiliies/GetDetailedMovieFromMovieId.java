@@ -10,9 +10,6 @@ import org.json.JSONObject;
 
 public class GetDetailedMovieFromMovieId implements HTTPRequestable {
 
-    // to use this convetor, implement the interface MovieIdDetailedMovieConvertable
-    // TODO: think about a better sollution. This is hard because of the asynchroness
-
 
     private DetailedMovie detailedMovie;
     private Integer movieId;
@@ -49,7 +46,7 @@ public class GetDetailedMovieFromMovieId implements HTTPRequestable {
                     JSONdetailedMovie.getString("overview")
 
             );
-            context.processConversionResult(this.detailedMovie);
+            context.processMovieIdDetailedMovieConversionResult(this.detailedMovie);
         } catch (JSONException e) {
             e.printStackTrace();
         }

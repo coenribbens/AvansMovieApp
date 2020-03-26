@@ -1,8 +1,7 @@
 package com.avans.AvansMovieApp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -11,10 +10,14 @@ import android.widget.TextView;
 
 import com.avans.AvansMovieApp.Model.DetailedMovie;
 import com.avans.AvansMovieApp.Utilities.JSONUtiliies.GetDetailedMovieFromMovieId;
+import com.avans.AvansMovieApp.Utilities.JSONUtiliies.GetYoutubeIdFromMovieId;
 import com.avans.AvansMovieApp.Utilities.JSONUtiliies.MovieIdDetailedMovieConvertable;
+import com.avans.AvansMovieApp.Utilities.JSONUtiliies.MovieIdYoutubeIdConvertable;
 import com.bumptech.glide.Glide;
 
-public class MovieDetailActivity extends AppCompatActivity implements MovieIdDetailedMovieConvertable {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MovieDetailActivity extends AppCompatActivity implements MovieIdDetailedMovieConvertable, MovieIdYoutubeIdConvertable {
     private TextView mTitle;
     private TextView mYear;
     private ImageView mImageView;
@@ -33,6 +36,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
 
     private DetailedMovie movie;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +44,11 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
         int movieId = getIntent().getIntExtra("movieid", 0);
         GetDetailedMovieFromMovieId getDetailedMovieFromMovieId = new GetDetailedMovieFromMovieId(movieId, this);
         getDetailedMovieFromMovieId.initializeMovieIdToDetailedMovieRequest();
+
+
+
+        GetYoutubeIdFromMovieId getYoutubeIdFromMovieId = new GetYoutubeIdFromMovieId(movieId,this);
+        getYoutubeIdFromMovieId.initializeMovieIdToYoutubeIdRequest();
 
 
         //Assigning all the mValues with their view equivalents.
@@ -79,7 +88,25 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
     }
 
     @Override
-    public void processConversionResult(DetailedMovie detailedMovie) {
+    public void processMovieIdYoutubeIdConversionResult(final String youtubeId){
+
+
+        // TODO: A dedicated button should be added for this functionality, but I dont want to fuck up the layout files
+        this.mImageView.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + youtubeId));
+                intent.putExtra("VIDEO_ID", youtubeId);
+                startActivity(intent);
+            }
+        });
+
+
+
+    }
+
+    @Override
+    public void processMovieIdDetailedMovieConversionResult(DetailedMovie detailedMovie) {
         this.movie = detailedMovie;
         //Extract all the data from the movie and put it in the corresponding views.
         this.mTitle.setText(movie.getTitle());
@@ -88,6 +115,10 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
                 .asBitmap()
                 .load("https://image.tmdb.org/t/p/w600_and_h900_bestv2" + movie.getPosterPath())
                 .into(this.mImageView);
+
+        //
+
+
         this.mOverview.setText(movie.getOverview());
         this.mReleaseDateContent.setText(movie.getReleaseDate().toString());
         this.mOriginalLanguageContent.setText(movie.getOriginalLanguage());
