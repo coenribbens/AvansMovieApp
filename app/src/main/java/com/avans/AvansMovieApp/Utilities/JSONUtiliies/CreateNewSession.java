@@ -1,6 +1,7 @@
 package com.avans.AvansMovieApp.Utilities.JSONUtiliies;
 
-import com.avans.AvansMovieApp.Model.GlobbalConstants;
+import com.avans.AvansMovieApp.Model.GlobalVariables;
+import com.avans.AvansMovieApp.Utilities.AuthenticateUsingToken;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.MakeHTTPGETRequest;
 
@@ -10,13 +11,13 @@ public class CreateNewSession implements HTTPRequestable {
 
 
     private String API_ENDPOINT = "/authentication/token/new";
-    private String HTTP_GET_PARAMETERS = "?api_key=" + GlobbalConstants.API_KEY_V3;
+    private String HTTP_GET_PARAMETERS = "?api_key=" + GlobalVariables.API_KEY_V3;
 
 
 
     public void initializeCreateNewSessionRequest() {
         MakeHTTPGETRequest makeReq = new MakeHTTPGETRequest(CreateNewSession.this);
-        makeReq.execute(GlobbalConstants.V3_BASE_URL + API_ENDPOINT + HTTP_GET_PARAMETERS);
+        makeReq.execute(GlobalVariables.V3_BASE_URL + API_ENDPOINT + HTTP_GET_PARAMETERS);
     }
 
 
@@ -28,9 +29,15 @@ public class CreateNewSession implements HTTPRequestable {
         try {
             ParseJSONInitializeCreateNewSessionRequest parser = new ParseJSONInitializeCreateNewSessionRequest(HTTPGETResponse);
             String sessionToken = parser.parseSessionToken();
-            GlobbalConstants.setSessionToken(sessionToken);
+            GlobalVariables.setSessionToken(sessionToken);
 
             // TODO: IDEA, Show a toast with "authenticated"
+
+            String postdata = String.format("{'request_token':'%s'}",sessionToken);
+
+            AuthenticateUsingToken authenticateUsingToken = new AuthenticateUsingToken();
+            authenticateUsingToken.initializeAuthenticatingUsingToken(postdata);
+            authenticateUsingToken.ProcessHTTPResponseBody(HTTPGETResponse);
 
 
         } catch (JSONException e) {

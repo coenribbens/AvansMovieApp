@@ -1,11 +1,10 @@
 package com.avans.AvansMovieApp.Utilities.JSONUtiliies;
 
-import com.avans.AvansMovieApp.Model.GlobbalConstants;
+import com.avans.AvansMovieApp.Model.GlobalVariables;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.MakeHTTPGETRequest;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 public class GetYoutubeIdFromMovieId implements HTTPRequestable {
 
@@ -14,7 +13,7 @@ public class GetYoutubeIdFromMovieId implements HTTPRequestable {
     private MovieIdYoutubeIdConvertable context;
 
     private String API_ENDPOINT = "/movie/%s/videos";
-    private String HTTP_GET_PARAMETERS = String.format("?api_key=%s&language=%s", GlobbalConstants.API_KEY_V3, GlobbalConstants.LANG);
+    private String HTTP_GET_PARAMETERS = String.format("?api_key=%s&language=%s", GlobalVariables.API_KEY_V3, GlobalVariables.LANG);
 
 
     public GetYoutubeIdFromMovieId(Integer movieId, MovieIdYoutubeIdConvertable context) {
@@ -24,7 +23,7 @@ public class GetYoutubeIdFromMovieId implements HTTPRequestable {
 
     public void initializeMovieIdToYoutubeIdRequest() {
         MakeHTTPGETRequest makeReq = new MakeHTTPGETRequest(GetYoutubeIdFromMovieId.this);
-        makeReq.execute(String.format(GlobbalConstants.V3_BASE_URL + API_ENDPOINT + HTTP_GET_PARAMETERS, this.movieId ));
+        makeReq.execute(String.format(GlobalVariables.V3_BASE_URL + API_ENDPOINT + HTTP_GET_PARAMETERS, this.movieId ));
     }
 
 

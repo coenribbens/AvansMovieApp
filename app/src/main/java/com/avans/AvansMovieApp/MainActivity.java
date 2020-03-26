@@ -6,7 +6,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.avans.AvansMovieApp.Model.CompactMovie;
-import com.avans.AvansMovieApp.Model.GlobbalConstants;
+import com.avans.AvansMovieApp.Model.GlobalVariables;
 import com.avans.AvansMovieApp.Utilities.JSONUtiliies.CreateNewSession;
 import com.avans.AvansMovieApp.Utilities.JSONUtiliies.ParseJSONPopularToMovies;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable {
     // TODO: save session id on rotate,lifecyclevent
 
     private String API_ENDPOINT = "/movie/popular";
-    private String HTTP_GET_PARAMETERS = String.format("?api_key=%s&language=%s&page=1", GlobbalConstants.API_KEY_V3, GlobbalConstants.LANG);
+    private String HTTP_GET_PARAMETERS = String.format("?api_key=%s&language=%s&page=1", GlobalVariables.API_KEY_V3, GlobalVariables.LANG);
 
 
 
@@ -39,13 +39,13 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable {
         this.recyclerView = findViewById(R.id.rv_movie_items);
 
         MakeHTTPGETRequest makeReq = new MakeHTTPGETRequest(MainActivity.this);
-        makeReq.execute(GlobbalConstants.V3_BASE_URL + API_ENDPOINT + HTTP_GET_PARAMETERS);
+        makeReq.execute(GlobalVariables.V3_BASE_URL + API_ENDPOINT + HTTP_GET_PARAMETERS);
 
 
         //!!!! TODO RM
         CreateNewSession createNewSession = new CreateNewSession();
         createNewSession.initializeCreateNewSessionRequest();
-        Log.v("{{SESS}}",""+ GlobbalConstants.SESSION_TOKEN);
+        Log.v("{{SESS}}",""+ GlobalVariables.SESSION_TOKEN);
     }
 
 

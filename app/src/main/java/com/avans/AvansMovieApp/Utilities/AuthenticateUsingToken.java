@@ -1,25 +1,25 @@
 package com.avans.AvansMovieApp.Utilities;
 
-import com.avans.AvansMovieApp.Model.GlobbalConstants;
+import android.util.Log;
+
+import com.avans.AvansMovieApp.Model.GlobalVariables;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
-import com.avans.AvansMovieApp.Utilities.NeworkUtilities.MakeHTTPGETRequest;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.MakeHTTPPOSTRequest;
 
 public class AuthenticateUsingToken implements HTTPRequestable {
 
 
     private String API_ENDPOINT = "/authentication/token/new";
-    private String HTTP_GET_PARAMETERS = "?api_key=" + GlobbalConstants.API_KEY_V3;
+    private String HTTP_GET_PARAMETERS = "?api_key=" + GlobalVariables.API_KEY_V3;
 
 
-    public void initializeAuthenticatingUsingToken(){
+    public void initializeAuthenticatingUsingToken(String postdata){
         MakeHTTPPOSTRequest makeReq = new MakeHTTPPOSTRequest(AuthenticateUsingToken.this);
-        makeReq.execute(GlobbalConstants.V3_BASE_URL + API_ENDPOINT + HTTP_GET_PARAMETERS);
-
+        makeReq.execute(GlobalVariables.V3_BASE_URL + API_ENDPOINT + HTTP_GET_PARAMETERS,postdata);
     }
 
     @Override
-    public void ProcessHTTPResponseBody(String HTTPGETResponse) {
-
+    public void ProcessHTTPResponseBody(String HTTPResponseBody) {
+        GlobalVariables.setRequestToken(HTTPResponseBody);
     }
 }

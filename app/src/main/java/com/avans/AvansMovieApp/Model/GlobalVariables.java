@@ -6,7 +6,7 @@ package com.avans.AvansMovieApp.Model;
 import java.util.Locale;
 import java.util.UUID;
 
-public class GlobbalConstants {
+public class GlobalVariables {
 
 
     public static final String API_KEY_V3 = "b966d45d0ab662f523ce11044a9394ef"; // maybe putting the api key in plaintext in here is a bad idea
@@ -29,17 +29,24 @@ public class GlobbalConstants {
 
 
     public static String SESSION_TOKEN;
+    public static String REQUEST_TOKEN;
 
+
+    public static void setRequestToken(String requestToken) {
+        GlobalVariables.REQUEST_TOKEN = requestToken;
+    }
 
     public static void setSessionToken(String sessionToken) {
-        GlobbalConstants.SESSION_TOKEN = sessionToken;
+        GlobalVariables.SESSION_TOKEN = sessionToken;
     }
 
     public static void setdeviceId(String deviceId) {
-        GlobbalConstants.DEVICE_ID = deviceId;
+
+        GlobalVariables.DEVICE_ID = deviceId;
     }
 
     public static void setLanguage(String language) {
-        GlobbalConstants.LANG = language;
+
+        GlobalVariables.LANG = language;
     }
 }
