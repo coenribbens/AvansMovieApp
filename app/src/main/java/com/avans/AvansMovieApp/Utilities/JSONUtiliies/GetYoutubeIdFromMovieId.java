@@ -1,11 +1,9 @@
 package com.avans.AvansMovieApp.Utilities.JSONUtiliies;
 
-import com.avans.AvansMovieApp.Model.DetailedMovie;
 import com.avans.AvansMovieApp.Model.GlobalSettings;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.MakeHTTPGETRequest;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -22,7 +20,7 @@ public class GetYoutubeIdFromMovieId implements HTTPRequestable {
 
     public void initializeMovieIdToYoutubeIdRequest() {
         MakeHTTPGETRequest makeReq = new MakeHTTPGETRequest(GetYoutubeIdFromMovieId.this);
-        makeReq.execute(String.format("https://api.themoviedb.org/3/movie/%d/videos?api_key=%s&language=%s", this.movieId, GlobalSettings.apiKey, GlobalSettings.language));
+        makeReq.execute(String.format("https://api.themoviedb.org/3/movie/%d/videos?api_key=%s&language=%s", this.movieId, GlobalSettings.apiKeyV3, GlobalSettings.language));
     }
 
 

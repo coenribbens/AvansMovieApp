@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable {
         MakeHTTPGETRequest makeReq = new MakeHTTPGETRequest(MainActivity.this);
         String baseUrl = "";
         makeReq.execute(
-                String.format("https://api.themoviedb.org/3/movie/popular?api_key=%s&language=%s&page=1", GlobalSettings.apiKey, GlobalSettings.language)
+                String.format("https://api.themoviedb.org/3/movie/popular?api_key=%s&language=%s&page=1", GlobalSettings.apiKeyV3, GlobalSettings.language)
         );
     }
 

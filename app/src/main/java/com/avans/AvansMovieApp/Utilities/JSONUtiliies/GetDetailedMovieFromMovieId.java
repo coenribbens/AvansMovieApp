@@ -22,7 +22,7 @@ public class GetDetailedMovieFromMovieId implements HTTPRequestable {
 
     public void initializeMovieIdToDetailedMovieRequest() {
         MakeHTTPGETRequest makeReq = new MakeHTTPGETRequest(GetDetailedMovieFromMovieId.this);
-        makeReq.execute(String.format("https://api.themoviedb.org/3/movie/%d?api_key=%s&language=%s", this.movieId, GlobalSettings.apiKey, GlobalSettings.language));
+        makeReq.execute(String.format("https://api.themoviedb.org/3/movie/%d?api_key=%s&language=%s", this.movieId, GlobalSettings.apiKeyV3, GlobalSettings.language));
     }
     @Override
 
