@@ -33,6 +33,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
     private TextView mProductionCompanies;
     private TextView mProductionCompaniesContent;
     private ImageButton mShare;
+    private ImageButton mTrailer;
 
     private DetailedMovie movie;
 
@@ -67,6 +68,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
         this.mProductionCompanies = findViewById(R.id.tv_movie_detail_production_companies);
         this.mProductionCompaniesContent = findViewById(R.id.tv_movie_detail_production_companies_content);
         this.mShare = findViewById(R.id.ib_movie_detail_share);
+        this.mTrailer = findViewById(R.id.ib_movie_detail_youtube);
 
         //Add logic for the share button.
         this.mShare.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +94,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
 
 
         // TODO: A dedicated button should be added for this functionality, but I dont want to fuck up the layout files
-        this.mImageView.setOnClickListener(new View.OnClickListener() {
+        this.mTrailer.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + youtubeId));
