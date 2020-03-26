@@ -1,4 +1,4 @@
-package com.avans.AvansMovieApp;
+package com.avans.AvansMovieApp.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.avans.AvansMovieApp.Model.CompactMovie;
+import com.avans.AvansMovieApp.MovieDetailActivity;
+import com.avans.AvansMovieApp.R;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;

@@ -1,7 +1,6 @@
 package com.avans.AvansMovieApp.Utilities.FetchingUtilities;
 
 import com.avans.AvansMovieApp.Model.GlobalVariables;
-import com.avans.AvansMovieApp.Utilities.AuthenticateUsingToken;
 import com.avans.AvansMovieApp.Utilities.JSONUtiliies.ParseJSONInitializeCreateNewSessionRequest;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.MakeHTTPGETRequest;

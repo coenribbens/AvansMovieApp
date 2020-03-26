@@ -1,7 +1,5 @@
 package com.avans.AvansMovieApp.Utilities.FetchingUtilities;
 
-import android.content.Context;
-
 import com.avans.AvansMovieApp.Model.GlobalVariables;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.MakeHTTPGETRequest;
@@ -21,11 +19,10 @@ public class GetPopularMovies  {
     public GetPopularMovies(HTTPRequestable context,Integer page) {
         this.context = context;
         this.HTTP_GET_PARAMETERS = String.format("?api_key=%s&language=%s&page=%d", GlobalVariables.API_KEY_V3, GlobalVariables.LANG,page);
-
     }
 
 
-    public void getPopularMoves() {
+    public void getPopularMovies() {
         MakeHTTPGETRequest makeReq = new MakeHTTPGETRequest(this.context);
         makeReq.execute(GlobalVariables.V3_BASE_URL + API_ENDPOINT + HTTP_GET_PARAMETERS);
     }
