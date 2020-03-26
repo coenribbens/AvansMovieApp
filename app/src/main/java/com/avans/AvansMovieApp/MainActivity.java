@@ -62,28 +62,6 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable {
             MovieRecycleViewAdapter movieRecycleViewAdapter = new MovieRecycleViewAdapter(movies, this);
             this.recyclerView.setAdapter(movieRecycleViewAdapter);
             this.recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-            this.recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-                @Override
-                public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                    super.onScrollStateChanged(recyclerView, newState);
-
-
-                    // a really shitty hot loading implementation
-                    if (!recyclerView.canScrollVertically(1)) { // bottom
-                        MainActivity.this.page++;
-                        GetPopularMovies getPopularMovies = new GetPopularMovies(MainActivity.this,page);
-                        getPopularMovies.getPopularMoves();
-
-                    } else if (!recyclerView.canScrollVertically(-1) && MainActivity.this.page != 1) { // top
-                            MainActivity.this.page--;
-                            GetPopularMovies getPopularMovies = new GetPopularMovies(MainActivity.this,page);
-                            getPopularMovies.getPopularMoves();
-
-                        }
-                }
-            });
-
         }
         catch (Exception e){
             e.printStackTrace();
