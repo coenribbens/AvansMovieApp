@@ -11,7 +11,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class ParseJSONReviews {
-    private ArrayList<Review> Reviews = new ArrayList<Review>();
+    private ArrayList<Review> reviews = new ArrayList<Review>();
     private String rawResponseBody;
 
     public ParseJSONReviews(String rawResponseBody){
@@ -26,7 +26,7 @@ public class ParseJSONReviews {
 
 
 
-            Reviews.add(
+            reviews.add(
                     new Review(
                             reviewJSONObj.getString("author"),
                             reviewJSONObj.getString("content")));
@@ -34,4 +34,10 @@ public class ParseJSONReviews {
 
 
         }
-}}
+    }
+
+    public ArrayList<Review> getReviews() {
+        return reviews;
+    }
+}
+

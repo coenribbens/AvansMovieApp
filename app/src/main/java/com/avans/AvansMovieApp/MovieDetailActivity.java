@@ -10,17 +10,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.avans.AvansMovieApp.Model.DetailedMovie;
+import com.avans.AvansMovieApp.Model.Review;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetDetailedMovieFromMovieId;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetReviews;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetYoutubeIdFromMovieId;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.MovieIdDetailedMovieConvertable;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.MovieIdYoutubeIdConvertable;
+import com.avans.AvansMovieApp.Utilities.FetchingUtilities.MovieReviewsConvertable;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
 import com.bumptech.glide.Glide;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MovieDetailActivity extends AppCompatActivity implements MovieIdDetailedMovieConvertable, MovieIdYoutubeIdConvertable {
+import java.util.ArrayList;
+
+public class MovieDetailActivity extends AppCompatActivity implements MovieIdDetailedMovieConvertable, MovieIdYoutubeIdConvertable, MovieReviewsConvertable {
     private TextView mTitle;
     private TextView mYear;
     private ImageView mImageView;
@@ -54,7 +58,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
         GetYoutubeIdFromMovieId getYoutubeIdFromMovieId = new GetYoutubeIdFromMovieId(movieId,this);
         getYoutubeIdFromMovieId.initializeMovieIdToYoutubeIdRequest();
 
-        GetReviews getReviews = new GetReviews((HTTPRequestable) MovieDetailActivity.this, movieId);
+        GetReviews getReviews = new GetReviews(this,181808);
 
 
         //Assigning all the mValues with their view equivalents.
@@ -92,6 +96,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
             }
         });
 
+
     }
 
     @Override
@@ -114,6 +119,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
 
 
     }
+
 
     @Override
     public void processMovieIdDetailedMovieConversionResult(DetailedMovie detailedMovie) {
@@ -158,5 +164,10 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
             }
             this.mProductionCompaniesContent.setText(productionCompanies);
         }
+    }
+
+    @Override
+    public void processMovieReviewsConversionResult(ArrayList<Review> reviews) {
+        
     }
 }

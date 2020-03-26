@@ -66,8 +66,6 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable {
         CreateNewSession createNewSession = new CreateNewSession();
         createNewSession.initializeCreateNewSessionRequest();
         Log.v("{{SESS}}",""+ GlobalVariables.SESSION_TOKEN);
-
-
     }
 
 
