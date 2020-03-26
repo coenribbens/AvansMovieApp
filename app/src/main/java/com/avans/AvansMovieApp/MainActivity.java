@@ -8,7 +8,8 @@ import android.widget.EditText;
 import com.avans.AvansMovieApp.Model.CompactMovie;
 import com.avans.AvansMovieApp.Model.GlobalVariables;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.CreateNewSession;
-import com.avans.AvansMovieApp.Utilities.JSONUtiliies.ParseJSONPopularToMovies;
+import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetPopularMovies;
+import com.avans.AvansMovieApp.Utilities.JSONUtiliies.ParseJSONPopularToCompactMovie;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.MakeHTTPGETRequest;
 
@@ -22,12 +23,11 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable {
     private EditText searchBar;
     private Button searchButton;
     private RecyclerView recyclerView;
+    private Integer page = 1;
 
 
     // TODO: save session id on rotate,lifecyclevent
 
-    private String API_ENDPOINT = "/movie/popular";
-    private String HTTP_GET_PARAMETERS = String.format("?api_key=%s&language=%s&page=1", GlobalVariables.API_KEY_V3, GlobalVariables.LANG);
 
 
 
@@ -40,12 +40,11 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable {
 
         setTitle(getResources().getText(R.string.pop_main_ac_title));
 
+        GetPopularMovies getPopularMovies = new GetPopularMovies(this);
+        getPopularMovies.getPopularMoves();
 
-        MakeHTTPGETRequest makeReq = new MakeHTTPGETRequest(MainActivity.this);
-        makeReq.execute(GlobalVariables.V3_BASE_URL + API_ENDPOINT + HTTP_GET_PARAMETERS);
 
-
-        //!!!! TODO RM
+        //!!!! TODO work on sessions
         CreateNewSession createNewSession = new CreateNewSession();
         createNewSession.initializeCreateNewSessionRequest();
         Log.v("{{SESS}}",""+ GlobalVariables.SESSION_TOKEN);
@@ -55,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable {
     @Override
     public void ProcessHTTPResponseBody(String HTTPGETResponse) {
 
-        ParseJSONPopularToMovies parser = new ParseJSONPopularToMovies(HTTPGETResponse);
+        ParseJSONPopularToCompactMovie parser = new ParseJSONPopularToCompactMovie(HTTPGETResponse);
 
         try{
             parser.fetchSmallMovies();
@@ -63,6 +62,27 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable {
             MovieRecycleViewAdapter movieRecycleViewAdapter = new MovieRecycleViewAdapter(movies, this);
             this.recyclerView.setAdapter(movieRecycleViewAdapter);
             this.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+            this.recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                    super.onScrollStateChanged(recyclerView, newState);
+
+
+                    // a really shitty hot loading implementation
+                    if (!recyclerView.canScrollVertically(1)) { // bottom
+                        MainActivity.this.page++;
+                        GetPopularMovies getPopularMovies = new GetPopularMovies(MainActivity.this,page);
+                        getPopularMovies.getPopularMoves();
+
+                    } else if (!recyclerView.canScrollVertically(-1) && MainActivity.this.page != 1) { // top
+                            MainActivity.this.page--;
+                            GetPopularMovies getPopularMovies = new GetPopularMovies(MainActivity.this,page);
+                            getPopularMovies.getPopularMoves();
+
+                        }
+                }
+            });
 
         }
         catch (Exception e){

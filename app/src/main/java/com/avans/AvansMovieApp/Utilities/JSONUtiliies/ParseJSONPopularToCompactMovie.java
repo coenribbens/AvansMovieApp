@@ -8,12 +8,12 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class ParseJSONPopularToMovies {
+public class ParseJSONPopularToCompactMovie {
 
     private ArrayList<CompactMovie> compactMovies = new ArrayList<CompactMovie>();
     private String rawResponseBody;
 
-    public ParseJSONPopularToMovies(String rawResponseBody){
+    public ParseJSONPopularToCompactMovie(String rawResponseBody){
         this.rawResponseBody = rawResponseBody;
     }
 
