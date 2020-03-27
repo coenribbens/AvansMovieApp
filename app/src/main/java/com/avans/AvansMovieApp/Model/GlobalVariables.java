@@ -47,6 +47,11 @@ public class GlobalVariables {
 
     public static void setGuestSessionId(String sessionToken) {
         GlobalVariables.GUEST_SESSION_ID = sessionToken;
+        
+        SharedPreferences pref = CURRENT_CONTEXT.getSharedPreferences("session", Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = pref.edit();
+        edit.putString("guest_session_id", sessionToken);
+        edit.apply();
     }
 
 //    public static void setdeviceId(String deviceId) {
