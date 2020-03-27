@@ -11,7 +11,7 @@ import com.avans.AvansMovieApp.Adapters.MovieRecycleViewAdapter;
 import com.avans.AvansMovieApp.Model.CompactMovie;
 import com.avans.AvansMovieApp.Model.GlobalVariables;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.CreateNewSession;
-import com.avans.AvansMovieApp.Utilities.FetchingUtilities.FetchGeustSessionToken;
+import com.avans.AvansMovieApp.Utilities.FetchingUtilities.FetchGuestSessionToken;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetPopularMovies;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetSearchedMovies;
 import com.avans.AvansMovieApp.Utilities.JSONUtiliies.ParseJSONPopularToCompactMovie;
@@ -67,8 +67,8 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable,T
         createNewSession.initializeCreateNewSessionRequest();
         Log.v("{{SESS}}",""+ GlobalVariables.SESSION_TOKEN);
 
-        FetchGeustSessionToken fetchGeustSessionToken = new FetchGeustSessionToken();
-        fetchGeustSessionToken.initializeCreateNewGeustSessionRequest();
+        FetchGuestSessionToken fetchGuestSessionToken = new FetchGuestSessionToken();
+        fetchGuestSessionToken.initializeCreateNewGeustSessionRequest();
         Log.v ("{{GEUSTSESS}}", "leeg");
 
     }
