@@ -19,11 +19,11 @@ public class GlobalVariables {
     public static final String V4_BASE_URL = "https://api.themoviedb.org" + V3_BASE_PATH;
 
     //private String id =  Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-    public static String DEVICE_ID = UUID.randomUUID().toString(); // make this persistent
     public static String LANG = Locale.getDefault().toLanguageTag(); // in ISO 639-1 format as specified by the API
 
 
     public static String SESSION_TOKEN;
+    public static String GUEST_SESSION_ID;
     public static String REQUEST_TOKEN;
 
 

@@ -1,5 +1,7 @@
 package com.avans.AvansMovieApp.Utilities.FetchingUtilities;
 
+import android.util.Log;
+
 import com.avans.AvansMovieApp.Model.GlobalVariables;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.MakeHTTPPOSTRequest;

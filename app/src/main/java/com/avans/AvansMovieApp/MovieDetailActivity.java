@@ -114,7 +114,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
             }
         });
 
-
+        mRatingBar.setRating(1);
         mRatingBar = findViewById(R.id.rb_rating_bar);
         mRating = mRatingBar.getRating() * 2;
 
@@ -130,6 +130,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
         MakeHTTPPOSTRequest makeReq = new MakeHTTPPOSTRequest(MovieDetailActivity.this);
         Log.v("{{URL}}",GlobalVariables.V3_BASE_URL + API_ENDPOINT  + String.format(HTTPParameters,movieId,GlobalVariables.API_KEY_V3,GlobalVariables.SESSION_TOKEN));
         makeReq.execute(GlobalVariables.V3_BASE_URL + API_ENDPOINT  + String.format(HTTPParameters,movieId,GlobalVariables.API_KEY_V3,GlobalVariables.SESSION_TOKEN),JSONPostData);
+        // end
     }
 
     @Override

@@ -165,7 +165,7 @@
             app:layout_constraintStart_toEndOf="@+id/ib_movie_detail_share"
             app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_production_companies_content" />
 
-        
+
         <RatingBar
 
             android:id="@+id/rb_rating_bar"

@@ -32,7 +32,6 @@ public class CreateNewSession implements HTTPRequestable {
             ParseJSONInitializeCreateNewSessionRequest parser = new ParseJSONInitializeCreateNewSessionRequest(HTTPGETResponse);
             String sessionToken = parser.parseSessionToken();
             GlobalVariables.setSessionToken(sessionToken);
-            Log.v("{{SESS}}","New session token set:" + sessionToken);
             String postdata = String.format("{'request_token':'%s'}",sessionToken);
 
             PostTokenAndAuthenticate postTokenAndAuthenticate = new PostTokenAndAuthenticate();
