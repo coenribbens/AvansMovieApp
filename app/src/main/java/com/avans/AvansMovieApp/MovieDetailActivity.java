@@ -48,7 +48,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
     private ListView mListview;
     private DetailedMovie movie;
     private ReviewAdapter mreviewAdapter;
-    private ArrayList<Review> mReviewList;
+    private ArrayList<Review> mReviewList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,10 +84,9 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
         this.mShare = findViewById(R.id.ib_movie_detail_share);
         this.mTrailer = findViewById(R.id.ib_movie_detail_youtube);
         this.mListview = findViewById(R.id.ib_listview_review);
-        this.mReviewList = new ArrayList<Review>();
 
 
-        this.mreviewAdapter = new ReviewAdapter(this, R.id.cv_review_item_layout, mReviewList);
+        this.mreviewAdapter = new ReviewAdapter(this, R.layout.review_item, mReviewList);
         this.mListview.setAdapter(mreviewAdapter);
         //Add logic for the share button.
         this.mShare.setOnClickListener(new View.OnClickListener() {
@@ -178,8 +177,8 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
 
     @Override
     public void processMovieReviewsConversionResult(ArrayList<Review> reviews) {
-        this.mReviewList = reviews;
+        mReviewList.clear();
+        mReviewList.addAll(reviews);
         mreviewAdapter.notifyDataSetChanged();
-        
     }
 }

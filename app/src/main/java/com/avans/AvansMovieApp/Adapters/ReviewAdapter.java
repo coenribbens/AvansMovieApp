@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import com.avans.AvansMovieApp.Model.Review;
 import com.avans.AvansMovieApp.R;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ReviewAdapter extends ArrayAdapter<Review> {

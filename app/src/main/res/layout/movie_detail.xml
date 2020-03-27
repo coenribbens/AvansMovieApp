@@ -167,6 +167,7 @@
             android:id="@+id/ib_listview_review"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:scrollbars="none"
             app:layout_constraintTop_toBottomOf="@+id/ib_movie_detail_share"
             app:layout_constraintStart_toStartOf="parent"
             />
