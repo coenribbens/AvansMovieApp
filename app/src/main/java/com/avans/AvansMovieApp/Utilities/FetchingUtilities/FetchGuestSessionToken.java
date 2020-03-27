@@ -16,7 +16,7 @@ public class FetchGuestSessionToken implements HTTPRequestable {
     private String V3BaseURL = GlobalVariables.V3_BASE_URL;
     private String AuthenthicationgeustSession = "/authentication/guest_session/new?api_key=";
 
-    public void initializeCreateNewGeustSessionRequest() {
+    public void initializeCreateNewGuestSessionRequest() {
         MakeHTTPGETRequest makeReq = new MakeHTTPGETRequest(FetchGuestSessionToken.this);
         makeReq.execute(V3BaseURL + AuthenthicationgeustSession + APIkey);
 
@@ -29,13 +29,9 @@ public class FetchGuestSessionToken implements HTTPRequestable {
         // set a new session to GlobalSettings
         try {
             ParseJSONGuestSessionToken parseJSONGuestSessionToken = new ParseJSONGuestSessionToken(HTTPGETResponse);
-            String GeustsessionToken = parseJSONGuestSessionToken.FetchGeustSessionToken();
+            String GuestsessionToken = parseJSONGuestSessionToken.FetchGeustSessionToken();
 
-            GlobalVariables.setGuestSessionId(GeustsessionToken);
-            Log.v("GeustSessionID is" , GlobalVariables.GetGeustSessionID());
-
-
-
+            GlobalVariables.setGuestSessionId(GuestsessionToken);
         } catch (JSONException e) {
             e.printStackTrace();
         }

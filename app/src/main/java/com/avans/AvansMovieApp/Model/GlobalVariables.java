@@ -3,6 +3,12 @@ package com.avans.AvansMovieApp.Model;
 
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
+import com.avans.AvansMovieApp.Utilities.FetchingUtilities.FetchGuestSessionToken;
+
 import java.util.Locale;
 import java.util.UUID;
 
@@ -25,8 +31,11 @@ public class GlobalVariables {
     public static String SESSION_TOKEN;
     public static String GUEST_SESSION_ID;
     public static String REQUEST_TOKEN;
+    public static Context CURRENT_CONTEXT;
 
-
+    public static void setCurrentContext(Context context) {
+        CURRENT_CONTEXT = context;
+    }
 
     public static void setRequestToken(String requestToken) {
         GlobalVariables.REQUEST_TOKEN = requestToken;
@@ -49,7 +58,13 @@ public class GlobalVariables {
 
         GlobalVariables.LANG = language;
     }
-    public static String GetGuestSessionID(){
-        return GlobalVariables.GUEST_SESSION_ID;
+
+    public static String getGuestSessionID() {
+        if (GUEST_SESSION_ID != null) {
+            return GUEST_SESSION_ID;
+        }
+
+        SharedPreferences pref = CURRENT_CONTEXT.getSharedPreferences("session", Context.MODE_PRIVATE);
+        return pref.getString("guest_session_id", null);
     }
 }

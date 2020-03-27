@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable,T
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.recyclerView = findViewById(R.id.rv_movie_items);
-
+        GlobalVariables.setCurrentContext(this);
         setTitle(getResources().getText(R.string.pop_main_ac_title));
 
         GetPopularMovies getPopularMovies = new GetPopularMovies(this);
@@ -66,11 +66,10 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable,T
         CreateNewSession createNewSession = new CreateNewSession();
         createNewSession.initializeCreateNewSessionRequest();
         Log.v("{{SESS}}",""+ GlobalVariables.SESSION_TOKEN);
-
-        FetchGuestSessionToken fetchGuestSessionToken = new FetchGuestSessionToken();
-        fetchGuestSessionToken.initializeCreateNewGeustSessionRequest();
-        Log.v ("{{GEUSTSESS}}", "leeg");
-
+        if (GlobalVariables.getGuestSessionID() == null) {
+            FetchGuestSessionToken fetchGuestSessionToken = new FetchGuestSessionToken();
+            fetchGuestSessionToken.initializeCreateNewGuestSessionRequest();
+        }
     }
 
 
