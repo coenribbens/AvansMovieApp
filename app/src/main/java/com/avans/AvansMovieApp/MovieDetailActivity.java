@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -49,8 +51,8 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
     private ImageButton mTrailer;
     private ListView mListview;
     private DetailedMovie movie;
-    private ReviewAdapter mReviewAdapter;
-    private ArrayList<Review> mReviewList = new ArrayList<>();
+    //private ReviewAdapter mReviewAdapter;
+    //private ArrayList<Review> mReviewList = new ArrayList<>();
     private RatingBar mRatingBar;
     private float mRating;
 
@@ -91,12 +93,12 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
         this.mProductionCompaniesContent = findViewById(R.id.tv_movie_detail_production_companies_content);
         this.mShare = findViewById(R.id.ib_movie_detail_share);
         this.mTrailer = findViewById(R.id.ib_movie_detail_youtube);
-        this.mListview = findViewById(R.id.ib_listview_review);
+        //this.mListview = findViewById(R.id.ib_listview_review);
         this.mRatingBar = findViewById(R.id.rb_rating_bar);
 
 
-        this.mReviewAdapter = new ReviewAdapter(this, R.layout.review_item, mReviewList);
-        this.mListview.setAdapter(mReviewAdapter);
+        //this.mReviewAdapter = new ReviewAdapter(this, R.layout.review_item, mReviewList);
+        //this.mListview.setAdapter(mReviewAdapter);
         //Add logic for the share button.
         this.mShare.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -201,9 +203,29 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
 
     @Override
     public void processMovieReviewsConversionResult(ArrayList<Review> reviews) {
-        mReviewList.clear();
-        mReviewList.addAll(reviews);
-        mReviewAdapter.notifyDataSetChanged();
+        //mReviewList.clear();
+        //mReviewList.addAll(reviews);
+        //mreviewAdapter.notifyDataSetChanged();
+
+        LinearLayout ll = (LinearLayout) findViewById(R.id.ll_reviews_wrapper);
+
+        for (Review r : reviews) {
+            View v;
+            LayoutInflater vi;
+            vi = LayoutInflater.from(this);
+            v = vi.inflate(R.layout.review_item, null);
+
+            TextView author = (TextView) v.findViewById(R.id.tv_review_item_author);
+            TextView content = (TextView) v.findViewById(R.id.tv_review_item_content);
+
+            author.setText(r.getAuthor());
+            content.setText(r.getContent());
+
+            ll.addView(v, 0, new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT));
+            System.out.println(ll.getChildCount());
+        }
     }
 
     @Override
