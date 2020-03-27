@@ -36,11 +36,11 @@ public class GlobalVariables {
         GlobalVariables.SESSION_TOKEN = sessionToken;
     }
 
-    public static void setdeviceId(String deviceId) {
+    /*public static void setdeviceId(String deviceId) {
 
         GlobalVariables.DEVICE_ID = deviceId;
     }
-
+*/
     public static void setLanguage(String language) {
 
         GlobalVariables.LANG = language;
