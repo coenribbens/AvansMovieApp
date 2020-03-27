@@ -36,13 +36,20 @@ public class GlobalVariables {
         GlobalVariables.SESSION_TOKEN = sessionToken;
     }
 
-    public static void setdeviceId(String deviceId) {
-
-        GlobalVariables.DEVICE_ID = deviceId;
+    public static void setGuestSessionId(String sessionToken) {
+        GlobalVariables.GUEST_SESSION_ID = sessionToken;
     }
+
+//    public static void setdeviceId(String deviceId) {
+//
+//        GlobalVariables.DEVICE_ID = deviceId;
+//    }
 
     public static void setLanguage(String language) {
 
         GlobalVariables.LANG = language;
+    }
+    public static String GetGeustSessionID(){
+        return GlobalVariables.GUEST_SESSION_ID;
     }
 }
