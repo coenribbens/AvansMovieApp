@@ -29,18 +29,10 @@ public class FetchGuestSessionToken implements HTTPRequestable {
         // set a new session to GlobalSettings
         try {
             ParseJSONGuestSessionToken parseJSONGuestSessionToken = new ParseJSONGuestSessionToken(HTTPGETResponse);
-<<<<<<< HEAD
-            String GuestsessionToken = parseJSONGuestSessionToken.FetchGeustSessionToken();
-=======
-            String GeustsessionToken = parseJSONGuestSessionToken.FetchGeustSessionToken();
+            String guestSessionToken = parseJSONGuestSessionToken.fetchGuestSessionToken();
 
-            GlobalVariables.setGuestSessionId(GeustsessionToken);
-            Log.v("GeustSessionID is" , GlobalVariables.GetGuestSessionID());
-
-
->>>>>>> b12835b1e1e9ba1b30bd794f3bca9c7780089acf
-
-            GlobalVariables.setGuestSessionId(GuestsessionToken);
+            GlobalVariables.setGuestSessionId(guestSessionToken);
+            Log.v("GeustSessionID is" , GlobalVariables.getGuestSessionID());
         } catch (JSONException e) {
             e.printStackTrace();
         }

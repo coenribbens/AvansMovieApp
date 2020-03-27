@@ -15,7 +15,7 @@ public class ParseJSONGuestSessionToken {
     public ParseJSONGuestSessionToken(String HTTPResponse){
         this.rawResponse = HTTPResponse;
     }
-    public String FetchGeustSessionToken() throws JSONException{
+    public String fetchGuestSessionToken() throws JSONException{
         JSONObject parentObject =  new JSONObject(this.rawResponse);
 
         GeustSessionToken = parentObject.getString("guest_session_id");
