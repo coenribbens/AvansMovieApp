@@ -165,10 +165,10 @@
             app:layout_constraintStart_toEndOf="@+id/ib_movie_detail_share"
             app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_production_companies_content" />
 
-        <!--        TO DO: Image foto -->
-        <Button
+        
+        <RatingBar
 
-            android:id="@+id/ib_movie_detail_review"
+            android:id="@+id/rb_rating_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toEndOf="@+id/ib_movie_detail_youtube"

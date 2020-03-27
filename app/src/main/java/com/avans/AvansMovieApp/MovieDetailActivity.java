@@ -6,9 +6,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.avans.AvansMovieApp.Adapters.ReviewAdapter;
@@ -49,6 +51,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
     private DetailedMovie movie;
     private ReviewAdapter mreviewAdapter;
     private ArrayList<Review> mReviewList = new ArrayList<>();
+    private RatingBar mRatingbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +87,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
         this.mShare = findViewById(R.id.ib_movie_detail_share);
         this.mTrailer = findViewById(R.id.ib_movie_detail_youtube);
         this.mListview = findViewById(R.id.ib_listview_review);
+        this.mRatingbar = findViewById(R.id.rb_rating_bar);
 
 
         this.mreviewAdapter = new ReviewAdapter(this, R.layout.review_item, mReviewList);
@@ -104,6 +108,9 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
 
             }
         });
+
+
+
 
 
     }
