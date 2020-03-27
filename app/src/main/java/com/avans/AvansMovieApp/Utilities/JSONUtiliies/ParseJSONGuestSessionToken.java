@@ -7,12 +7,12 @@ import org.json.JSONObject;
 
 import java.sql.SQLOutput;
 
-public class ParseJSONGeustSessionToken{
+public class ParseJSONGuestSessionToken {
 
     private  String rawResponse;
     private String GeustSessionToken;
 
-    public ParseJSONGeustSessionToken(String HTTPResponse){
+    public ParseJSONGuestSessionToken(String HTTPResponse){
         this.rawResponse = HTTPResponse;
     }
     public String FetchGeustSessionToken() throws JSONException{
