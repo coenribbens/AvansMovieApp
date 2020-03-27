@@ -49,7 +49,7 @@ public class GlobalVariables {
 
         GlobalVariables.LANG = language;
     }
-    public static String GetGeustSessionID(){
+    public static String GetGuestSessionID(){
         return GlobalVariables.GUEST_SESSION_ID;
     }
 }
