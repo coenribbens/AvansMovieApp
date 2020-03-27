@@ -1,6 +1,7 @@
 package com.avans.AvansMovieApp.Adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +45,7 @@ public class ReviewAdapter extends ArrayAdapter<Review> {
 
             if (Author != null) {
                 Author.setText(p.getAuthor());
+                Log.v("ReviewAdapter", Author.getText().toString());
             }
 
             if (Content != null) {

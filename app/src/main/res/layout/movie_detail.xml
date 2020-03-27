@@ -146,6 +146,9 @@
             app:layout_constraintStart_toStartOf="@+id/tv_movie_detail_genres_content"
             app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_genres_content" />
 
+
+
+
         <ImageButton
             android:id="@+id/ib_movie_detail_share"
             android:layout_width="wrap_content"
@@ -162,14 +165,26 @@
             app:layout_constraintStart_toEndOf="@+id/ib_movie_detail_share"
             app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_production_companies_content" />
 
+        <!--        TO DO: Image foto -->
+        <Button
+
+            android:id="@+id/ib_movie_detail_review"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/ib_movie_detail_youtube"
+            app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_production_companies_content" />
+
+            >
+
 
         <ListView
             android:id="@+id/ib_listview_review"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scrollbars="none"
+
             app:layout_constraintTop_toBottomOf="@+id/ib_movie_detail_share"
             app:layout_constraintStart_toStartOf="parent"
+            android:scrollbars="none"
             />
 
 
