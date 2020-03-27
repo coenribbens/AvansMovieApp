@@ -5,10 +5,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.avans.AvansMovieApp.Adapters.ReviewAdapter;
 import com.avans.AvansMovieApp.Model.DetailedMovie;
 import com.avans.AvansMovieApp.Model.Review;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetDetailedMovieFromMovieId;
@@ -23,6 +26,7 @@ import com.bumptech.glide.Glide;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MovieDetailActivity extends AppCompatActivity implements MovieIdDetailedMovieConvertable, MovieIdYoutubeIdConvertable, MovieReviewsConvertable {
     private TextView mTitle;
@@ -41,9 +45,10 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
     private TextView mProductionCompaniesContent;
     private ImageButton mShare;
     private ImageButton mTrailer;
-
+    private ListView mListview;
     private DetailedMovie movie;
-
+    private ReviewAdapter mreviewAdapter;
+    private ArrayList<Review> mReviewList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +63,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
         GetYoutubeIdFromMovieId getYoutubeIdFromMovieId = new GetYoutubeIdFromMovieId(movieId,this);
         getYoutubeIdFromMovieId.initializeMovieIdToYoutubeIdRequest();
 
-        GetReviews getReviews = new GetReviews(this,181808);
+        GetReviews getReviews = new GetReviews(this, movieId);
 
 
         //Assigning all the mValues with their view equivalents.
@@ -78,7 +83,12 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
         this.mProductionCompaniesContent = findViewById(R.id.tv_movie_detail_production_companies_content);
         this.mShare = findViewById(R.id.ib_movie_detail_share);
         this.mTrailer = findViewById(R.id.ib_movie_detail_youtube);
+        this.mListview = findViewById(R.id.ib_listview_review);
+        this.mReviewList = new ArrayList<Review>();
 
+
+        this.mreviewAdapter = new ReviewAdapter(this, R.id.cv_review_item_layout, mReviewList);
+        this.mListview.setAdapter(mreviewAdapter);
         //Add logic for the share button.
         this.mShare.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,6 +178,8 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
 
     @Override
     public void processMovieReviewsConversionResult(ArrayList<Review> reviews) {
+        this.mReviewList = reviews;
+        mreviewAdapter.notifyDataSetChanged();
         
     }
 }
