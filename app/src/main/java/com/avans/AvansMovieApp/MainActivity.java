@@ -12,11 +12,9 @@ import com.avans.AvansMovieApp.Model.CompactMovie;
 import com.avans.AvansMovieApp.Model.GlobalVariables;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.CreateNewSession;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetPopularMovies;
-import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetReviews;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetSearchedMovies;
 import com.avans.AvansMovieApp.Utilities.JSONUtiliies.ParseJSONPopularToCompactMovie;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
-import com.avans.AvansMovieApp.Utilities.NeworkUtilities.MakeHTTPGETRequest;
 
 import java.util.ArrayList;
 
@@ -25,7 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity implements HTTPRequestable,TitleSettable {
-    private EditText searchBar;
+    private EditText searchBarField;
     private Button searchButton;
     private RecyclerView recyclerView;
     private Integer page = 1;
@@ -49,13 +47,13 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable,T
 
         // search
         this.searchButton = findViewById(R.id.btn_search_button);
-        this.searchBar = findViewById(R.id.search_bar);
-        searchBar.setInputType(InputType.TYPE_CLASS_TEXT);
+        this.searchBarField = findViewById(R.id.search_bar);
+        searchBarField.setInputType(InputType.TYPE_CLASS_TEXT);
         searchButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 GetSearchedMovies getSearchedMovies = new GetSearchedMovies(
                         (HTTPRequestable) MainActivity.this,
-                        MainActivity.this.searchBar.getText().toString()
+                        MainActivity.this.searchBarField.getText().toString()
                         );
                 getSearchedMovies.getSearchedMovies();
             }
@@ -78,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable,T
     @Override
     public void onBackPressed() {
        if(backButtonBooleanIsInSearchRecyclerView){
+           searchBarField.getText().clear();
            setTitle(getResources().getText(R.string.pop_main_ac_title));
            GetPopularMovies getPopularMovies = new GetPopularMovies(this);
            getPopularMovies.getPopularMovies();

@@ -1,6 +1,7 @@
 package com.avans.AvansMovieApp.Utilities.NeworkUtilities;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,6 +12,8 @@ import java.util.Scanner;
 public class MakeHTTPGETRequest extends AsyncTask<String, Integer, String> {
 
     private HTTPRequestable context;
+    private HttpURLConnection conn;
+
 
     public MakeHTTPGETRequest(HTTPRequestable context) {
         this.context = context;
@@ -27,6 +30,11 @@ public class MakeHTTPGETRequest extends AsyncTask<String, Integer, String> {
             response += s.hasNext() ? s.next() : "";
             s.close();
         } catch (IOException e) {
+            try {
+                Log.v("RespCode",""+conn.getResponseCode());
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
             e.printStackTrace();
         }
         return response;

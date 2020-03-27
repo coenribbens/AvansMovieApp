@@ -1,12 +1,10 @@
 package com.avans.AvansMovieApp;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -15,6 +13,7 @@ import android.widget.TextView;
 
 import com.avans.AvansMovieApp.Adapters.ReviewAdapter;
 import com.avans.AvansMovieApp.Model.DetailedMovie;
+import com.avans.AvansMovieApp.Model.GlobalVariables;
 import com.avans.AvansMovieApp.Model.Review;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetDetailedMovieFromMovieId;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetReviews;
@@ -22,15 +21,16 @@ import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetYoutubeIdFromMovie
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.MovieIdDetailedMovieConvertable;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.MovieIdYoutubeIdConvertable;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.MovieReviewsConvertable;
+import com.avans.AvansMovieApp.Utilities.FetchingUtilities.PostTokenAndAuthenticate;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
+import com.avans.AvansMovieApp.Utilities.NeworkUtilities.MakeHTTPPOSTRequest;
 import com.bumptech.glide.Glide;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class MovieDetailActivity extends AppCompatActivity implements MovieIdDetailedMovieConvertable, MovieIdYoutubeIdConvertable, MovieReviewsConvertable {
+public class MovieDetailActivity extends AppCompatActivity implements MovieIdDetailedMovieConvertable, MovieIdYoutubeIdConvertable, MovieReviewsConvertable, HTTPRequestable {
     private TextView mTitle;
     private TextView mYear;
     private ImageView mImageView;
@@ -49,9 +49,14 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
     private ImageButton mTrailer;
     private ListView mListview;
     private DetailedMovie movie;
-    private ReviewAdapter mreviewAdapter;
+    private ReviewAdapter mReviewAdapter;
     private ArrayList<Review> mReviewList = new ArrayList<>();
-    private RatingBar mRatingbar;
+    private RatingBar mRatingBar;
+    private float mRating;
+
+    private String API_ENDPOINT = "/movie";
+    private String HTTPParameters = "/%d/rating?api_key=%s&session_id=%s";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,11 +92,11 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
         this.mShare = findViewById(R.id.ib_movie_detail_share);
         this.mTrailer = findViewById(R.id.ib_movie_detail_youtube);
         this.mListview = findViewById(R.id.ib_listview_review);
-        this.mRatingbar = findViewById(R.id.rb_rating_bar);
+        this.mRatingBar = findViewById(R.id.rb_rating_bar);
 
 
-        this.mreviewAdapter = new ReviewAdapter(this, R.layout.review_item, mReviewList);
-        this.mListview.setAdapter(mreviewAdapter);
+        this.mReviewAdapter = new ReviewAdapter(this, R.layout.review_item, mReviewList);
+        this.mListview.setAdapter(mReviewAdapter);
         //Add logic for the share button.
         this.mShare.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,9 +115,21 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
         });
 
 
+        mRatingBar = findViewById(R.id.rb_rating_bar);
+        mRating = mRatingBar.getRating() * 2;
+
+        // get a token first
+        // https://api.themoviedb.org/3/movie/1/rating?api_key=b966d45d0ab662f523ce11044a9394ef
+
+        String JSONPostData = String.format("{'value':%.2f}",mRating).replace(",", ".");;
 
 
 
+        // TODO: Do this on button press
+        // TODO: this currently doesn't work, this is due to the SESSION_TOKEN being broken in general. Someone, go fix this and it'll work.
+        MakeHTTPPOSTRequest makeReq = new MakeHTTPPOSTRequest(MovieDetailActivity.this);
+        Log.v("{{URL}}",GlobalVariables.V3_BASE_URL + API_ENDPOINT  + String.format(HTTPParameters,movieId,GlobalVariables.API_KEY_V3,GlobalVariables.SESSION_TOKEN));
+        makeReq.execute(GlobalVariables.V3_BASE_URL + API_ENDPOINT  + String.format(HTTPParameters,movieId,GlobalVariables.API_KEY_V3,GlobalVariables.SESSION_TOKEN),JSONPostData);
     }
 
     @Override
@@ -135,7 +152,6 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
 
 
     }
-
 
     @Override
     public void processMovieIdDetailedMovieConversionResult(DetailedMovie detailedMovie) {
@@ -186,6 +202,12 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
     public void processMovieReviewsConversionResult(ArrayList<Review> reviews) {
         mReviewList.clear();
         mReviewList.addAll(reviews);
-        mreviewAdapter.notifyDataSetChanged();
+        mReviewAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void ProcessHTTPResponseBody(String HTTPGETResponse) {
+        //TODO: remove all functionality from this method! Only ment for logging RN!!
+        Log.v("{{REPSO}}",HTTPGETResponse);
     }
 }
