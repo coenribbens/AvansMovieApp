@@ -32,7 +32,7 @@ public class FetchGuestSessionToken implements HTTPRequestable {
             String GeustsessionToken = parseJSONGuestSessionToken.FetchGeustSessionToken();
 
             GlobalVariables.setGuestSessionId(GeustsessionToken);
-            Log.v("GeustSessionID is" , GlobalVariables.GetGeustSessionID());
+            Log.v("GeustSessionID is" , GlobalVariables.GetGuestSessionID());
 
 
 
