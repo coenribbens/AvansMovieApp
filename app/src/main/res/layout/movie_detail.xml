@@ -166,31 +166,43 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_production_companies_content" />
 
 
+
+
+
         <RatingBar
 
             android:id="@+id/rb_rating_bar"
+            android:numStars="5"
             android:scaleY="0.50"
-            android:scaleX="0.55"
-            android:layout_marginBottom="-2000dp"
+            android:scaleX="0.65"
+
             android:layout_width="wrap_content"
+            android:minWidth="0dp"
             android:layout_height="wrap_content"
+            android:transformPivotX="20dp"
+            android:transformPivotY="15dp"
+
+
+
 
             app:layout_constraintStart_toEndOf="@+id/ib_movie_detail_youtube"
             app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_production_companies_content"
             />
 
+        <Button
+            android:id="@+id/b_send_button"
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:layout_marginRight="20dp"
 
 
-        <!-- TODO: FIX THIS UGLY ASS BUTTON-->
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/rating_submit_button"
-            android:layout_width="84dp"
-            android:layout_height="38dp"
-            android:layout_marginStart="252dp"
-            android:layout_marginTop="4dp"
-            android:text="@string/submit_review_button_text"
-            app:layout_constraintStart_toEndOf="@+id/ib_movie_detail_share"
+            android:text="send"
+            app:layout_constraintEnd_toEndOf="parent"
+
             app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_production_companies_content" />
+
+            >
+
 
         <ListView
             android:id="@+id/ib_listview_review"
