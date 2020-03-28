@@ -179,18 +179,8 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_production_companies_content"
             />
 
+            >
 
-
-        <!-- TODO: FIX THIS UGLY ASS BUTTON-->
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/rating_submit_button"
-            android:layout_width="84dp"
-            android:layout_height="38dp"
-            android:layout_marginStart="252dp"
-            android:layout_marginTop="4dp"
-            android:text="@string/submit_review_button_text"
-            app:layout_constraintStart_toEndOf="@+id/ib_movie_detail_share"
-            app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_production_companies_content" />
 
         <ListView
             android:id="@+id/ib_listview_review"
