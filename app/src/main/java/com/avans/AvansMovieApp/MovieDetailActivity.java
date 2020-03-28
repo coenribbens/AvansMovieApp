@@ -138,6 +138,8 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
                     Log.v("{{URL}}", GlobalVariables.V3_BASE_URL + API_ENDPOINT + String.format(HTTPParameters, movieId, GlobalVariables.API_KEY_V3, GlobalVariables.SESSION_TOKEN));
                     makeReq.execute(GlobalVariables.V3_BASE_URL + API_ENDPOINT + String.format(HTTPParameters, movieId, GlobalVariables.API_KEY_V3, GlobalVariables.SESSION_TOKEN), JSONPostData);
                     Toast toast = Toast.makeText(MovieDetailActivity.this, R.string.rating_sent_text, Toast.LENGTH_LONG);
+                    //mRatingBar.setRating(0F);
+                    mRatingBar.setIsIndicator(true);
                     toast.show();
                 }else{
                     Toast toast = Toast.makeText(MovieDetailActivity.this, R.string.rating_bigger_5, Toast.LENGTH_LONG);
@@ -243,12 +245,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
 
     @Override
     public void ProcessHTTPResponseBody(String HTTPGETResponse) {
-        //TODO: remove all functionality from this method! Only ment for logging RN!!
-        //TODO: observe the reponse body and see if placing the review was succesful.
-        //TODO: if so,
-        //TODO: 1. clear the rating bar with mRatingBar.setRating(0F);
-        //TODO: 2. show a toast with success
-        // TODO: else, show a toast with failure
+        // TODO: this still returns a 401 so auth is still not working!!!! go into global vars and fix the SESSION_TOKEN
         Log.v("{{REPSO}}",HTTPGETResponse);
 
     }
