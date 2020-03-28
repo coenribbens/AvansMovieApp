@@ -230,6 +230,12 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
     @Override
     public void ProcessHTTPResponseBody(String HTTPGETResponse) {
         //TODO: remove all functionality from this method! Only ment for logging RN!!
+        //TODO: observe the reponse body and see if placing the review was succesful.
+        //TODO: if so,
+        //TODO: 1. clear the rating bar with mRatingBar.setRating(0F);
+        //TODO: 2. show a toast with success
+        // TODO: else, show a toast with failure
         Log.v("{{REPSO}}",HTTPGETResponse);
+
     }
 }
