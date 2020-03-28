@@ -10,4 +10,7 @@
     <string name="mov_detail_ac_title">"Details for movie: "</string>
     <string name="sharing_text">Check out this movie!\n</string>
     <string name="searchbar_text">Search for a movie</string>
+    <string name="send">send</string>
+    <string name="rating_sent_text">Rating Sent</string>
+    <string name="rating_bigger_5">rating should be bigger then 1 star</string>
 </resources>

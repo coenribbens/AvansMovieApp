@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.avans.AvansMovieApp.Adapters.ReviewAdapter;
 import com.avans.AvansMovieApp.Model.DetailedMovie;
@@ -121,8 +122,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
             }
         });
 
-        mRatingBar = findViewById(R.id.rb_rating_bar);
-        mRating = mRatingBar.getRating() * 2;
+
 
         // get a token first
         // https://api.themoviedb.org/3/movie/1/rating?api_key=b966d45d0ab662f523ce11044a9394ef
@@ -130,16 +130,19 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
         mSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                String JSONPostData = String.format("{'value':%.2f}",mRating).replace(",", ".");;
-                // TODO: Do this on button press
-                // TODO: this currently doesn't work, this is due to the SESSION_TOKEN being broken in general. Someone, go fix this and it'll work. also check is mRating > .5
-                MakeHTTPPOSTRequest makeReq = new MakeHTTPPOSTRequest(MovieDetailActivity.this);
-                Log.v("{{URL}}",GlobalVariables.V3_BASE_URL + API_ENDPOINT  + String.format(HTTPParameters,movieId,GlobalVariables.API_KEY_V3,GlobalVariables.SESSION_TOKEN));
-                makeReq.execute(GlobalVariables.V3_BASE_URL + API_ENDPOINT  + String.format(HTTPParameters,movieId,GlobalVariables.API_KEY_V3,GlobalVariables.SESSION_TOKEN),JSONPostData);
-                // end
-                Toast toast = Toast.makeText(MovieDetailActivity.this, "Rating Send", Toast.LENGTH_LONG);
-                toast.show();
+                mRatingBar = findViewById(R.id.rb_rating_bar);
+                mRating = mRatingBar.getRating() * 2;
+                if(mRating >= .5) {
+                    String JSONPostData = String.format("{'value':%.2f}", mRating).replace(",", ".");
+                    MakeHTTPPOSTRequest makeReq = new MakeHTTPPOSTRequest(MovieDetailActivity.this);
+                    Log.v("{{URL}}", GlobalVariables.V3_BASE_URL + API_ENDPOINT + String.format(HTTPParameters, movieId, GlobalVariables.API_KEY_V3, GlobalVariables.SESSION_TOKEN));
+                    makeReq.execute(GlobalVariables.V3_BASE_URL + API_ENDPOINT + String.format(HTTPParameters, movieId, GlobalVariables.API_KEY_V3, GlobalVariables.SESSION_TOKEN), JSONPostData);
+                    Toast toast = Toast.makeText(MovieDetailActivity.this, R.string.rating_sent_text, Toast.LENGTH_LONG);
+                    toast.show();
+                }else{
+                    Toast toast = Toast.makeText(MovieDetailActivity.this, R.string.rating_bigger_5, Toast.LENGTH_LONG);
+                    toast.show();
+                }
 
             }
         });
