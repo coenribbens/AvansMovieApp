@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -55,6 +56,8 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
     //private ArrayList<Review> mReviewList = new ArrayList<>();
     private RatingBar mRatingBar;
     private float mRating;
+    private Button mSendButton;
+
 
     private String API_ENDPOINT = "/movie";
     private String HTTPParameters = "/%d/rating?api_key=%s&session_id=%s";
@@ -64,7 +67,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.movie_detail);
-        int movieId = getIntent().getIntExtra("movieid", 0);
+        final int movieId = getIntent().getIntExtra("movieid", 0);
         GetDetailedMovieFromMovieId getDetailedMovieFromMovieId = new GetDetailedMovieFromMovieId(movieId, this);
         getDetailedMovieFromMovieId.initializeMovieIdToDetailedMovieRequest();
 
@@ -95,6 +98,8 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
         this.mTrailer = findViewById(R.id.ib_movie_detail_youtube);
         //this.mListview = findViewById(R.id.ib_listview_review);
         this.mRatingBar = findViewById(R.id.rb_rating_bar);
+        this.mSendButton = findViewById(R.id.b_send_button);
+
 
 
         //this.mReviewAdapter = new ReviewAdapter(this, R.layout.review_item, mReviewList);
@@ -122,16 +127,22 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
         // get a token first
         // https://api.themoviedb.org/3/movie/1/rating?api_key=b966d45d0ab662f523ce11044a9394ef
 
-        String JSONPostData = String.format("{'value':%.2f}",mRating).replace(",", ".");;
+        mSendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                String JSONPostData = String.format("{'value':%.2f}",mRating).replace(",", ".");;
+                // TODO: Do this on button press
+                // TODO: this currently doesn't work, this is due to the SESSION_TOKEN being broken in general. Someone, go fix this and it'll work. also check is mRating > .5
+                MakeHTTPPOSTRequest makeReq = new MakeHTTPPOSTRequest(MovieDetailActivity.this);
+                Log.v("{{URL}}",GlobalVariables.V3_BASE_URL + API_ENDPOINT  + String.format(HTTPParameters,movieId,GlobalVariables.API_KEY_V3,GlobalVariables.SESSION_TOKEN));
+                makeReq.execute(GlobalVariables.V3_BASE_URL + API_ENDPOINT  + String.format(HTTPParameters,movieId,GlobalVariables.API_KEY_V3,GlobalVariables.SESSION_TOKEN),JSONPostData);
+                // end
+                Toast toast = Toast.makeText(MovieDetailActivity.this, "Rating Send", Toast.LENGTH_LONG);
+                toast.show();
 
-
-        // TODO: Do this on button press
-        // TODO: this currently doesn't work, this is due to the SESSION_TOKEN being broken in general. Someone, go fix this and it'll work. also check is mRating > .5
-        MakeHTTPPOSTRequest makeReq = new MakeHTTPPOSTRequest(MovieDetailActivity.this);
-        Log.v("{{URL}}",GlobalVariables.V3_BASE_URL + API_ENDPOINT  + String.format(HTTPParameters,movieId,GlobalVariables.API_KEY_V3,GlobalVariables.SESSION_TOKEN));
-        makeReq.execute(GlobalVariables.V3_BASE_URL + API_ENDPOINT  + String.format(HTTPParameters,movieId,GlobalVariables.API_KEY_V3,GlobalVariables.SESSION_TOKEN),JSONPostData);
-        // end
+            }
+        });
     }
 
     @Override
