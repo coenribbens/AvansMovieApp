@@ -10,4 +10,5 @@
     <string name="mov_detail_ac_title">"Details voor film: "</string>
     <string name="sharing_text">Check deze film!\n</string>
     <string name="searchbar_text">Zoek naar een film</string>
+    <string name="submit_review_button_text">beoordeel</string>
 </resources>
