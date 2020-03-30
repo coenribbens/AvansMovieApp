@@ -3,21 +3,38 @@ package com.avans.AvansMovieApp;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.avans.AvansMovieApp.Adapters.ReviewAdapter;
 import com.avans.AvansMovieApp.Model.DetailedMovie;
+import com.avans.AvansMovieApp.Model.GlobalVariables;
+import com.avans.AvansMovieApp.Model.Review;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetDetailedMovieFromMovieId;
+import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetReviews;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetYoutubeIdFromMovieId;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.MovieIdDetailedMovieConvertable;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.MovieIdYoutubeIdConvertable;
+import com.avans.AvansMovieApp.Utilities.FetchingUtilities.MovieReviewsConvertable;
+import com.avans.AvansMovieApp.Utilities.FetchingUtilities.PostTokenAndAuthenticate;
+import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
+import com.avans.AvansMovieApp.Utilities.NeworkUtilities.MakeHTTPPOSTRequest;
 import com.bumptech.glide.Glide;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MovieDetailActivity extends AppCompatActivity implements MovieIdDetailedMovieConvertable, MovieIdYoutubeIdConvertable {
+import java.util.ArrayList;
+
+public class MovieDetailActivity extends AppCompatActivity implements MovieIdDetailedMovieConvertable, MovieIdYoutubeIdConvertable, MovieReviewsConvertable, HTTPRequestable {
     private TextView mTitle;
     private TextView mYear;
     private ImageView mImageView;
@@ -34,15 +51,24 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
     private TextView mProductionCompaniesContent;
     private ImageButton mShare;
     private ImageButton mTrailer;
-
+    private ListView mListview;
     private DetailedMovie movie;
+    //private ReviewAdapter mReviewAdapter;
+    //private ArrayList<Review> mReviewList = new ArrayList<>();
+    private RatingBar mRatingBar;
+    private float mRating;
+    private Button mSendButton;
+
+
+    private String API_ENDPOINT = "/movie";
+    private String HTTPParameters = "/%d/rating?api_key=%s&session_id=%s";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.movie_detail);
-        int movieId = getIntent().getIntExtra("movieid", 0);
+        final int movieId = getIntent().getIntExtra("movieid", 0);
         GetDetailedMovieFromMovieId getDetailedMovieFromMovieId = new GetDetailedMovieFromMovieId(movieId, this);
         getDetailedMovieFromMovieId.initializeMovieIdToDetailedMovieRequest();
 
@@ -50,6 +76,8 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
 
         GetYoutubeIdFromMovieId getYoutubeIdFromMovieId = new GetYoutubeIdFromMovieId(movieId,this);
         getYoutubeIdFromMovieId.initializeMovieIdToYoutubeIdRequest();
+
+        GetReviews getReviews = new GetReviews(this, movieId);
 
 
         //Assigning all the mValues with their view equivalents.
@@ -69,7 +97,14 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
         this.mProductionCompaniesContent = findViewById(R.id.tv_movie_detail_production_companies_content);
         this.mShare = findViewById(R.id.ib_movie_detail_share);
         this.mTrailer = findViewById(R.id.ib_movie_detail_youtube);
+        //this.mListview = findViewById(R.id.ib_listview_review);
+        this.mRatingBar = findViewById(R.id.rb_rating_bar);
+        this.mSendButton = findViewById(R.id.b_send_button);
 
+
+
+        //this.mReviewAdapter = new ReviewAdapter(this, R.layout.review_item, mReviewList);
+        //this.mListview.setAdapter(mReviewAdapter);
         //Add logic for the share button.
         this.mShare.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +122,32 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
             }
         });
 
+
+
+        // get a token first
+        // https://api.themoviedb.org/3/movie/1/rating?api_key=b966d45d0ab662f523ce11044a9394ef
+
+        mSendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mRatingBar = findViewById(R.id.rb_rating_bar);
+                mRating = mRatingBar.getRating() * 2;
+                if(mRating >= .5) {
+                    String JSONPostData = String.format("{'value':%.2f}", mRating).replace(",", ".");
+                    MakeHTTPPOSTRequest makeReq = new MakeHTTPPOSTRequest(MovieDetailActivity.this);
+                    Log.v("{{URL}}", GlobalVariables.V3_BASE_URL + API_ENDPOINT + String.format(HTTPParameters, movieId, GlobalVariables.API_KEY_V3, GlobalVariables.SESSION_TOKEN));
+                    makeReq.execute(GlobalVariables.V3_BASE_URL + API_ENDPOINT + String.format(HTTPParameters, movieId, GlobalVariables.API_KEY_V3, GlobalVariables.SESSION_TOKEN), JSONPostData);
+                    Toast toast = Toast.makeText(MovieDetailActivity.this, R.string.rating_sent_text, Toast.LENGTH_LONG);
+                    //mRatingBar.setRating(0F);
+                    mRatingBar.setIsIndicator(true);
+                    toast.show();
+                }else{
+                    Toast toast = Toast.makeText(MovieDetailActivity.this, R.string.rating_bigger_5, Toast.LENGTH_LONG);
+                    toast.show();
+                }
+
+            }
+        });
     }
 
     @Override
@@ -153,5 +214,39 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
             }
             this.mProductionCompaniesContent.setText(productionCompanies);
         }
+    }
+
+    @Override
+    public void processMovieReviewsConversionResult(ArrayList<Review> reviews) {
+        //mReviewList.clear();
+        //mReviewList.addAll(reviews);
+        //mreviewAdapter.notifyDataSetChanged();
+
+        LinearLayout ll = (LinearLayout) findViewById(R.id.ll_reviews_wrapper);
+
+        for (Review r : reviews) {
+            View v;
+            LayoutInflater vi;
+            vi = LayoutInflater.from(this);
+            v = vi.inflate(R.layout.review_item, null);
+
+            TextView author = (TextView) v.findViewById(R.id.tv_review_item_author);
+            TextView content = (TextView) v.findViewById(R.id.tv_review_item_content);
+
+            author.setText(r.getAuthor());
+            content.setText(r.getContent());
+
+            ll.addView(v, 0, new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT));
+            System.out.println(ll.getChildCount());
+        }
+    }
+
+    @Override
+    public void ProcessHTTPResponseBody(String HTTPGETResponse) {
+        // TODO: this still returns a 401 so auth is still not working!!!! go into global vars and fix the SESSION_TOKEN
+        Log.v("{{REPSO}}",HTTPGETResponse);
+
     }
 }

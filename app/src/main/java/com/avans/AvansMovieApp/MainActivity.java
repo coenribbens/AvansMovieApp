@@ -11,6 +11,7 @@ import com.avans.AvansMovieApp.Adapters.MovieRecycleViewAdapter;
 import com.avans.AvansMovieApp.Model.CompactMovie;
 import com.avans.AvansMovieApp.Model.GlobalVariables;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.CreateNewSession;
+import com.avans.AvansMovieApp.Utilities.FetchingUtilities.FetchGuestSessionToken;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetPopularMovies;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetSearchedMovies;
 import com.avans.AvansMovieApp.Utilities.JSONUtiliies.ParseJSONPopularToCompactMovie;
@@ -22,11 +23,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MainActivity extends AppCompatActivity implements HTTPRequestable {
-    private EditText searchBar;
+public class MainActivity extends AppCompatActivity implements HTTPRequestable,TitleSettable {
+    private EditText searchBarField;
     private Button searchButton;
     private RecyclerView recyclerView;
     private Integer page = 1;
+    private boolean backButtonBooleanIsInSearchRecyclerView = false;
 
 
     // TODO: save session id on rotate,lifecyclevent
@@ -37,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.recyclerView = findViewById(R.id.rv_movie_items);
-
+        GlobalVariables.setCurrentContext(this);
         setTitle(getResources().getText(R.string.pop_main_ac_title));
 
         GetPopularMovies getPopularMovies = new GetPopularMovies(this);
@@ -46,13 +48,13 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable {
 
         // search
         this.searchButton = findViewById(R.id.btn_search_button);
-        this.searchBar = findViewById(R.id.search_bar);
-        searchBar.setInputType(InputType.TYPE_CLASS_TEXT);
+        this.searchBarField = findViewById(R.id.search_bar);
+        searchBarField.setInputType(InputType.TYPE_CLASS_TEXT);
         searchButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 GetSearchedMovies getSearchedMovies = new GetSearchedMovies(
                         (HTTPRequestable) MainActivity.this,
-                        MainActivity.this.searchBar.getText().toString()
+                        MainActivity.this.searchBarField.getText().toString()
                         );
                 getSearchedMovies.getSearchedMovies();
             }
@@ -64,14 +66,41 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable {
         CreateNewSession createNewSession = new CreateNewSession();
         createNewSession.initializeCreateNewSessionRequest();
         Log.v("{{SESS}}",""+ GlobalVariables.SESSION_TOKEN);
+        if (GlobalVariables.getGuestSessionID() == null) {
+            FetchGuestSessionToken fetchGuestSessionToken = new FetchGuestSessionToken();
+            fetchGuestSessionToken.initializeCreateNewGuestSessionRequest();
+        }
+    }
+
+
+    public void changeTitle(String titleText){
+        setTitle(titleText);
+    }
+
+
+    @Override
+    public void onBackPressed() {
+       if(backButtonBooleanIsInSearchRecyclerView){
+           searchBarField.getText().clear();
+           setTitle(getResources().getText(R.string.pop_main_ac_title));
+           GetPopularMovies getPopularMovies = new GetPopularMovies(this);
+           getPopularMovies.getPopularMovies();
+       } else{
+           super.onBackPressed();
+       }
+
     }
 
 
     @Override
     public void ProcessHTTPResponseBody(String HTTPGETResponse) {
 
-        //Log.v("resp",HTTPGETResponse);
         ParseJSONPopularToCompactMovie parser = new ParseJSONPopularToCompactMovie(HTTPGETResponse);
+
+        if(getTitle() != getResources().getString(R.string.pop_main_ac_title)){
+            backButtonBooleanIsInSearchRecyclerView = true;
+        }
+
 
         try{
             parser.fetchSmallMovies();

@@ -1,5 +1,7 @@
 package com.avans.AvansMovieApp.Utilities.FetchingUtilities;
 
+import android.util.Log;
+
 import com.avans.AvansMovieApp.Model.GlobalVariables;
 import com.avans.AvansMovieApp.Utilities.JSONUtiliies.ParseJSONInitializeCreateNewSessionRequest;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
@@ -30,14 +32,11 @@ public class CreateNewSession implements HTTPRequestable {
             ParseJSONInitializeCreateNewSessionRequest parser = new ParseJSONInitializeCreateNewSessionRequest(HTTPGETResponse);
             String sessionToken = parser.parseSessionToken();
             GlobalVariables.setSessionToken(sessionToken);
-
-            // TODO: IDEA, Show a toast with "authenticated"
-
             String postdata = String.format("{'request_token':'%s'}",sessionToken);
 
-            AuthenticateUsingToken authenticateUsingToken = new AuthenticateUsingToken();
-            authenticateUsingToken.initializeAuthenticatingUsingToken(postdata);
-            authenticateUsingToken.ProcessHTTPResponseBody(HTTPGETResponse);
+            PostTokenAndAuthenticate postTokenAndAuthenticate = new PostTokenAndAuthenticate();
+            postTokenAndAuthenticate.initializeAuthenticatingUsingToken(postdata);
+            postTokenAndAuthenticate.ProcessHTTPResponseBody(HTTPGETResponse);
 
 
         } catch (JSONException e) {

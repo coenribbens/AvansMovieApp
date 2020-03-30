@@ -10,4 +10,7 @@
     <string name="mov_detail_ac_title">"Details voor film: "</string>
     <string name="sharing_text">Check deze film!\n</string>
     <string name="searchbar_text">Zoek naar een film</string>
+    <string name="rating_sent_text">Beoordeling gestuurt</string>
+    <string name="send">stuur</string>
+    <string name="rating_bigger_5">beoordeling moet meer dan 1 ster hebben</string>
 </resources>

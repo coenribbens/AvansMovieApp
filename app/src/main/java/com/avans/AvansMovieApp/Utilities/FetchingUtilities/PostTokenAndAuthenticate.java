@@ -1,10 +1,12 @@
 package com.avans.AvansMovieApp.Utilities.FetchingUtilities;
 
+import android.util.Log;
+
 import com.avans.AvansMovieApp.Model.GlobalVariables;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.MakeHTTPPOSTRequest;
 
-public class AuthenticateUsingToken implements HTTPRequestable {
+public class PostTokenAndAuthenticate implements HTTPRequestable {
 
 
     private String API_ENDPOINT = "/authentication/token/new";
@@ -12,7 +14,7 @@ public class AuthenticateUsingToken implements HTTPRequestable {
 
 
     public void initializeAuthenticatingUsingToken(String postdata){
-        MakeHTTPPOSTRequest makeReq = new MakeHTTPPOSTRequest(AuthenticateUsingToken.this);
+        MakeHTTPPOSTRequest makeReq = new MakeHTTPPOSTRequest(PostTokenAndAuthenticate.this);
         makeReq.execute(GlobalVariables.V3_BASE_URL + API_ENDPOINT + HTTP_GET_PARAMETERS,postdata);
     }
 

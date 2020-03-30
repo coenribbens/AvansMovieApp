@@ -64,8 +64,8 @@
             android:id="@+id/tv_movie_detail_release_date_content"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="01/01/1970"
             android:layout_marginStart="65dp"
+            android:text="01/01/1970"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_movie_detail_release_date"
             app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_overview" />
@@ -146,6 +146,9 @@
             app:layout_constraintStart_toStartOf="@+id/tv_movie_detail_genres_content"
             app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_genres_content" />
 
+
+
+
         <ImageButton
             android:id="@+id/ib_movie_detail_share"
             android:layout_width="wrap_content"
@@ -161,6 +164,53 @@
             android:src="@drawable/ic_video_label_black_24dp"
             app:layout_constraintStart_toEndOf="@+id/ib_movie_detail_share"
             app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_production_companies_content" />
+
+
+        <RatingBar
+
+            android:id="@+id/rb_rating_bar"
+            android:scaleY="0.50"
+            android:scaleX="0.55"
+            android:layout_marginBottom="-2000dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            app:layout_constraintStart_toEndOf="@+id/ib_movie_detail_youtube"
+            app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_production_companies_content"
+            />
+
+            >
+
+
+        <!-- TODO: FIX THE PADDING-->
+
+        <Button
+            android:id="@+id/b_send_button"
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:layout_marginRight="20dp"
+            android:text="@string/send"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_production_companies_content" />
+        >
+        <ListView
+            android:id="@+id/ib_listview_review"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/ib_movie_detail_share"
+            app:layout_constraintStart_toStartOf="parent"
+            android:scrollbars="none"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ll_reviews_wrapper"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/rb_rating_bar">
+        </LinearLayout>
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
