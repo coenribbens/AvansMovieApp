@@ -1,5 +1,6 @@
 package com.avans.AvansMovieApp.Datalayer;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
@@ -46,5 +47,17 @@ public class MovieDBHandler extends SQLiteOpenHelper {
 
         //Create the table anew
         db.execSQL(ON_CREATE_DATABASE);
+    }
+
+    public void insertGuestToken(String guestToken) {
+
+        //Log for debugging
+        Log.d(TAG, "insertGuestToken: " + guestToken);
+
+        //Get writeable database
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        //Insert into the database
+        db.insert("userList", guestToken, null);
     }
 }
