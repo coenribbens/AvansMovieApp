@@ -2,6 +2,7 @@ package com.avans.AvansMovieApp.Datalayer;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -14,9 +15,9 @@ import androidx.annotation.Nullable;
 public class MovieDBHandler extends SQLiteOpenHelper {
 
     private String ON_CREATE_DATABASE = ("CREATE TABLE `userList`" +
-            "userid INTEGER(20)" +
+            "userId INTEGER(20)" +
             "listId nvarchar(20)" +
-            "PRIMARY KEY(`userid`");
+            "PRIMARY KEY(`userId`");
     private String ON_UPDATE_DATABASE = ("DROP TABLE IF EXISTS `userList`");
     private String TAG = this.getClass().getSimpleName();
 
@@ -60,4 +61,64 @@ public class MovieDBHandler extends SQLiteOpenHelper {
         //Insert into the database
         db.insert("userList", guestToken, null);
     }
+
+    public String getGuestToken() {
+
+        //Log for Debugging
+        Log.d(TAG, "getGuestToken");
+
+        //Guest the database
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        //Query to execute
+        String query = "SELECT TOP(1) userId FROM userlist";
+
+        //Cursor to browse through
+        Cursor cursor = db.rawQuery(query, null);
+
+        //Token to return
+        String guestToken = null;
+
+        if(cursor.getCount() > 0) {
+            cursor.moveToFirst();
+
+             guestToken = cursor.getString(cursor.getColumnIndex("userId"));
+            cursor.close();
+        }
+
+        db.close();
+
+
+
+        return guestToken;
+    }
+
+    public void newMovieList(String userId, String movieListId) {
+
+        //Log for debugging
+        Log.d(TAG, "createNewMovieList");
+
+        //Get the database
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put("userId", getGuestToken());
+        cv.put("listId", movieListId);
+
+        db.insert("userList",null, cv);
+    }
+
+    public void deleteMovieList(String userId, String movieListId) {
+
+        //Log for debugging
+        Log.d(TAG,"DeleteMovieList");
+
+        //Getting the database
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        //Delete the list from the database
+        db.execSQL("DELETE FROM userList WHERE listId = " + movieListId);
+    }
+
+
 }
