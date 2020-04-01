@@ -39,6 +39,7 @@ public class SwitchLanguagesHelper {
 
     // this got way messier than it should have. Fuck java.
     private void switchLocale(String languageISOStr) {
+<<<<<<< HEAD
 
 
         
@@ -75,5 +76,12 @@ public class SwitchLanguagesHelper {
 
 
 
+=======
+        Resources res = context.getResources();
+        Configuration conf = res.getConfiguration();
+        conf.locale = new Locale(languageISOStr);
+        Log.v("LANG",languageISOStr);
+        res.updateConfiguration(conf, res.getDisplayMetrics());
+>>>>>>> parent of 32e13c0... Update SwitchLanguagesHelper.java
     }
 }
