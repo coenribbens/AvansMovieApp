@@ -177,7 +177,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
         //Extract all the data from the movie and put it in the corresponding views.
         this.mTitle.setText(movie.getTitle());
         setTitle(getResources().getText(R.string.mov_detail_ac_title) + this.movie.getTitle());
-        this.mYear.setText(movie.getReleaseDate());
+        this.mYear.setText("(" + movie.getReleaseDate().split("-")[0] + ")");
         Glide.with(this)
                 .asBitmap()
                 .load("https://image.tmdb.org/t/p/w600_and_h900_bestv2" + movie.getPosterPath())
@@ -189,7 +189,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
         this.mOverview.setText(movie.getOverview());
         this.mReleaseDateContent.setText(movie.getReleaseDate().toString());
         this.mOriginalLanguageContent.setText(movie.getOriginalLanguage());
-        this.mRuntimeContent.setText(movie.getRunTime() + "");
+        this.mRuntimeContent.setText(movie.getRunTime() + " " + getString(R.string.Minutes));
         if(movie.getGenreNames() != null){
             StringBuilder genres = new StringBuilder();
             for(String genre : movie.getGenreNames()){
