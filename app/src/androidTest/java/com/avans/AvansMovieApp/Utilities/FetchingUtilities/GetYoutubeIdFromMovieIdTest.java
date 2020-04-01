@@ -31,11 +31,12 @@ public class GetYoutubeIdFromMovieIdTest implements MovieIdYoutubeIdConvertable 
     }
 
     //The "signal.await()" method waits for the signal to be countdown by the callback method before continuing. This needs to be included in every test.
+    //This test might fail if phone locale isn't set to english.
     @Test
     public void correctMovieTrailer(){
         try {
             signal.await();
-            assertEquals("fnCMVwnXsRg", this.youtbeId);
+            assertEquals("2AUmvWm5ZDQ", this.youtbeId);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
