@@ -178,10 +178,15 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
         this.mTitle.setText(movie.getTitle());
         setTitle(getResources().getText(R.string.mov_detail_ac_title) + this.movie.getTitle());
         this.mYear.setText("(" + movie.getReleaseDate().split("-")[0] + ")");
-        Glide.with(this)
-                .asBitmap()
-                .load("https://image.tmdb.org/t/p/w600_and_h900_bestv2" + movie.getPosterPath())
-                .into(this.mImageView);
+        if(!movie.getPosterPath().equals("null")){
+            Glide.with(this)
+                    .asBitmap()
+                    .load("https://image.tmdb.org/t/p/w600_and_h900_bestv2" + movie.getPosterPath())
+                    .into(this.mImageView);
+        }
+        else{
+            this.mImageView.setImageResource(R.drawable.ic_broken_image_black_24dp);
+        }
 
         //
 
