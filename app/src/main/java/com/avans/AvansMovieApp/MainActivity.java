@@ -3,6 +3,7 @@ package com.avans.AvansMovieApp;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,8 +31,6 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable,T
     private Integer page = 1;
     private boolean backButtonBooleanIsInSearchRecyclerView = false;
 
-
-    // TODO: save session id on rotate,lifecyclevent
 
 
     @Override
@@ -62,7 +61,6 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable,T
 
 
 
-        //!!!! TODO work on sessions
         CreateNewSession createNewSession = new CreateNewSession();
         createNewSession.initializeCreateNewSessionRequest();
         Log.v("{{SESS}}",""+ GlobalVariables.SESSION_TOKEN);
@@ -77,6 +75,13 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable,T
         setTitle(titleText);
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
 
     @Override
     public void onBackPressed() {

@@ -13,4 +13,5 @@
     <string name="send">send</string>
     <string name="rating_sent_text">Rating Sent</string>
     <string name="rating_bigger_5">rating should be bigger then 1 star</string>
+    <string name="switch_lang_menu_text_str">Switch languages</string>
 </resources>
