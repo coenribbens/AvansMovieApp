@@ -64,13 +64,11 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable,T
         searchBarField.setInputType(InputType.TYPE_CLASS_TEXT);
         searchButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                String searchText = MainActivity.this.searchBarField.getText().toString();
-                if(searchText != null && !searchText.isEmpty()){
-                    GetSearchedMovies getSearchedMovies = new GetSearchedMovies(
-                            MainActivity.this,searchText
-                    );
-                    getSearchedMovies.getSearchedMovies();
-                }
+                GetSearchedMovies getSearchedMovies = new GetSearchedMovies(
+                        (HTTPRequestable) MainActivity.this,
+                        MainActivity.this.searchBarField.getText().toString()
+                        );
+                getSearchedMovies.getSearchedMovies();
             }
         });
 

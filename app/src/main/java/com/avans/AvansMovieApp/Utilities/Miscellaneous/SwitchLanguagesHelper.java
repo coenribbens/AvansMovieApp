@@ -24,12 +24,14 @@ public class SwitchLanguagesHelper {
     }
     // currently we just flip the languages. Have to implement another class if we get more languages
     public void flipLangages() {
+        Log.v("LANG",GlobalVariables.LANG+GlobalVariables.LANG.startsWith("en-"));
 
 
         // TODO: add toasts with lang switched to {{lang}}
         if (GlobalVariables.LANG.equals("nl-NL")) {
             this.switchLocale("en-US");
             GlobalVariables.LANG = "en-US";
+            context.recreate();
         } else if (GlobalVariables.LANG.startsWith("en-")) {
             this.switchLocale("nl-NL");
             GlobalVariables.LANG = "nl-NL";
@@ -80,7 +82,6 @@ public class SwitchLanguagesHelper {
         Resources res = context.getResources();
         Configuration conf = res.getConfiguration();
         conf.locale = new Locale(languageISOStr);
-        Log.v("LANG",languageISOStr);
         res.updateConfiguration(conf, res.getDisplayMetrics());
 >>>>>>> parent of 32e13c0... Update SwitchLanguagesHelper.java
     }
