@@ -10,17 +10,17 @@ import org.junit.Assert;
 
 public class CompactMoviewTest {
 
-    private ArrayList<Integer> genreIdsAttr;
+    private ArrayList<Integer> genreIds;
     private CompactMovie compactMovie;
 
 
     //Arrange
     @Test
     public void testOrSomething() {
-        genreIdsAttr = new ArrayList<Integer>();
-        genreIdsAttr.add(1);
-        genreIdsAttr.add(2);
-        genreIdsAttr.add(3);
+        genreIds = new ArrayList<Integer>();
+        genreIds.add(1);
+        genreIds.add(2);
+        genreIds.add(3);
         this.compactMovie = new CompactMovie(
                 10,
                 10,
@@ -31,7 +31,7 @@ public class CompactMoviewTest {
                 "backdropPathAttr",
                 "origLangAttr",
                 "origTitleAttr",
-                genreIdsAttr,
+                genreIds,
                 "titleAttr",
                 80,
                 "overviewAttr",
@@ -42,11 +42,13 @@ public class CompactMoviewTest {
         //Act
         Integer popularityAttr = compactMovie.getPopularity();
         Integer voteCountAttr = compactMovie.getVoteCount();
+        Boolean videoAttr = compactMovie.isVideo();
         String posterPathAttr = compactMovie.getPosterPath();
         Integer idAttr = compactMovie.getId();
         String backdropPathAttr = compactMovie.getBackdropPath();
         String origLangAttr = compactMovie.getOriginalLanguage();
         String origTitleAttr = compactMovie.getOriginalTitle();
+        ArrayList<Integer> genreIdsAttr = compactMovie.getGenreIds();
         String titleAttr = compactMovie.getTitle();
         Integer voteAvgAttr = compactMovie.getVoteAverage();
         String overviewAttr = compactMovie.getOverview();
@@ -56,12 +58,14 @@ public class CompactMoviewTest {
         //Assert
         Assert.assertEquals((long)popularityAttr, 10);
         Assert.assertEquals((long)voteCountAttr, 10);
-        Assert.assertEquals(posterPathAttr, true);
+        Assert.assertTrue(videoAttr);
+        Assert.assertEquals(posterPathAttr, "posterPathAttr");
         Assert.assertEquals((long)idAttr, 999);
         Assert.assertEquals(backdropPathAttr, "backdropPathAttr");
         Assert.assertEquals(origLangAttr, "origLangAttr");
-        Assert.assertEquals(origTitleAttr, "origLangAttr");
-        Assert.assertEquals(titleAttr, "origTitleAttr");
+        Assert.assertEquals(origTitleAttr, "origTitleAttr");
+        Assert.assertNotNull(genreIdsAttr);
+        Assert.assertEquals(titleAttr, "titleAttr");
         Assert.assertEquals((long)voteAvgAttr, 80);
         Assert.assertEquals(overviewAttr, "overviewAttr");
         Assert.assertEquals(overviewAttr, "overviewAttr");
