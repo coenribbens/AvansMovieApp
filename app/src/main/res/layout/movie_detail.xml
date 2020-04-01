@@ -18,6 +18,7 @@
             android:layout_height="wrap_content"
             android:text="Title"
             android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -28,6 +29,7 @@
             android:layout_height="wrap_content"
             android:text="(Year)"
             android:textSize="14sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_title" />
@@ -50,6 +52,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_movie_detail_image" />
 
+        <ImageView
+            android:id="@+id/iv_movie_detail_divider"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:scaleX="2.00"
+            android:src="@drawable/ic_divider_black_24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_overview" />
+
         <TextView
             android:id="@+id/tv_movie_detail_release_date"
             android:layout_width="wrap_content"
@@ -65,10 +78,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="65dp"
-            android:text="01/01/1970"
+            android:text="@string/unknown"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_movie_detail_release_date"
-            app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_overview" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_movie_detail_divider" />
 
         <TextView
             android:id="@+id/tv_movie_detail_original_language"
@@ -84,7 +97,7 @@
             android:id="@+id/tv_movie_detail_original_language_content"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="English"
+            android:text="@string/unknown"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tv_movie_detail_release_date_content"
             app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_release_date_content" />
@@ -103,7 +116,7 @@
             android:id="@+id/tv_movie_detail_runtime_content"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="1H 30M"
+            android:text="@string/unknown"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tv_movie_detail_original_language_content"
             app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_original_language_content" />
@@ -122,7 +135,7 @@
             android:id="@+id/tv_movie_detail_genres_content"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Actie"
+            android:text="@string/unknown"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tv_movie_detail_runtime_content"
             app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_runtime_content" />
@@ -141,7 +154,7 @@
             android:id="@+id/tv_movie_detail_production_companies_content"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="MADHOUSE"
+            android:text="@string/unknown"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tv_movie_detail_genres_content"
             app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_genres_content" />
@@ -169,15 +182,13 @@
         <RatingBar
 
             android:id="@+id/rb_rating_bar"
-            android:scaleY="0.50"
-            android:scaleX="0.55"
-            android:layout_marginBottom="-2000dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:scaleX="0.55"
+            android:scaleY="0.50"
 
             app:layout_constraintStart_toEndOf="@+id/ib_movie_detail_youtube"
-            app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_production_companies_content"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_production_companies_content" />
 
             >
 
