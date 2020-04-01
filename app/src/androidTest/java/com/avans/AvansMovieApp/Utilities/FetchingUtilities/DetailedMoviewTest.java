@@ -66,9 +66,9 @@ public class DetailedMoviewTest {
         Assert.assertEquals(originalTitleAttr,"originalTitleAttr");
         Assert.assertEquals(titleAttr,"titleAttr" );
         Assert.assertNotNull(genreNamesAttr);
-        Assert.assertEquals(homepageAttr,"origLangAttr");
-        Assert.assertEquals(originalLangAttr,99);
-        Assert.assertEquals( popularityAttr, "posterPathAttr");
+        Assert.assertEquals(homepageAttr,"homepageAttr");
+        Assert.assertEquals(originalLangAttr, "origLangAttr");
+        Assert.assertEquals((long)popularityAttr, 99);
         Assert.assertEquals(posterPathAttr,"posterPathAttr");
         Assert.assertNotNull(companyNamesAttr);
         Assert.assertEquals(releaseDateAttr,"releaseDataAttr" );
