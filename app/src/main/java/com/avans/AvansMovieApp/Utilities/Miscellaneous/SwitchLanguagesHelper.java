@@ -25,9 +25,12 @@ public class SwitchLanguagesHelper {
     public void flipLangages() {
         Log.v("LANG",GlobalVariables.LANG+GlobalVariables.LANG.startsWith("en-"));
 
+
+        // TODO: add toasts with lang switched to {{lang}}
         if (GlobalVariables.LANG.equals("nl-NL")) {
             this.switchLocale("en-US");
             GlobalVariables.LANG = "en-US";
+            context.recreate();
         } else if (GlobalVariables.LANG.startsWith("en-")) {
             this.switchLocale("nl-NL");
             GlobalVariables.LANG = "nl-NL";

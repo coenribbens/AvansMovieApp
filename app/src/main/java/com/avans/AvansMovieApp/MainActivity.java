@@ -91,8 +91,10 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable,T
                 // implement the intent to the list view
                 return true;
             case R.id.switch_languages_menu_item:
+
                 SwitchLanguagesHelper switchLanguagesHelper = new SwitchLanguagesHelper(this);
                 switchLanguagesHelper.flipLangages();
+                recreate();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
