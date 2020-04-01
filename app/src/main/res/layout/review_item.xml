@@ -18,7 +18,8 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/iv_review_item_divider"
+        />
 
     <TextView
         android:id="@+id/tv_review_item_content"
@@ -32,12 +33,13 @@
         app:layout_constraintTop_toBottomOf="@id/tv_review_item_author"/>
 
     <ImageView
+        android:id="@+id/iv_review_item_divider"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_divider_black_24dp"
         android:scaleType="fitXY"
         android:scaleX="2.00"
+        android:src="@drawable/ic_divider_black_24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_review_item_content" />
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

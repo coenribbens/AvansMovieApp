@@ -51,6 +51,8 @@ public class MovieRecycleViewAdapter extends RecyclerView.Adapter<MovieRecycleVi
         holder.movieTitle.setText(movies.get(position).getTitle());
 
         //Get all the genre names from the List and concatenate these together.
+        holder.year.setText("(" + movies.get(position).getReleaseDate().split("-")[0] + ")");
+        holder.score.setText(movies.get(position).getVoteAverage() + "");
         holder.language.setText(movies.get(position).getOriginalLanguage());
 
         holder.context = this.context;
@@ -71,6 +73,8 @@ public class MovieRecycleViewAdapter extends RecyclerView.Adapter<MovieRecycleVi
 
         ImageView image;
         TextView movieTitle;
+        TextView year;
+        TextView score;
         TextView language;
         Context context;
         CompactMovie movie;
@@ -79,6 +83,8 @@ public class MovieRecycleViewAdapter extends RecyclerView.Adapter<MovieRecycleVi
             super(itemView);
             image = itemView.findViewById(R.id.iv_movie_item_image);
             movieTitle = itemView.findViewById(R.id.tv_movie_item_title);
+            year = itemView.findViewById(R.id.tv_movie_item_year);
+            score = itemView.findViewById(R.id.tv_movie_item_score);
             language = itemView.findViewById(R.id.tv_movie_item_language);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
