@@ -8,7 +8,7 @@ import org.junit.Assert;
 
 
 
-public class CompactMoviewTest {
+public class CompactMovieTest {
 
     private ArrayList<Integer> genreIds;
     private CompactMovie compactMovie;

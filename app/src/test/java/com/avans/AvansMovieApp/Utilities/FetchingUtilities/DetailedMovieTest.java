@@ -10,7 +10,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
-public class DetailedMoviewTest {
+public class DetailedMovieTest {
 
     private DetailedMovie detailedMovie;
     private ArrayList<String> genreNames = new ArrayList<String>();
