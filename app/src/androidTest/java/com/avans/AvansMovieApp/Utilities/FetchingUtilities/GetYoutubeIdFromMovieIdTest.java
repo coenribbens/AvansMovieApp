@@ -19,7 +19,7 @@ public class GetYoutubeIdFromMovieIdTest implements MovieIdYoutubeIdConvertable 
     //will use the "processMovieIdDetailedMovieConversionResult(...)" as a callback method.
     @Before
     public void setUp() {
-        GetYoutubeIdFromMovieId getDetailedMovieFromMovieId = new GetYoutubeIdFromMovieId(680, this);
+        GetYoutubeIdFromMovieId getDetailedMovieFromMovieId = new GetYoutubeIdFromMovieId(245891, this);
         getDetailedMovieFromMovieId.initializeMovieIdToYoutubeIdRequest();
         signal = new CountDownLatch(1);
     }
@@ -32,21 +32,11 @@ public class GetYoutubeIdFromMovieIdTest implements MovieIdYoutubeIdConvertable 
 
     //The "signal.await()" method waits for the signal to be countdown by the callback method before continuing. This needs to be included in every test.
     @Test
-    public void correctMovie(){
+    public void correctMovieTrailer(){
         try {
             signal.await();
-            assertEquals("tGpTpVyI_OQ", this.youtbeId);
+            assertEquals("fnCMVwnXsRg", this.youtbeId);
         } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    public void genreNamesIsNotNull(){
-        try{
-            signal.await();
-            assertNotNull(this.youtbeId);
-        } catch (InterruptedException e){
             e.printStackTrace();
         }
     }
