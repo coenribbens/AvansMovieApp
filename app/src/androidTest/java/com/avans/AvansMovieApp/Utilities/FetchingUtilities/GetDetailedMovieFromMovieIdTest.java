@@ -34,7 +34,7 @@ public class GetDetailedMovieFromMovieIdTest implements MovieIdDetailedMovieConv
     public void correctMovie(){
         try {
             signal.await();
-            assertEquals("Pulp Fiction", this.detailedMovie.getTitle());
+            assertEquals("Pulp Fiction", this.detailedMovie.getOriginalTitle());
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -46,6 +46,16 @@ public class GetDetailedMovieFromMovieIdTest implements MovieIdDetailedMovieConv
             signal.await();
             assertNotNull(this.detailedMovie.getGenreNames());
         } catch (InterruptedException e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void productionCompaniesNamesIsNotNull(){
+        try {
+            signal.await();
+            assertNotNull(this.detailedMovie.getProductionCompaniesNames());
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
