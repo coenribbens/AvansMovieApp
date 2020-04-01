@@ -17,6 +17,7 @@ import java.util.Locale;
 public class SwitchLanguagesHelper {
 
     MainActivity context; // ugh, fucking java things
+    Configuration backupConfig; // lol, cant even fucking finalize this. Java is such a fucking joke
 
     public SwitchLanguagesHelper(MainActivity context) {
         this.context = context;
@@ -35,10 +36,44 @@ public class SwitchLanguagesHelper {
         }
     }
 
+
+    // this got way messier than it should have. Fuck java.
     private void switchLocale(String languageISOStr) {
-        Resources res = context.getResources();
-        Configuration conf = res.getConfiguration();
-        conf.locale = new Locale(languageISOStr);
-        res.updateConfiguration(conf, res.getDisplayMetrics());
+
+
+        
+        if(context.getLangSwitched() == 0){
+            // backup the first conf
+            Resources res = context.getResources();
+            Configuration conf = res.getConfiguration();
+            this.backupConfig = conf;
+        }
+
+
+        if(!(context.getLangSwitchedBool()) || context.getLangSwitched() > 0){
+            // if false we're switched and should restore
+            Resources res = context.getResources();
+            Configuration conf = this.backupConfig;
+            conf.locale = new Locale(languageISOStr);
+            res.updateConfiguration(conf, res.getDisplayMetrics());
+
+        }
+        else if(context.getLangSwitchedBool()){
+            // create new res
+            Resources res = context.getResources();
+            Configuration conf = res.getConfiguration();
+            conf.locale = new Locale(languageISOStr);
+            res.updateConfiguration(conf, res.getDisplayMetrics());
+        }
+
+
+
+
+
+
+
+
+
+
     }
 }

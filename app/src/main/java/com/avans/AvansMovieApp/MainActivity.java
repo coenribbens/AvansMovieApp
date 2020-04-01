@@ -32,7 +32,18 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable,T
     private RecyclerView recyclerView;
     private Integer page = 1;
     private boolean backButtonBooleanIsInSearchRecyclerView = false;
+    private SwitchLanguagesHelper switchLanguagesHelper = new SwitchLanguagesHelper(this);
+    private Integer langSwitched = 0;
 
+    public boolean getLangSwitchedBool() {
+        return langSwitched % 2 != 0;
+    }
+
+
+
+    public Integer getLangSwitched(){
+        return this.langSwitched;
+    }
 
 
     @Override
@@ -93,9 +104,8 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable,T
                 // implement the intent to the list view
                 return true;
             case R.id.switch_languages_menu_item:
-
-                SwitchLanguagesHelper switchLanguagesHelper = new SwitchLanguagesHelper(this);
-                switchLanguagesHelper.flipLangages();
+                this.switchLanguagesHelper.flipLangages();
+                this.langSwitched++;
                 recreate();
                 return true;
             default:
