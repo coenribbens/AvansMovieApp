@@ -16,7 +16,7 @@ public class CompactMoviewTest {
 
     //Arrange
     @Test
-    public void setUp() {
+    public void testOrSomething() {
         genreIdsAttr = new ArrayList<Integer>();
         genreIdsAttr.add(1);
         genreIdsAttr.add(2);
