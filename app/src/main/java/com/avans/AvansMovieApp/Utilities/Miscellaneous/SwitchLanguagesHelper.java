@@ -17,72 +17,34 @@ import java.util.Locale;
 public class SwitchLanguagesHelper {
 
     MainActivity context; // ugh, fucking java things
-    Configuration backupConfig; // lol, cant even fucking finalize this. Java is such a fucking joke
+    Configuration backupConfig;
 
     public SwitchLanguagesHelper(MainActivity context) {
         this.context = context;
     }
     // currently we just flip the languages. Have to implement another class if we get more languages
-    public void flipLangages() {
-        Log.v("LANG",GlobalVariables.LANG+GlobalVariables.LANG.startsWith("en-"));
+    public void flipLanguages() {
 
 
         // TODO: add toasts with lang switched to {{lang}}
         if (GlobalVariables.LANG.equals("nl-NL")) {
             this.switchLocale("en-US");
             GlobalVariables.LANG = "en-US";
-            context.recreate();
         } else if (GlobalVariables.LANG.startsWith("en-")) {
             this.switchLocale("nl-NL");
             GlobalVariables.LANG = "nl-NL";
         }
     }
 
-
-    // this got way messier than it should have. Fuck java.
     private void switchLocale(String languageISOStr) {
-<<<<<<< HEAD
 
-
-        
-        if(context.getLangSwitched() == 0){
-            // backup the first conf
-            Resources res = context.getResources();
-            Configuration conf = res.getConfiguration();
-            this.backupConfig = conf;
-        }
-
-
-        if(!(context.getLangSwitchedBool()) || context.getLangSwitched() > 0){
-            // if false we're switched and should restore
-            Resources res = context.getResources();
-            Configuration conf = this.backupConfig;
-            conf.locale = new Locale(languageISOStr);
-            res.updateConfiguration(conf, res.getDisplayMetrics());
-
-        }
-        else if(context.getLangSwitchedBool()){
-            // create new res
-            Resources res = context.getResources();
-            Configuration conf = res.getConfiguration();
-            conf.locale = new Locale(languageISOStr);
-            res.updateConfiguration(conf, res.getDisplayMetrics());
-        }
-
-
-
-
-
-
-
-
-
-
-=======
         Resources res = context.getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
         Configuration conf = res.getConfiguration();
-        conf.locale = new Locale(languageISOStr);
-        res.updateConfiguration(conf, res.getDisplayMetrics());
->>>>>>> parent of 32e13c0... Update SwitchLanguagesHelper.java
+        conf.locale = new Locale(languageISOStr);;
+        res.updateConfiguration(conf, dm);
+        context.onConfigurationChanged(conf);
+
+
     }
 }

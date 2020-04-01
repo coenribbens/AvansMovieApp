@@ -33,18 +33,6 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable,T
     private Integer page = 1;
     private boolean backButtonBooleanIsInSearchRecyclerView = false;
     private SwitchLanguagesHelper switchLanguagesHelper = new SwitchLanguagesHelper(this);
-    private Integer langSwitched = 0;
-
-    public boolean getLangSwitchedBool() {
-        return langSwitched % 2 != 0;
-    }
-
-
-
-    public Integer getLangSwitched(){
-        return this.langSwitched;
-    }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,11 +52,13 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable,T
         searchBarField.setInputType(InputType.TYPE_CLASS_TEXT);
         searchButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                GetSearchedMovies getSearchedMovies = new GetSearchedMovies(
-                        (HTTPRequestable) MainActivity.this,
-                        MainActivity.this.searchBarField.getText().toString()
-                        );
-                getSearchedMovies.getSearchedMovies();
+                String searchText = MainActivity.this.searchBarField.getText().toString();
+                if(searchText != null && !searchText.isEmpty()){
+                    GetSearchedMovies getSearchedMovies = new GetSearchedMovies(
+                            MainActivity.this,searchText
+                    );
+                    getSearchedMovies.getSearchedMovies();
+                }
             }
         });
 
@@ -102,8 +92,7 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable,T
                 // implement the intent to the list view
                 return true;
             case R.id.switch_languages_menu_item:
-                this.switchLanguagesHelper.flipLangages();
-                this.langSwitched++;
+                this.switchLanguagesHelper.flipLanguages();
                 recreate();
                 return true;
             default:
