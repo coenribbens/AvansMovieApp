@@ -41,7 +41,7 @@ public class SwitchLanguagesHelper {
         Resources res = context.getResources();
         DisplayMetrics dm = res.getDisplayMetrics();
         Configuration conf = res.getConfiguration();
-        conf.locale = new Locale(languageISOStr);;
+        conf.locale = new Locale(languageISOStr);
         res.updateConfiguration(conf, dm);
         context.onConfigurationChanged(conf);
 
