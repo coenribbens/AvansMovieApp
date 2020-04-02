@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddMovieToListActivity"></activity>
+        <activity android:name=".CreateListActivity"></activity>
+        <activity android:name=".AddMovieToListActivity" />
         <activity android:name=".MovieListActivity" />
         <activity android:name=".ListActivity" />
         <activity android:name=".MovieDetailActivity" />
