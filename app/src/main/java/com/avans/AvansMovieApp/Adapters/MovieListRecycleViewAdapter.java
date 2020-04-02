@@ -13,7 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.avans.AvansMovieApp.Model.CompactMovie;
+import com.avans.AvansMovieApp.Model.GlobalVariables;
 import com.avans.AvansMovieApp.MovieDetailActivity;
+import com.avans.AvansMovieApp.MovieListActivity;
 import com.avans.AvansMovieApp.R;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.RemoveMovieFromList;
 import com.bumptech.glide.Glide;
@@ -25,10 +27,14 @@ public class MovieListRecycleViewAdapter extends RecyclerView.Adapter<MovieListR
 
     private ArrayList<CompactMovie> movies;
     private Context context;
+    private String listId;
+    private MovieListActivity concreteContext;
 
-    public MovieListRecycleViewAdapter(ArrayList<CompactMovie> movies, Context context){
+    public MovieListRecycleViewAdapter(ArrayList<CompactMovie> movies, Context context, String listId){
         this.movies = movies;
         this.context = context;
+        this.listId = listId;
+        this.concreteContext = (MovieListActivity)context;
     }
 
     @NonNull
@@ -82,7 +88,7 @@ public class MovieListRecycleViewAdapter extends RecyclerView.Adapter<MovieListR
         CompactMovie movie;
         ImageButton deleteButton;
 
-        public MovieViewHolder(@NonNull View itemView) {
+        public MovieViewHolder(@NonNull final View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.iv_movie_item_image);
             movieTitle = itemView.findViewById(R.id.tv_movie_item_title);
@@ -95,7 +101,8 @@ public class MovieListRecycleViewAdapter extends RecyclerView.Adapter<MovieListR
                 @Override
                 public void onClick(View v) {
                     RemoveMovieFromList removeMovieFromList = new RemoveMovieFromList();
-//                    removeMovieFromList.initialiseCreateMovieList();
+                    removeMovieFromList.initialiseCreateMovieList(GlobalVariables.SESSION_TOKEN, listId, movie.getId() + "");
+                    concreteContext.recreate();
                 }
             });
 

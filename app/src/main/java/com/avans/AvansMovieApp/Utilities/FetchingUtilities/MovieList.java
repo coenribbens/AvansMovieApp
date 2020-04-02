@@ -32,9 +32,9 @@ public class MovieList implements HTTPRequestable {
     }
     ArrayList<ListMovie> listMovies = new ArrayList<ListMovie>();
 
-    public void initialiseGetListRequest(String userId) {
+    public void initialiseGetListRequest() {
         MakeHTTPGETRequest makeReq = new MakeHTTPGETRequest(MovieList.this);
-        makeReq.execute(GlobalVariables.V3_BASE_URL + API_ENDPOINT + userId + API_LISTS + HTTP_GET_PARAMETERS);
+        makeReq.execute(GlobalVariables.V3_BASE_URL + API_ENDPOINT + this.userId + API_LISTS + HTTP_GET_PARAMETERS);
     }
 
 

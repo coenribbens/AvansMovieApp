@@ -29,7 +29,7 @@ public class MovieListActivity extends AppCompatActivity implements ListDetailsC
 
     @Override
     public void processListDetailsConvertableResult(ArrayList<CompactMovie> cm) {
-        MovieListRecycleViewAdapter movieRecycleViewAdapter = new MovieListRecycleViewAdapter(cm, this);
+        MovieListRecycleViewAdapter movieRecycleViewAdapter = new MovieListRecycleViewAdapter(cm, this, getIntent().getStringExtra("listId"));
         this.recyclerView.setAdapter(movieRecycleViewAdapter);
         this.recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
