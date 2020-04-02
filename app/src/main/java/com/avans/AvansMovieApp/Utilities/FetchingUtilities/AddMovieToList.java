@@ -11,16 +11,13 @@ import org.json.JSONObject;
 
 public class AddMovieToList implements HTTPRequestable {
     private String TAG = this.getClass().getSimpleName();
-    MovieDBHandler db = new MovieDBHandler()
     private String API_ENDPOINT = "/list";
     private String HTTP_GET_PARAMETERS = "?api_key=" + GlobalVariables.API_KEY_V3;
-    private String HTTP_USER_SESSION = db.getGuestToken();
 
-
-    public void initialiseCreateMovieList(String name, String description, String language) {
-
+    public void initialiseCreateMovieList(String name, String description, String language, String userId, String listId) {
+        String HTTP_USER_SESSION = userId;
         try {
-            String userId = db.getGuestToken();
+
             String requestURI = GlobalVariables.V3_BASE_URL
                     + API_ENDPOINT
                     + HTTP_GET_PARAMETERS
@@ -35,7 +32,7 @@ public class AddMovieToList implements HTTPRequestable {
 
             // Post Request
         //    MakeHTTPPOSTRequest makeReq = new MakeHTTPPOSTRequest(CreateMovieList.this);
-            makeReq.execute(requestURI, requestBody.toString());
+           // makeReq.execute(requestURI, requestBody.toString());
         } catch (Exception e) {
             Log.d(TAG, e.toString());
         }
