@@ -24,7 +24,7 @@ public class ListActivity extends AppCompatActivity implements MovieListsConvert
         setContentView(R.layout.activity_list);
         setTitle("My Lists");
         this.recyclerView = findViewById(R.id.rv_list_items);
-        MovieList movieList = new MovieList(GlobalVariables.getGuestSessionID(), this);
+        MovieList movieList = new MovieList(GlobalVariables.SESSION_TOKEN, this);
         movieList.initialiseGetListRequest();
 
 

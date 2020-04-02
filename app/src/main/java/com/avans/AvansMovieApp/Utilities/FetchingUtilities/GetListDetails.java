@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public class GetListDetails implements HTTPRequestable {
     private String userId;
     private String listId;
+    private ListDetailsConvertable context;
     MovieDBHandler db;
     private String TAG = this.getClass().getSimpleName();
     private String API_ENDPOINT = "/list/";
@@ -24,6 +25,10 @@ public class GetListDetails implements HTTPRequestable {
     private String HTTP_USER_SESSION = db.getGuestToken();
     private ArrayList<CompactMovie> compactMovies = new ArrayList<CompactMovie>();
     private String rawResponseBody;
+
+    public GetListDetails(ListDetailsConvertable context){
+        this.context = context;
+    }
 
     public void initialiseCreateMovieList(String listId) {
         try {
@@ -85,7 +90,7 @@ public class GetListDetails implements HTTPRequestable {
                         )
                 );
             }
-
+            this.context.processListDetailsConvertableResult(compactMovies);
         } catch (Exception e) {
             Log.d(TAG, e.toString());
         }

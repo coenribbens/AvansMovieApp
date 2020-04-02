@@ -9,10 +9,11 @@ import android.os.Bundle;
 import com.avans.AvansMovieApp.Adapters.MovieRecycleViewAdapter;
 import com.avans.AvansMovieApp.Model.CompactMovie;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetListDetails;
+import com.avans.AvansMovieApp.Utilities.FetchingUtilities.ListDetailsConvertable;
 
 import java.util.ArrayList;
 
-public class MovieListActivity extends AppCompatActivity {
+public class MovieListActivity extends AppCompatActivity implements ListDetailsConvertable {
     private RecyclerView recyclerView;
 
     @Override
@@ -21,13 +22,13 @@ public class MovieListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list);
 //        setTitle();
         this.recyclerView = findViewById(R.id.rv_list_items);
-        GetListDetails getListDetails = new GetListDetails();
+        GetListDetails getListDetails = new GetListDetails(this);
         getListDetails.initialiseCreateMovieList(getIntent().getStringExtra("listId"));
     }
 
-    //TODO Callback method
-    public void callBack(ArrayList<CompactMovie> compactMovies){
-        MovieRecycleViewAdapter movieRecycleViewAdapter = new MovieRecycleViewAdapter(compactMovies, this);
+    @Override
+    public void processListDetailsConvertableResult(ArrayList<CompactMovie> cm) {
+        MovieRecycleViewAdapter movieRecycleViewAdapter = new MovieRecycleViewAdapter(cm, this);
         this.recyclerView.setAdapter(movieRecycleViewAdapter);
         this.recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
