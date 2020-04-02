@@ -72,8 +72,8 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable,T
 
 
         }
-       // CreateMovieList cmv = new CreateMovieList();
-       // cmv.initialiseCreateMovieList(GlobalVariables.GUEST_SESSION_ID, "test", "test", "nl");
+        CreateMovieList cmv = new CreateMovieList();
+        cmv.initialiseCreateMovieList(GlobalVariables.getGuestSessionID(), "test", "test", "nl");
 
     }
 
