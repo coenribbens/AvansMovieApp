@@ -13,6 +13,7 @@ import android.widget.EditText;
 import com.avans.AvansMovieApp.Adapters.MovieRecycleViewAdapter;
 import com.avans.AvansMovieApp.Model.CompactMovie;
 import com.avans.AvansMovieApp.Model.GlobalVariables;
+import com.avans.AvansMovieApp.Utilities.FetchingUtilities.CreateMovieList;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.CreateNewSession;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.FetchGuestSessionToken;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetPopularMovies;
@@ -46,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable,T
         GetPopularMovies getPopularMovies = new GetPopularMovies(this);
         getPopularMovies.getPopularMovies();
 
+        CreateMovieList cmv = new CreateMovieList();
+        cmv.initialiseCreateMovieList(GlobalVariables.GUEST_SESSION_ID, "name", "desc", "en");
 
         // search
         this.searchButton = findViewById(R.id.btn_search_button);
