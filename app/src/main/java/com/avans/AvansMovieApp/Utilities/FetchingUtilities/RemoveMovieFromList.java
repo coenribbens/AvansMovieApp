@@ -13,18 +13,20 @@ public class RemoveMovieFromList implements HTTPRequestable {
     private String API_ENDPOINT = "/list/";
     private String HTTP_GET_PARAMETERS = "?api_key=" + GlobalVariables.API_KEY_V3;
 
-    public void initialiseCreateMovieList(String userId, String listId) {
+    public void initialiseCreateMovieList(String userId, String listId, String movieId) {
         String HTTP_USER_SESSION = userId;
         try {
 
             String requestURI = GlobalVariables.V3_BASE_URL
                     + API_ENDPOINT
                     + listId
+                    + "/remove_item"
                     + HTTP_GET_PARAMETERS
                     + HTTP_USER_SESSION;
 
             // Request Body
             JSONObject requestBody = new JSONObject();
+            requestBody.put("media_id", movieId);
 
             // Post Request
             MakeHTTPPOSTRequest makeReq = new MakeHTTPPOSTRequest(RemoveMovieFromList.this);
@@ -37,6 +39,6 @@ public class RemoveMovieFromList implements HTTPRequestable {
 
     @Override
     public void ProcessHTTPResponseBody(String HTTPGETResponse) {
-        //Nothing that has to be returned
+
     }
 }
