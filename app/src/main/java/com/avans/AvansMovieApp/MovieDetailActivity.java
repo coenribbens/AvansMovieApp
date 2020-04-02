@@ -15,15 +15,19 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.avans.AvansMovieApp.Adapters.AddToListRecycleViewAdapter;
 import com.avans.AvansMovieApp.Adapters.ReviewAdapter;
 import com.avans.AvansMovieApp.Model.DetailedMovie;
 import com.avans.AvansMovieApp.Model.GlobalVariables;
+import com.avans.AvansMovieApp.Model.ListMovie;
 import com.avans.AvansMovieApp.Model.Review;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetDetailedMovieFromMovieId;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetReviews;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetYoutubeIdFromMovieId;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.MovieIdDetailedMovieConvertable;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.MovieIdYoutubeIdConvertable;
+import com.avans.AvansMovieApp.Utilities.FetchingUtilities.MovieList;
+import com.avans.AvansMovieApp.Utilities.FetchingUtilities.MovieListsConvertable;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.MovieReviewsConvertable;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.PostTokenAndAuthenticate;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
@@ -34,7 +38,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
-public class MovieDetailActivity extends AppCompatActivity implements MovieIdDetailedMovieConvertable, MovieIdYoutubeIdConvertable, MovieReviewsConvertable, HTTPRequestable {
+public class MovieDetailActivity extends AppCompatActivity implements MovieIdDetailedMovieConvertable, MovieIdYoutubeIdConvertable, MovieReviewsConvertable, HTTPRequestable{
     private TextView mTitle;
     private TextView mYear;
     private ImageView mImageView;
@@ -128,7 +132,9 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
         this.mListToggle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent addMovieToListActivity = new Intent(MovieDetailActivity.this, AddMovieToListActivity.class);
+                addMovieToListActivity.putExtra("movieId", movieId);
+                MovieDetailActivity.this.startActivity(addMovieToListActivity);
             }
         });
 
@@ -263,4 +269,5 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
         Log.v("{{REPSO}}",HTTPGETResponse);
 
     }
+
 }

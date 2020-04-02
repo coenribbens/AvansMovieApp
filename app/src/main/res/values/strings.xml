@@ -17,4 +17,5 @@
     <string name="go_to_list_menu_text_str">View created lists</string>
     <string name="unknown">Unknown</string>
     <string name="Minutes">Minutes</string>
+    <string name="my_lists">My Lists</string>
 </resources>

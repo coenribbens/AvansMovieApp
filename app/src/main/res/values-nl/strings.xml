@@ -17,4 +17,5 @@
     <string name="go_to_list_menu_text_str">Ga naar gemaakte lijsten</string>
     <string name="unknown">Onbekend</string>
     <string name="Minutes">Minuten</string>
+    <string name="my_lists">My Lists</string>
 </resources>
