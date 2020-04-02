@@ -21,11 +21,11 @@ import java.util.ArrayList;
 public class ListRecycleViewAdapter extends RecyclerView.Adapter<ListRecycleViewAdapter.MovieViewHolder> {
     private static final String TAG = "RecycleViewAdapter";
 
-    private ArrayList<ListMovie> movies;
+    private ArrayList<ListMovie> listsMovies;
     private Context context;
 
-    public ListRecycleViewAdapter(ArrayList<ListMovie> movies, Context context){
-        this.movies = movies;
+    public ListRecycleViewAdapter(ArrayList<ListMovie> listsMovies, Context context){
+        this.listsMovies = listsMovies;
         this.context = context;
     }
 
@@ -39,53 +39,53 @@ public class ListRecycleViewAdapter extends RecyclerView.Adapter<ListRecycleView
 
     @Override
     public void onBindViewHolder(@NonNull final MovieViewHolder holder, int position) {
-        if(!movies.get(position).getPosterPath().equals("null")){
+        if(!listsMovies.get(position).getPosterPath().equals("null")){
             Glide.with(this.context)
                     .asBitmap()
-                    .load("https://image.tmdb.org/t/p/w600_and_h900_bestv2" + movies.get(position).getPosterPath())
+                    .load("https://image.tmdb.org/t/p/w600_and_h900_bestv2" + listsMovies.get(position).getPosterPath())
                     .into(holder.image);
         }
         else{
             holder.image.setImageResource(R.drawable.ic_broken_image_black_24dp);
         }
-        holder.movieTitle.setText(movies.get(position).getListName());
-        holder.description.setText(movies.get(position).getDescription());
-        holder.language.setText(movies.get(position).getLanguage());
+        holder.listName.setText(listsMovies.get(position).getListName());
+        holder.description.setText(listsMovies.get(position).getDescription());
+        holder.language.setText(listsMovies.get(position).getLanguage());
 
         holder.context = this.context;
-        holder.movie = movies.get(position);
+        holder.listMovie = listsMovies.get(position);
 
 
     }
 
     @Override
     public int getItemCount() {
-        if(this.movies == null){
+        if(this.listsMovies == null){
             return 0;
         }
-        return this.movies.size();
+        return this.listsMovies.size();
     }
 
     public class MovieViewHolder extends RecyclerView.ViewHolder {
 
         ImageView image;
-        TextView movieTitle;
+        TextView listName;
         TextView language;
         TextView description;
         Context context;
-        ListMovie movie;
+        ListMovie listMovie;
 
         public MovieViewHolder(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.iv_list_item_image);
-            movieTitle = itemView.findViewById(R.id.tv_list_item_title);
+            listName = itemView.findViewById(R.id.tv_list_item_title);
             language = itemView.findViewById(R.id.tv_list_item_language);
             description = itemView.findViewById(R.id.tv_list_item_description);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, MovieDetailActivity.class);
-                    intent.putExtra("movieid", movie.getId());
+                    intent.putExtra("listid", listMovie.getId());
                     context.startActivity(intent);
                 }
             });

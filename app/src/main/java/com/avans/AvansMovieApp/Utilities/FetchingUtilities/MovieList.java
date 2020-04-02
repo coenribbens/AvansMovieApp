@@ -19,7 +19,6 @@ public class MovieList implements HTTPRequestable {
     private Context context;
 
     private String userId;
-    private String listId;
     private String listName;
     private String description;
     MovieDBHandler db;
@@ -28,9 +27,8 @@ public class MovieList implements HTTPRequestable {
     private String API_LISTS = "/lists";
     private String HTTP_GET_PARAMETERS = String.format("?api_key=%s&language=%s&page=20", GlobalVariables.API_KEY_V3, GlobalVariables.LANG);
 
-    public MovieList(String userId, String listId) {
+    public MovieList(String userId) {
         this.userId = userId;
-        this.listId = listId;
     }
 
     public void initialiseGetListRequest() {
