@@ -34,7 +34,7 @@ public class AddMovieToList implements HTTPRequestable {
 
 
             // Post Request
-            MakeHTTPPOSTRequest makeReq = new MakeHTTPPOSTRequest(CreateMovieList.this);
+        //    MakeHTTPPOSTRequest makeReq = new MakeHTTPPOSTRequest(CreateMovieList.this);
             makeReq.execute(requestURI, requestBody.toString());
         } catch (Exception e) {
             Log.d(TAG, e.toString());

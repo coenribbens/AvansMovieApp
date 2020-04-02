@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 
 import com.avans.AvansMovieApp.Adapters.ListRecycleViewAdapter;
+import com.avans.AvansMovieApp.Datalayer.MovieDBHandler;
 import com.avans.AvansMovieApp.Model.GlobalVariables;
 import com.avans.AvansMovieApp.Model.ListMovie;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.MovieList;
@@ -17,6 +18,7 @@ import java.util.List;
 
 public class ListActivity extends AppCompatActivity implements MovieListsConvertable {
     private RecyclerView recyclerView;
+    MovieDBHandler mdh = new MovieDBHandler(this.getApplicationContext(), "ListActivity", null, +1);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
