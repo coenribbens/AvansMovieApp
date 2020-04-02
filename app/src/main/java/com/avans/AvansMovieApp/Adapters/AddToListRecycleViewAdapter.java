@@ -94,7 +94,7 @@ public class AddToListRecycleViewAdapter extends RecyclerView.Adapter<AddToListR
                 public void onClick(View v) {
                     AddMovieToList addMovieToList = new AddMovieToList();
 
-                    Toast.makeText(context, "Movie has been added", Toast.LENGTH_LONG);
+                    Toast.makeText(context, "Movie has been added to List: " + listName.getText().toString(), Toast.LENGTH_LONG);
                 }
             });
 

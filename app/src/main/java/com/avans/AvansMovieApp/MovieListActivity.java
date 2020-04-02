@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
+import com.avans.AvansMovieApp.Adapters.MovieListRecycleViewAdapter;
 import com.avans.AvansMovieApp.Adapters.MovieRecycleViewAdapter;
 import com.avans.AvansMovieApp.Model.CompactMovie;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetListDetails;
@@ -28,7 +29,7 @@ public class MovieListActivity extends AppCompatActivity implements ListDetailsC
 
     @Override
     public void processListDetailsConvertableResult(ArrayList<CompactMovie> cm) {
-        MovieRecycleViewAdapter movieRecycleViewAdapter = new MovieRecycleViewAdapter(cm, this);
+        MovieListRecycleViewAdapter movieRecycleViewAdapter = new MovieListRecycleViewAdapter(cm, this);
         this.recyclerView.setAdapter(movieRecycleViewAdapter);
         this.recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
