@@ -22,4 +22,5 @@
     <string name="create">Maak aan</string>
     <string name="description">Beschrijving</string>
     <string name="name">Naam</string>
+    <string name="remove_list">Verwijder lijst</string>
 </resources>
