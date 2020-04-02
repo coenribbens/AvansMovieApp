@@ -1,12 +1,7 @@
 package com.avans.AvansMovieApp.Utilities.FetchingUtilities;
 
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.nfc.Tag;
 import android.util.Log;
 
-import com.avans.AvansMovieApp.Datalayer.MovieDBHandler;
-import com.avans.AvansMovieApp.Model.DetailedMovie;
 import com.avans.AvansMovieApp.Model.GlobalVariables;
 import com.avans.AvansMovieApp.Model.ListMovie;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
@@ -25,7 +20,6 @@ public class MovieList implements HTTPRequestable {
     private String userId;
     private String listName;
     private String description;
-    MovieDBHandler db;
 
 
     private String API_ENDPOINT = "/account/";
@@ -37,8 +31,7 @@ public class MovieList implements HTTPRequestable {
     }
     ArrayList<ListMovie> listMovies = new ArrayList<ListMovie>();
 
-    public void initialiseGetListRequest() {
-       userId = db.getGuestToken();
+    public void initialiseGetListRequest(String userId) {
         MakeHTTPGETRequest makeReq = new MakeHTTPGETRequest(MovieList.this);
         makeReq.execute(GlobalVariables.V3_BASE_URL + API_ENDPOINT + userId + API_LISTS + HTTP_GET_PARAMETERS);
     }
