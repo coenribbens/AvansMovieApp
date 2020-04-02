@@ -51,6 +51,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
     private TextView mProductionCompaniesContent;
     private ImageButton mShare;
     private ImageButton mTrailer;
+    private ImageButton mListToggle;
     private ListView mListview;
     private DetailedMovie movie;
     //private ReviewAdapter mReviewAdapter;
@@ -97,6 +98,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
         this.mProductionCompaniesContent = findViewById(R.id.tv_movie_detail_production_companies_content);
         this.mShare = findViewById(R.id.ib_movie_detail_share);
         this.mTrailer = findViewById(R.id.ib_movie_detail_youtube);
+        this.mListToggle = findViewById(R.id.ib_movie_detail_list_toggle);
         //this.mListview = findViewById(R.id.ib_listview_review);
         this.mRatingBar = findViewById(R.id.rb_rating_bar);
         this.mSendButton = findViewById(R.id.b_send_button);
@@ -122,6 +124,13 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
             }
         });
 
+        //TODO make click logic for mListToggle. Also check if the movie is already added to the list when starting up, change the drawable accordingly.
+        this.mListToggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
 
         // get a token first
