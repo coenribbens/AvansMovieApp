@@ -32,8 +32,9 @@ public class MovieList implements HTTPRequestable {
     private String API_LISTS = "/lists";
     private String HTTP_GET_PARAMETERS = String.format("?api_key=%s&language=%s&page=20", GlobalVariables.API_KEY_V3, GlobalVariables.LANG);
 
-    public MovieList(String userId) {
+    public MovieList(String userId, MovieListsConvertable context) {
         this.userId = userId;
+        this.context = context;
     }
     ArrayList<ListMovie> listMovies = new ArrayList<ListMovie>();
 
