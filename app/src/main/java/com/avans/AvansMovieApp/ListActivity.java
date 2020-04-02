@@ -23,7 +23,7 @@ public class ListActivity extends AppCompatActivity {
         this.recyclerView = findViewById(R.id.rv_list_items);
         final String listId = getIntent().getStringExtra("listId");
         final String userId = getIntent().getStringExtra("userId");
-        MovieList movieList = new MovieList(userId, listId);
+        MovieList movieList = new MovieList(userId);
         movieList.initialiseGetListRequest();
 
 

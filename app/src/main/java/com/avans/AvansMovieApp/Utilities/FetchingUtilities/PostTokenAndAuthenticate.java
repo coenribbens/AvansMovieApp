@@ -21,7 +21,7 @@ public class PostTokenAndAuthenticate implements HTTPRequestable {
 
     @Override
     public void ProcessHTTPResponseBody(String HTTPResponseBody) {
-        db.insertGuestToken(HTTPResponseBody);
+//        db.insertGuestToken(HTTPResponseBody);
         GlobalVariables.setRequestToken(HTTPResponseBody);
     }
 }
