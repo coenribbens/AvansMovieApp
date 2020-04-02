@@ -45,16 +45,6 @@ public class CreateMovieList implements HTTPRequestable {
     @Override
     public void ProcessHTTPResponseBody(String HTTPGETResponse) {
     Log.d(TAG, HTTPGETResponse);
-    try {
-        JSONObject jsonObject = new JSONObject(HTTPGETResponse);
-        String listId = jsonObject.getString("list_id");
-
-        //Insert listid into database
-        db.insertMovieListid(db.getGuestToken(), listId);
-
-    } catch(Exception e) {
-        Log.d(TAG, e.toString());
-    }
 
     }
 }

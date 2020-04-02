@@ -8,28 +8,26 @@ import com.avans.AvansMovieApp.Utilities.NeworkUtilities.MakeHTTPPOSTRequest;
 
 import org.json.JSONObject;
 
-public class AddMovieToList implements HTTPRequestable {
+public class RemoveMovieFromList implements HTTPRequestable {
     private String TAG = this.getClass().getSimpleName();
     private String API_ENDPOINT = "/list/";
     private String HTTP_GET_PARAMETERS = "?api_key=" + GlobalVariables.API_KEY_V3;
 
-    public void initialiseCreateMovieList(String userId, String listId, String movieId) {
+    public void initialiseCreateMovieList(String userId, String listId) {
         String HTTP_USER_SESSION = userId;
         try {
 
             String requestURI = GlobalVariables.V3_BASE_URL
                     + API_ENDPOINT
                     + listId
-                    + "/add_item"
                     + HTTP_GET_PARAMETERS
                     + HTTP_USER_SESSION;
 
             // Request Body
             JSONObject requestBody = new JSONObject();
-            requestBody.put("media_id", movieId);
 
             // Post Request
-            MakeHTTPPOSTRequest makeReq = new MakeHTTPPOSTRequest(AddMovieToList.this);
+            MakeHTTPPOSTRequest makeReq = new MakeHTTPPOSTRequest(RemoveMovieFromList.this);
             makeReq.execute(requestURI, requestBody.toString());
         } catch (Exception e) {
             Log.d(TAG, e.toString());
@@ -39,7 +37,6 @@ public class AddMovieToList implements HTTPRequestable {
 
     @Override
     public void ProcessHTTPResponseBody(String HTTPGETResponse) {
-    //Nothing needs to be returned here
+        //Nothing that has to be returned
     }
-
 }
