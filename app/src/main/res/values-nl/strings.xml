@@ -13,8 +13,6 @@
     <string name="rating_sent_text">Beoordeling gestuurt</string>
     <string name="send">stuur</string>
     <string name="rating_bigger_5">beoordeling moet meer dan 1 ster hebben</string>
-    <string name="switch_lang_menu_text_str">Wissel taal</string>
-    <string name="go_to_list_menu_text_str">Ga naar gemaakte lijsten</string>
     <string name="unknown">Onbekend</string>
     <string name="Minutes">Minuten</string>
 </resources>
