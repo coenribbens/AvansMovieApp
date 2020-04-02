@@ -154,4 +154,16 @@ public class MovieDBHandler extends SQLiteOpenHelper {
         return movieLists;
     }
 
+    public void insertMovieListid(String userId, String listId) {
+        //Log for Debugging
+        Log.d(TAG, "insertMovieListId");
+
+        //Guest the database
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        //Prepare values
+    ContentValues values = new ContentValues();
+    values.put("userId", userId);
+    }
+
 }

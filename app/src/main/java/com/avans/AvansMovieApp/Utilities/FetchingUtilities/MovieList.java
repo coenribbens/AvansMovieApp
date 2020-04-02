@@ -14,9 +14,9 @@ import com.avans.AvansMovieApp.Utilities.NeworkUtilities.MakeHTTPGETRequest;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public abstract class MovieList implements HTTPRequestable {
+public class MovieList implements HTTPRequestable {
     private String TAG = this.getClass().getSimpleName();
-    private Context movieListContext;
+    private Context context;
 
     private String userId;
     private String listId;
