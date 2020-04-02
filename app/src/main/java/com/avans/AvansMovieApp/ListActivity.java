@@ -10,11 +10,12 @@ import com.avans.AvansMovieApp.Adapters.ListRecycleViewAdapter;
 import com.avans.AvansMovieApp.Model.GlobalVariables;
 import com.avans.AvansMovieApp.Model.ListMovie;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.MovieList;
+import com.avans.AvansMovieApp.Utilities.FetchingUtilities.MovieListsConvertable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListActivity extends AppCompatActivity {
+public class ListActivity extends AppCompatActivity implements MovieListsConvertable {
     private RecyclerView recyclerView;
 
     @Override
@@ -23,15 +24,15 @@ public class ListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list);
         setTitle("My Lists");
         this.recyclerView = findViewById(R.id.rv_list_items);
-        MovieList movieList = new MovieList(GlobalVariables.getGuestSessionID());
+        MovieList movieList = new MovieList(GlobalVariables.SESSION_TOKEN, this);
         movieList.initialiseGetListRequest();
 
 
     }
 
-    //TODO change the name of this method to the actual callback method name.
-    public void callBack(ArrayList<ListMovie> listMovies){
-        ListRecycleViewAdapter listRecycleViewAdapter = new ListRecycleViewAdapter(listMovies, this);
+    @Override
+    public void processMovieListConvertableResult(ArrayList<ListMovie> lm) {
+        ListRecycleViewAdapter listRecycleViewAdapter = new ListRecycleViewAdapter(lm, this);
         this.recyclerView.setAdapter(listRecycleViewAdapter);
         this.recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
