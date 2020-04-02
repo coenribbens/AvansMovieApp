@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 
 import com.avans.AvansMovieApp.Adapters.ListRecycleViewAdapter;
+import com.avans.AvansMovieApp.Model.GlobalVariables;
 import com.avans.AvansMovieApp.Model.ListMovie;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.MovieList;
 
@@ -20,10 +21,9 @@ public class ListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
+        setTitle("My Lists");
         this.recyclerView = findViewById(R.id.rv_list_items);
-        final String listId = getIntent().getStringExtra("listId");
-        final String userId = getIntent().getStringExtra("userId");
-        MovieList movieList = new MovieList(userId);
+        MovieList movieList = new MovieList(GlobalVariables.getGuestSessionID());
         movieList.initialiseGetListRequest();
 
 

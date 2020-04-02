@@ -1,5 +1,6 @@
 package com.avans.AvansMovieApp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -90,7 +91,8 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable,T
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.go_to_list_menu_item:
-                // implement the intent to the list view
+                Intent intent = new Intent(this, ListActivity.class);
+                this.startActivity(intent);
                 return true;
             case R.id.switch_languages_menu_item:
                 this.switchLanguagesHelper.flipLanguages();

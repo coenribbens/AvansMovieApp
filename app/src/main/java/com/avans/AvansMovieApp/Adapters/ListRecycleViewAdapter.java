@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.avans.AvansMovieApp.Model.ListMovie;
 import com.avans.AvansMovieApp.MovieDetailActivity;
+import com.avans.AvansMovieApp.MovieListActivity;
 import com.avans.AvansMovieApp.R;
 import com.bumptech.glide.Glide;
 
@@ -84,7 +85,7 @@ public class ListRecycleViewAdapter extends RecyclerView.Adapter<ListRecycleView
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, MovieDetailActivity.class);
+                    Intent intent = new Intent(context, MovieListActivity.class);
                     intent.putExtra("listid", listMovie.getId());
                     context.startActivity(intent);
                 }
