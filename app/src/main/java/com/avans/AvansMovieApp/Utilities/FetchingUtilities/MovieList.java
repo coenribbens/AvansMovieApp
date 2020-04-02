@@ -6,6 +6,7 @@ import android.nfc.Tag;
 import android.util.Log;
 
 import com.avans.AvansMovieApp.Datalayer.MovieDBHandler;
+import com.avans.AvansMovieApp.Model.DetailedMovie;
 import com.avans.AvansMovieApp.Model.GlobalVariables;
 import com.avans.AvansMovieApp.Model.ListMovie;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
@@ -14,14 +15,18 @@ import com.avans.AvansMovieApp.Utilities.NeworkUtilities.MakeHTTPGETRequest;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class MovieList implements HTTPRequestable {
     private String TAG = this.getClass().getSimpleName();
-    private Context context;
+    private MovieListsConvertable context;
+    private ListMovie listMovie;
 
     private String userId;
     private String listName;
     private String description;
     MovieDBHandler db;
+
 
     private String API_ENDPOINT = "/account/";
     private String API_LISTS = "/lists";
@@ -30,6 +35,7 @@ public class MovieList implements HTTPRequestable {
     public MovieList(String userId) {
         this.userId = userId;
     }
+    ArrayList<ListMovie> listMovies = new ArrayList<ListMovie>();
 
     public void initialiseGetListRequest() {
        userId = db.getGuestToken();
@@ -57,12 +63,13 @@ public class MovieList implements HTTPRequestable {
              String language = feature.getJSONObject("results").getString("iso_639_1");
 
              ListMovie lm = new ListMovie(id, listName, description, posterPath, itemCount, language);
-
+            listMovies.add(lm);
 
         }
 
     }catch(Exception e) {
         Log.d(TAG , e.toString());
     }
+    context.processMovieListConvertableResult(this.listMovies);
     }
 }
