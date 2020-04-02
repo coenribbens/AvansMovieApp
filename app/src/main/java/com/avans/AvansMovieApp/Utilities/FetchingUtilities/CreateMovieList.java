@@ -14,13 +14,13 @@ public class CreateMovieList implements HTTPRequestable {
     MovieDBHandler db;
     private String API_ENDPOINT = "/list";
     private String HTTP_GET_PARAMETERS = "?api_key=" + GlobalVariables.API_KEY_V3;
-    private String HTTP_USER_SESSION = db.getGuestToken();
+    private String HTTP_USER_SESSION = null;
 
 
-    public void initialiseCreateMovieList(String name, String description, String language) {
-
+    public void initialiseCreateMovieList(String userId, String name, String description, String language) {
+        HTTP_USER_SESSION = userId;
         try {
-            String userId = db.getGuestToken();
+
             String requestURI = GlobalVariables.V3_BASE_URL
                     + API_ENDPOINT
                     + HTTP_GET_PARAMETERS
