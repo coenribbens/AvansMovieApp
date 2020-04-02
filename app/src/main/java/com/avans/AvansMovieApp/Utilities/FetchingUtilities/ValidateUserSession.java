@@ -30,24 +30,18 @@ public class ValidateUserSession implements HTTPRequestable {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.d(TAG, requestBody.toString());
 
         MakeHTTPPOSTRequest makeReq = new MakeHTTPPOSTRequest(ValidateUserSession.this);
         makeReq.execute(requestURI, requestBody.toString());
+        Log.d(TAG, requestURI);
+        Log.d(TAG, requestBody.toString());
     }
 
     @Override
     public void ProcessHTTPResponseBody(String HTTPGETResponse) {
-        Log.d(TAG, "----------------------------------------------------------------------");
         Log.d(TAG, HTTPGETResponse);
-        String sessionId = "";
-        try {
-            JSONObject jsonObject = new JSONObject(HTTPGETResponse);
-            sessionId = jsonObject.getString("session_id");
-
-        } catch(Exception e) {
-            Log.d(TAG, e.toString());
-        }
-        GlobalVariables.setSessionToken(sessionId);
+        Log.d(TAG, "----------------------------------------------------------------------");
+        CreateSession createSession = new CreateSession();
+        createSession.initialiseCreateMovieList();
     }
 }

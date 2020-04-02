@@ -23,6 +23,7 @@ public class CreateSession implements HTTPRequestable {
         JSONObject requestBody = new JSONObject();
         try {
             requestBody.put("request_token", GlobalVariables.REQUEST_TOKEN);
+            Log.d(TAG, requestBody.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
