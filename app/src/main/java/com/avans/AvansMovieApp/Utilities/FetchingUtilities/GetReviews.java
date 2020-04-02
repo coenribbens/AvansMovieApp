@@ -1,5 +1,6 @@
 package com.avans.AvansMovieApp.Utilities.FetchingUtilities;
 import android.content.Context;
+import android.util.Log;
 
 import com.avans.AvansMovieApp.Model.GlobalVariables;
 import com.avans.AvansMovieApp.Model.Review;
@@ -12,6 +13,7 @@ import org.json.JSONException;
 import java.util.ArrayList;
 
 public class GetReviews implements HTTPRequestable {
+    private String TAG = this.getClass().getSimpleName();
         private MovieReviewsConvertable context;
 
         private String API_ENDPOINT1 = "/movie";
@@ -24,6 +26,8 @@ public class GetReviews implements HTTPRequestable {
             this.context = context;
             MakeHTTPGETRequest makeReq = new MakeHTTPGETRequest(GetReviews.this);
             makeReq.execute(GlobalVariables.V3_BASE_URL + API_ENDPOINT1 + "/" + MOVIEID + API_ENDPOINT2 + HTTP_GET_PARAMETERS );
+            Fullrequest = GlobalVariables.V3_BASE_URL + API_ENDPOINT1 + "/" + MOVIEID + API_ENDPOINT2 + HTTP_GET_PARAMETERS;
+            Log.d(TAG, Fullrequest);
 
         }
 
@@ -43,6 +47,7 @@ public class GetReviews implements HTTPRequestable {
 
     @Override
     public void ProcessHTTPResponseBody(String HTTPGETResponse) {
+            Log.d(TAG, HTTPGETResponse);
         ParseJSONReviews pjr = new ParseJSONReviews(HTTPGETResponse);
         try {
             pjr.fetchReviews();
