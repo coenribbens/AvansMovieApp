@@ -1,16 +1,11 @@
 package com.avans.AvansMovieApp.Utilities.Miscellaneous;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.os.Build;
 import android.util.DisplayMetrics;
-import android.util.Log;
 
 import com.avans.AvansMovieApp.MainActivity;
 import com.avans.AvansMovieApp.Model.GlobalVariables;
-import com.avans.AvansMovieApp.R;
 
 import java.util.Locale;
 

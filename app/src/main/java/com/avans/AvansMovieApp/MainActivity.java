@@ -3,7 +3,6 @@ package com.avans.AvansMovieApp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,8 +13,8 @@ import com.avans.AvansMovieApp.Adapters.MovieRecycleViewAdapter;
 import com.avans.AvansMovieApp.Model.CompactMovie;
 import com.avans.AvansMovieApp.Model.GlobalVariables;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.CreateMovieList;
-import com.avans.AvansMovieApp.Utilities.FetchingUtilities.CreateNewSession;
-import com.avans.AvansMovieApp.Utilities.FetchingUtilities.FetchGuestSessionToken;
+import com.avans.AvansMovieApp.Utilities.FetchingUtilities.CreateRequestToken;
+import com.avans.AvansMovieApp.Utilities.FetchingUtilities.CreateUserSession;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetPopularMovies;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetSearchedMovies;
 import com.avans.AvansMovieApp.Utilities.JSONUtiliies.ParseJSONPopularToCompactMovie;
@@ -48,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable,T
         getPopularMovies.getPopularMovies();
 
         CreateMovieList cmv = new CreateMovieList();
-        cmv.initialiseCreateMovieList(GlobalVariables.GUEST_SESSION_ID, "name", "desc", "en");
+        cmv.initialiseCreateMovieList(GlobalVariables.GUEST_SESSION_ID, "test", "test", "nl");
 
         // search
         this.searchButton = findViewById(R.id.btn_search_button);
@@ -68,13 +67,11 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable,T
 
 
 
-        //!!!! TODO work on sessions
-        CreateNewSession createNewSession = new CreateNewSession();
-        createNewSession.initializeCreateNewSessionRequest();
-        Log.v("{{SESS}}", "" + GlobalVariables.SESSION_TOKEN);
-        if (GlobalVariables.getGuestSessionID() == null) {
-            FetchGuestSessionToken fetchGuestSessionToken = new FetchGuestSessionToken();
-            fetchGuestSessionToken.initializeCreateNewGuestSessionRequest();
+        CreateRequestToken requestToken = new CreateRequestToken();
+        requestToken.initialiseCreateMovieList();
+        if(GlobalVariables.getGuestSessionID() == null) {
+            CreateUserSession getUserSessionToken = new CreateUserSession();
+            getUserSessionToken.initialiseCreateMovieList();
         }
     }
 

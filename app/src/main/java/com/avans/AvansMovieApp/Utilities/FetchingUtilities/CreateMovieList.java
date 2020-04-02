@@ -17,7 +17,7 @@ public class CreateMovieList implements HTTPRequestable {
 
 
     public void initialiseCreateMovieList(String userId, String name, String description, String language) {
-        HTTP_USER_SESSION = "&session_id=" + GlobalVariables.getGuestSessionID();
+        HTTP_USER_SESSION = "&session_id=" + GlobalVariables.getSessionToken();
         try {
 
             String requestURI = GlobalVariables.V3_BASE_URL
@@ -34,6 +34,7 @@ public class CreateMovieList implements HTTPRequestable {
 
             // Post Request
             MakeHTTPPOSTRequest makeReq = new MakeHTTPPOSTRequest(CreateMovieList.this);
+            Log.d(TAG, "------------------------------------------------------------------------------------------------");
             Log.d(TAG, requestBody.toString());
             Log.d(TAG, requestURI);
             Log.d(TAG, "------------------------------------------------------------------------------------------------");
@@ -46,7 +47,9 @@ public class CreateMovieList implements HTTPRequestable {
 
     @Override
     public void ProcessHTTPResponseBody(String HTTPGETResponse) {
+
     Log.d(TAG, HTTPGETResponse);
+        Log.d(TAG, "---------------------------------------");
 
     }
 }
