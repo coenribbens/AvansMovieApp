@@ -1,5 +1,6 @@
 package com.avans.AvansMovieApp.Utilities.FetchingUtilities;
 
+import android.os.Looper;
 import android.util.Log;
 
 import com.avans.AvansMovieApp.Model.GlobalVariables;
@@ -30,7 +31,7 @@ public class CreateUserSession implements HTTPRequestable {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
+        Log.d(TAG, requestBody.toString());
 
         MakeHTTPPOSTRequest makeReq = new MakeHTTPPOSTRequest(CreateUserSession.this);
         makeReq.execute(requestURI, requestBody.toString());

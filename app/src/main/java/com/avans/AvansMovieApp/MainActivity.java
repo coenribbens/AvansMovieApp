@@ -3,6 +3,7 @@ package com.avans.AvansMovieApp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.avans.AvansMovieApp.Utilities.Miscellaneous.SwitchLanguagesHelper;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
 
 import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -37,6 +39,8 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable,T
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        CreateRequestToken requestToken = new CreateRequestToken();
+        requestToken.initialiseCreateMovieList();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.recyclerView = findViewById(R.id.rv_movie_items);
@@ -64,16 +68,8 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable,T
             }
         });
 
-        CreateRequestToken requestToken = new CreateRequestToken();
-        requestToken.initialiseCreateMovieList();
-        if(GlobalVariables.getGuestSessionID() == null) {
-            CreateUserSession getUserSessionToken = new CreateUserSession();
-            getUserSessionToken.initialiseCreateMovieList();
-
-
-        }
-        CreateMovieList cmv = new CreateMovieList();
-        cmv.initialiseCreateMovieList(GlobalVariables.getGuestSessionID(), "test", "test", "nl");
+//        CreateMovieList cmv = new CreateMovieList();
+//        cmv.initialiseCreateMovieList(GlobalVariables.getSessionToken(), "test", "test", "nl");
 
     }
 

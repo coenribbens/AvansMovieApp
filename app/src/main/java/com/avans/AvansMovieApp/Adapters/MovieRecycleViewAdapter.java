@@ -12,8 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.avans.AvansMovieApp.Model.CompactMovie;
+import com.avans.AvansMovieApp.Model.GlobalVariables;
 import com.avans.AvansMovieApp.MovieDetailActivity;
 import com.avans.AvansMovieApp.R;
+import com.avans.AvansMovieApp.Utilities.FetchingUtilities.CreateUserSession;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;

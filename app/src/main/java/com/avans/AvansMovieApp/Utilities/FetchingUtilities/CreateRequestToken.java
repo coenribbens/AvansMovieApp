@@ -10,6 +10,8 @@ import com.avans.AvansMovieApp.Utilities.NeworkUtilities.MakeHTTPPOSTRequest;
 
 import org.json.JSONObject;
 
+import java.util.concurrent.CountDownLatch;
+
 public class CreateRequestToken implements HTTPRequestable {
     private String TAG = this.getClass().getSimpleName();
     private String API_ENDPOINT = "/authentication/token/new";
@@ -39,6 +41,13 @@ public class CreateRequestToken implements HTTPRequestable {
     } catch(Exception e) {
         Log.d(TAG, e.toString());
     }
-    GlobalVariables.setRequestToken(requestToken);
+    finally {
+        GlobalVariables.setRequestToken(requestToken);
+        Log.d(TAG, GlobalVariables.getRequestToken());
+        if(GlobalVariables.getGuestSessionID() == null) {
+            CreateUserSession getUserSessionToken = new CreateUserSession();
+            getUserSessionToken.initialiseCreateMovieList();
+        }
+    }
     }
 }
