@@ -64,9 +64,10 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable,T
 
 
 
+        //!!!! TODO work on sessions
         CreateNewSession createNewSession = new CreateNewSession();
         createNewSession.initializeCreateNewSessionRequest();
-        Log.v("{{SESS}}",""+ GlobalVariables.SESSION_TOKEN);
+        Log.v("{{SESS}}", "" + GlobalVariables.SESSION_TOKEN);
         if (GlobalVariables.getGuestSessionID() == null) {
             FetchGuestSessionToken fetchGuestSessionToken = new FetchGuestSessionToken();
             fetchGuestSessionToken.initializeCreateNewGuestSessionRequest();
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable,T
     }
 
 
-    public void changeTitle(String titleText){
+    public void changeTitle(String titleText) {
         setTitle(titleText);
     }
 
@@ -106,14 +107,14 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable,T
 
     @Override
     public void onBackPressed() {
-       if(backButtonBooleanIsInSearchRecyclerView){
-           searchBarField.getText().clear();
-           setTitle(getResources().getText(R.string.pop_main_ac_title));
-           GetPopularMovies getPopularMovies = new GetPopularMovies(this);
-           getPopularMovies.getPopularMovies();
-       } else{
-           super.onBackPressed();
-       }
+        if (backButtonBooleanIsInSearchRecyclerView) {
+            searchBarField.getText().clear();
+            setTitle(getResources().getText(R.string.pop_main_ac_title));
+            GetPopularMovies getPopularMovies = new GetPopularMovies(this);
+            getPopularMovies.getPopularMovies();
+        } else {
+            super.onBackPressed();
+        }
 
     }
 
@@ -123,29 +124,25 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable,T
 
         ParseJSONPopularToCompactMovie parser = new ParseJSONPopularToCompactMovie(HTTPGETResponse);
 
-        if(getTitle() != getResources().getString(R.string.pop_main_ac_title)){
+        if (getTitle() != getResources().getString(R.string.pop_main_ac_title)) {
             backButtonBooleanIsInSearchRecyclerView = true;
         }
 
 
-        try{
+        try {
             parser.fetchSmallMovies();
             ArrayList<CompactMovie> movies = parser.getCompactMovies();
             MovieRecycleViewAdapter movieRecycleViewAdapter = new MovieRecycleViewAdapter(movies, this);
             this.recyclerView.setAdapter(movieRecycleViewAdapter);
             this.recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-           // TODO reintroduce hot loading functionality
+            // TODO reintroduce hot loading functionality
 
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
-
-
-
 
 }
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
@@ -8,23 +9,37 @@
     android:padding="10dp">
 
     <TextView
-        app:layout_constraintTop_toTopOf="parent"
         android:id="@+id/tv_review_item_author"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:text="Author"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
         android:textStyle="bold"
-        android:textSize="16dp"
-        android:text="Test"
-        android:textColor="@android:color/black">
-    </TextView>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_review_item_divider"
+        />
 
     <TextView
-        app:layout_constraintTop_toBottomOf="@id/tv_review_item_author"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/tv_review_item_content"
-        android:text="lorem ipsum dolor sid amet"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
-        android:textSize="14dp">
-    </TextView>
+        android:text="@string/lorem_ipsum"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_review_item_author"/>
+
+    <ImageView
+        android:id="@+id/iv_review_item_divider"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:scaleX="2.00"
+        android:src="@drawable/ic_divider_black_24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

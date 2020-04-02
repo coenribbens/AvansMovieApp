@@ -51,6 +51,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
     private TextView mProductionCompaniesContent;
     private ImageButton mShare;
     private ImageButton mTrailer;
+    private ImageButton mListToggle;
     private ListView mListview;
     private DetailedMovie movie;
     //private ReviewAdapter mReviewAdapter;
@@ -97,6 +98,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
         this.mProductionCompaniesContent = findViewById(R.id.tv_movie_detail_production_companies_content);
         this.mShare = findViewById(R.id.ib_movie_detail_share);
         this.mTrailer = findViewById(R.id.ib_movie_detail_youtube);
+        this.mListToggle = findViewById(R.id.ib_movie_detail_list_toggle);
         //this.mListview = findViewById(R.id.ib_listview_review);
         this.mRatingBar = findViewById(R.id.rb_rating_bar);
         this.mSendButton = findViewById(R.id.b_send_button);
@@ -122,6 +124,13 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
             }
         });
 
+        //TODO make click logic for mListToggle. Also check if the movie is already added to the list when starting up, change the drawable accordingly.
+        this.mListToggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
 
         // get a token first
@@ -177,11 +186,16 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
         //Extract all the data from the movie and put it in the corresponding views.
         this.mTitle.setText(movie.getTitle());
         setTitle(getResources().getText(R.string.mov_detail_ac_title) + this.movie.getTitle());
-        this.mYear.setText(movie.getReleaseDate());
-        Glide.with(this)
-                .asBitmap()
-                .load("https://image.tmdb.org/t/p/w600_and_h900_bestv2" + movie.getPosterPath())
-                .into(this.mImageView);
+        this.mYear.setText("(" + movie.getReleaseDate().split("-")[0] + ")");
+        if(!movie.getPosterPath().equals("null")){
+            Glide.with(this)
+                    .asBitmap()
+                    .load("https://image.tmdb.org/t/p/w600_and_h900_bestv2" + movie.getPosterPath())
+                    .into(this.mImageView);
+        }
+        else{
+            this.mImageView.setImageResource(R.drawable.ic_broken_image_black_24dp);
+        }
 
         //
 
@@ -189,7 +203,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
         this.mOverview.setText(movie.getOverview());
         this.mReleaseDateContent.setText(movie.getReleaseDate().toString());
         this.mOriginalLanguageContent.setText(movie.getOriginalLanguage());
-        this.mRuntimeContent.setText(movie.getRunTime() + "");
+        this.mRuntimeContent.setText(movie.getRunTime() + " " + getString(R.string.Minutes));
         if(movie.getGenreNames() != null){
             StringBuilder genres = new StringBuilder();
             for(String genre : movie.getGenreNames()){
