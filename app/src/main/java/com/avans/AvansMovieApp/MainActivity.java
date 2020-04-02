@@ -3,6 +3,8 @@ package com.avans.AvansMovieApp;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +17,7 @@ import com.avans.AvansMovieApp.Utilities.FetchingUtilities.FetchGuestSessionToke
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetPopularMovies;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetSearchedMovies;
 import com.avans.AvansMovieApp.Utilities.JSONUtiliies.ParseJSONPopularToCompactMovie;
+import com.avans.AvansMovieApp.Utilities.Miscellaneous.SwitchLanguagesHelper;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
 
 import java.util.ArrayList;
@@ -29,10 +32,7 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable,T
     private RecyclerView recyclerView;
     private Integer page = 1;
     private boolean backButtonBooleanIsInSearchRecyclerView = false;
-
-
-    // TODO: save session id on rotate,lifecyclevent
-
+    private SwitchLanguagesHelper switchLanguagesHelper = new SwitchLanguagesHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +52,16 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable,T
         searchBarField.setInputType(InputType.TYPE_CLASS_TEXT);
         searchButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                GetSearchedMovies getSearchedMovies = new GetSearchedMovies(
-                        (HTTPRequestable) MainActivity.this,
-                        MainActivity.this.searchBarField.getText().toString()
-                );
-                getSearchedMovies.getSearchedMovies();
+                String searchText = MainActivity.this.searchBarField.getText().toString();
+                if(searchText != null && !searchText.isEmpty()){
+                    GetSearchedMovies getSearchedMovies = new GetSearchedMovies(
+                            MainActivity.this,searchText
+                    );
+                    getSearchedMovies.getSearchedMovies();
+                }
             }
         });
+
 
 
         //!!!! TODO work on sessions
@@ -75,6 +78,31 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable,T
     public void changeTitle(String titleText) {
         setTitle(titleText);
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.go_to_list_menu_item:
+                // implement the intent to the list view
+                return true;
+            case R.id.switch_languages_menu_item:
+                this.switchLanguagesHelper.flipLanguages();
+                recreate();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
+
 
 
     @Override
