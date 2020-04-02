@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.avans.AvansMovieApp.Model.GlobalVariables;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
+import com.avans.AvansMovieApp.Utilities.NeworkUtilities.MakeHTTPGETRequest;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.MakeHTTPPOSTRequest;
 
 import org.json.JSONObject;
@@ -22,7 +23,7 @@ public class CreateRequestToken implements HTTPRequestable {
         // Request Body
         JSONObject requestBody = new JSONObject();
 
-        MakeHTTPPOSTRequest makeReq = new MakeHTTPPOSTRequest(CreateRequestToken.this);
+        MakeHTTPGETRequest makeReq = new MakeHTTPGETRequest(CreateRequestToken.this);
         makeReq.execute(requestURI, requestBody.toString());
 
     }
