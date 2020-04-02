@@ -18,4 +18,8 @@
     <string name="unknown">Onbekend</string>
     <string name="Minutes">Minuten</string>
     <string name="my_lists">My Lists</string>
+    <string name="language">Taal</string>
+    <string name="create">Maak aan</string>
+    <string name="description">Beschrijving</string>
+    <string name="name">Naam</string>
 </resources>

@@ -1,11 +1,15 @@
 package com.avans.AvansMovieApp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.avans.AvansMovieApp.Adapters.ListRecycleViewAdapter;
 import com.avans.AvansMovieApp.Datalayer.MovieDBHandler;
@@ -40,5 +44,23 @@ public class ListActivity extends AppCompatActivity implements MovieListsConvert
         ListRecycleViewAdapter listRecycleViewAdapter = new ListRecycleViewAdapter(lm, this);
         this.recyclerView.setAdapter(listRecycleViewAdapter);
         this.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.lists_list, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_create_list:
+                Intent intent = new Intent(this, CreateListActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
