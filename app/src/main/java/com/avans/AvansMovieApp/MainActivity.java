@@ -43,11 +43,10 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable,T
         GlobalVariables.setCurrentContext(this);
         setTitle(getResources().getText(R.string.pop_main_ac_title));
 
+
         GetPopularMovies getPopularMovies = new GetPopularMovies(this);
         getPopularMovies.getPopularMovies();
 
-        CreateMovieList cmv = new CreateMovieList();
-        cmv.initialiseCreateMovieList(GlobalVariables.GUEST_SESSION_ID, "test", "test", "nl");
 
         // search
         this.searchButton = findViewById(R.id.btn_search_button);
@@ -65,14 +64,17 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable,T
             }
         });
 
-
-
         CreateRequestToken requestToken = new CreateRequestToken();
         requestToken.initialiseCreateMovieList();
         if(GlobalVariables.getGuestSessionID() == null) {
             CreateUserSession getUserSessionToken = new CreateUserSession();
             getUserSessionToken.initialiseCreateMovieList();
+
+
         }
+       // CreateMovieList cmv = new CreateMovieList();
+       // cmv.initialiseCreateMovieList(GlobalVariables.GUEST_SESSION_ID, "test", "test", "nl");
+
     }
 
 
