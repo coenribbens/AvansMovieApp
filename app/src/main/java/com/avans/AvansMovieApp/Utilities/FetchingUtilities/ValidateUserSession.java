@@ -1,6 +1,5 @@
 package com.avans.AvansMovieApp.Utilities.FetchingUtilities;
 
-import android.os.Looper;
 import android.util.Log;
 
 import com.avans.AvansMovieApp.Model.GlobalVariables;
@@ -10,7 +9,7 @@ import com.avans.AvansMovieApp.Utilities.NeworkUtilities.MakeHTTPPOSTRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class CreateUserSession implements HTTPRequestable {
+public class ValidateUserSession implements HTTPRequestable {
     private String TAG = this.getClass().getSimpleName();
     private String API_ENDPOINT = "/authentication/token/validate_with_login";
     private String HTTP_GET_PARAMETERS = "?api_key=" + GlobalVariables.API_KEY_V3;
@@ -25,7 +24,7 @@ public class CreateUserSession implements HTTPRequestable {
 
 
         try {
-            requestBody.put("username", "cribben");
+            requestBody.put("username", "cribbens");
             requestBody.put("password", "thisisapassword");
             requestBody.put("request_token", GlobalVariables.getRequestToken());
         } catch (JSONException e) {
@@ -33,7 +32,7 @@ public class CreateUserSession implements HTTPRequestable {
         }
         Log.d(TAG, requestBody.toString());
 
-        MakeHTTPPOSTRequest makeReq = new MakeHTTPPOSTRequest(CreateUserSession.this);
+        MakeHTTPPOSTRequest makeReq = new MakeHTTPPOSTRequest(ValidateUserSession.this);
         makeReq.execute(requestURI, requestBody.toString());
     }
 

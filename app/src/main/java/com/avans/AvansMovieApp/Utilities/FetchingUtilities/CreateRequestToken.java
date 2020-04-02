@@ -1,16 +1,12 @@
 package com.avans.AvansMovieApp.Utilities.FetchingUtilities;
 
-import android.nfc.Tag;
 import android.util.Log;
 
 import com.avans.AvansMovieApp.Model.GlobalVariables;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.MakeHTTPGETRequest;
-import com.avans.AvansMovieApp.Utilities.NeworkUtilities.MakeHTTPPOSTRequest;
 
 import org.json.JSONObject;
-
-import java.util.concurrent.CountDownLatch;
 
 public class CreateRequestToken implements HTTPRequestable {
     private String TAG = this.getClass().getSimpleName();
@@ -45,7 +41,7 @@ public class CreateRequestToken implements HTTPRequestable {
         GlobalVariables.setRequestToken(requestToken);
         Log.d(TAG, GlobalVariables.getRequestToken());
         if(GlobalVariables.getGuestSessionID() == null) {
-            CreateUserSession getUserSessionToken = new CreateUserSession();
+            ValidateUserSession getUserSessionToken = new ValidateUserSession();
             getUserSessionToken.initialiseCreateMovieList();
         }
     }

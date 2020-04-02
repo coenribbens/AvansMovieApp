@@ -3,7 +3,6 @@ package com.avans.AvansMovieApp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,9 +12,7 @@ import android.widget.EditText;
 import com.avans.AvansMovieApp.Adapters.MovieRecycleViewAdapter;
 import com.avans.AvansMovieApp.Model.CompactMovie;
 import com.avans.AvansMovieApp.Model.GlobalVariables;
-import com.avans.AvansMovieApp.Utilities.FetchingUtilities.CreateMovieList;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.CreateRequestToken;
-import com.avans.AvansMovieApp.Utilities.FetchingUtilities.CreateUserSession;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetPopularMovies;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetSearchedMovies;
 import com.avans.AvansMovieApp.Utilities.JSONUtiliies.ParseJSONPopularToCompactMovie;
@@ -23,7 +20,6 @@ import com.avans.AvansMovieApp.Utilities.Miscellaneous.SwitchLanguagesHelper;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
 
 import java.util.ArrayList;
-import java.util.concurrent.CountDownLatch;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
