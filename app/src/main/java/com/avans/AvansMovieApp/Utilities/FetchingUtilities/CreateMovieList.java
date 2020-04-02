@@ -1,6 +1,5 @@
 package com.avans.AvansMovieApp.Utilities.FetchingUtilities;
 
-import android.nfc.Tag;
 import android.util.Log;
 
 import com.avans.AvansMovieApp.Datalayer.MovieDBHandler;
@@ -8,7 +7,6 @@ import com.avans.AvansMovieApp.Model.GlobalVariables;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.MakeHTTPPOSTRequest;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class CreateMovieList implements HTTPRequestable {
@@ -49,9 +47,10 @@ public class CreateMovieList implements HTTPRequestable {
     Log.d(TAG, HTTPGETResponse);
     try {
         JSONObject jsonObject = new JSONObject(HTTPGETResponse);
-        int listId = jsonObject.getInt("list_id");
+        String listId = jsonObject.getString("list_id");
 
         //Insert listid into database
+        db.insertMovieListid(db.getGuestToken(), listId);
 
     } catch(Exception e) {
         Log.d(TAG, e.toString());

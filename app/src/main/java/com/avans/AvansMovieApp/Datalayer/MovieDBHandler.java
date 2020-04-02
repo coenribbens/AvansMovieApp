@@ -164,6 +164,13 @@ public class MovieDBHandler extends SQLiteOpenHelper {
         //Prepare values
     ContentValues values = new ContentValues();
     values.put("userId", userId);
+    values.put("listId", listId);
+
+    //Insert into the databse
+    db.insert("userList", null, values);
+
+    //Close the database
+    db.close();
     }
 
 }
