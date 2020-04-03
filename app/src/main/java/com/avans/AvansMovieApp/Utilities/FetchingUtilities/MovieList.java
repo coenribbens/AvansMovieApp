@@ -23,8 +23,9 @@ public class MovieList implements HTTPRequestable {
 
 
     private String API_ENDPOINT = "/account/";
+    private String USER_ID = "{account_id}";
     private String API_LISTS = "/lists";
-    private String HTTP_GET_PARAMETERS = String.format("?api_key=%s&language=%s&page=20", GlobalVariables.API_KEY_V3, GlobalVariables.LANG);
+    private String HTTP_GET_PARAMETERS = String.format("?api_key=%s&language=%s&page=20&session_id=%s", GlobalVariables.API_KEY_V3, GlobalVariables.LANG, GlobalVariables.getSessionToken());
 
     public MovieList(String userId, MovieListsConvertable context) {
         this.userId = userId;
@@ -41,6 +42,7 @@ public class MovieList implements HTTPRequestable {
 
     @Override
     public void ProcessHTTPResponseBody(String HTTPGETResponse) {
+    Log.d(TAG, HTTPGETResponse);
     try {
         JSONObject JSONMovieListItems = new JSONObject(HTTPGETResponse);
         JSONArray features = JSONMovieListItems.getJSONArray("results");
@@ -50,12 +52,12 @@ public class MovieList implements HTTPRequestable {
 
         Log.d(TAG, features.toString());
 
-             int id = feature.getJSONObject("results").getInt("id");
-             String listName = feature.getJSONObject("results").getString("name");
-             String description = feature.getJSONObject("results").getString("description");
-             String posterPath = feature.getJSONObject("results").getString("poster_path");
-             int itemCount = feature.getJSONObject("results").getInt("item_count");
-             String language = feature.getJSONObject("results").getString("iso_639_1");
+             int id = feature.getInt("id");
+             String listName = feature.getString("name");
+             String description = feature.getString("description");
+             String posterPath = feature.getString("poster_path");
+             int itemCount = feature.getInt("item_count");
+             String language = feature.getString("iso_639_1");
 
              ListMovie lm = new ListMovie(id, listName, description, posterPath, itemCount, language);
             listMovies.add(lm);

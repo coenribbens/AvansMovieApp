@@ -86,7 +86,7 @@ public class ListRecycleViewAdapter extends RecyclerView.Adapter<ListRecycleView
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, MovieListActivity.class);
-                    intent.putExtra("listid", listMovie.getId());
+                    intent.putExtra("listId", "" + listMovie.getId());
                     context.startActivity(intent);
                 }
             });

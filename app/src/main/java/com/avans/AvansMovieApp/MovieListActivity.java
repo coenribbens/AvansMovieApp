@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -20,6 +21,7 @@ import com.avans.AvansMovieApp.Utilities.FetchingUtilities.RemoveMovieList;
 import java.util.ArrayList;
 
 public class MovieListActivity extends AppCompatActivity implements ListDetailsConvertable {
+    private String TAG = this.getClass().getSimpleName();
     private String listId;
     private RecyclerView recyclerView;
 
@@ -32,6 +34,7 @@ public class MovieListActivity extends AppCompatActivity implements ListDetailsC
         this.recyclerView = findViewById(R.id.rv_list_items);
         GetListDetails getListDetails = new GetListDetails(this);
         getListDetails.initialiseCreateMovieList(listId);
+        Log.d(TAG, listId);
     }
 
     @Override

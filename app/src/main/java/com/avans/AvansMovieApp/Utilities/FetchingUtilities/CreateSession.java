@@ -47,7 +47,5 @@ public class CreateSession implements HTTPRequestable {
             Log.d(TAG, e.toString());
         }
         GlobalVariables.setSessionToken(sessionId);
-        CreateMovieList cmv = new CreateMovieList();
-        cmv.initialiseCreateMovieList(GlobalVariables.getSessionToken(), "test", "test", "nl");
     }
 }

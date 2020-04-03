@@ -22,7 +22,7 @@ public class GetListDetails implements HTTPRequestable {
     private String TAG = this.getClass().getSimpleName();
     private String API_ENDPOINT = "/list/";
     private String HTTP_GET_PARAMETERS = String.format("?api_key=%s&language=%s&page=20", GlobalVariables.API_KEY_V3, GlobalVariables.LANG);
-    private String HTTP_USER_SESSION = db.getGuestToken();
+    private String HTTP_USER_SESSION = GlobalVariables.getSessionToken();
     private ArrayList<CompactMovie> compactMovies = new ArrayList<CompactMovie>();
     private String rawResponseBody;
 
