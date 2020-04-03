@@ -64,8 +64,6 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable,T
             }
         });
 
-//        CreateMovieList cmv = new CreateMovieList();
-//        cmv.initialiseCreateMovieList(GlobalVariables.getSessionToken(), "test", "test", "nl");
 
     }
 

@@ -13,7 +13,7 @@ public class CreateMovieList implements HTTPRequestable {
     private String TAG = this.getClass().getSimpleName();
     private String API_ENDPOINT = "/list";
     private String HTTP_GET_PARAMETERS = "?api_key=" + GlobalVariables.API_KEY_V3;
-    // private String HTTP_USER_SESSION = "&session_id=" + GlobalVariables.getSessionToken();
+     private String HTTP_USER_SESSION = "&session_id=" + GlobalVariables.getSessionToken();
 
 
     public void initialiseCreateMovieList(String userId, String name, String description, String language) {
@@ -22,7 +22,7 @@ public class CreateMovieList implements HTTPRequestable {
             String requestURI = GlobalVariables.V3_BASE_URL
                     + API_ENDPOINT
                     + HTTP_GET_PARAMETERS
-                    + "&session_id=" + userId;
+                    + HTTP_USER_SESSION;
 
             // Request Body
             JSONObject requestBody = new JSONObject();

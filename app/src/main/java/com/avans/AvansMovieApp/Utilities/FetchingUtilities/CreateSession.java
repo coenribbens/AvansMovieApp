@@ -5,6 +5,7 @@ import android.util.Log;
 import com.avans.AvansMovieApp.Model.GlobalVariables;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.MakeHTTPGETRequest;
+import com.avans.AvansMovieApp.Utilities.NeworkUtilities.MakeHTTPPOSTRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,6 +19,7 @@ public class CreateSession implements HTTPRequestable {
         String requestURI = GlobalVariables.V3_BASE_URL
                 + API_ENDPOINT
                 + HTTP_GET_PARAMETERS;
+        Log.d(TAG, requestURI);
 
         // Request Body
         JSONObject requestBody = new JSONObject();
@@ -28,7 +30,7 @@ public class CreateSession implements HTTPRequestable {
             e.printStackTrace();
         }
 
-        MakeHTTPGETRequest makeReq = new MakeHTTPGETRequest(CreateSession.this);
+        MakeHTTPPOSTRequest makeReq = new MakeHTTPPOSTRequest(CreateSession.this);
         makeReq.execute(requestURI, requestBody.toString());
 
     }
@@ -44,5 +46,8 @@ public class CreateSession implements HTTPRequestable {
         } catch(Exception e) {
             Log.d(TAG, e.toString());
         }
+        GlobalVariables.setSessionToken(sessionId);
+        CreateMovieList cmv = new CreateMovieList();
+        cmv.initialiseCreateMovieList(GlobalVariables.getSessionToken(), "test", "test", "nl");
     }
 }

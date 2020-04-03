@@ -3,14 +3,18 @@ package com.avans.AvansMovieApp.Utilities.NeworkUtilities;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
 
 public class MakeHTTPPOSTRequest extends AsyncTask<String, Integer, String> {
 
+    private String TAG = this.getClass().getSimpleName();
     private HTTPRequestable context;
     private HttpURLConnection conn;
 
@@ -27,13 +31,32 @@ public class MakeHTTPPOSTRequest extends AsyncTask<String, Integer, String> {
             String data = args[1]; // this is a JSON object
 
             conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestProperty("Content-Type", "application/json");
             conn.setRequestMethod("POST");
             conn.setDoOutput(true);
-            conn.getOutputStream().write(data.getBytes("UTF-8"));
-            InputStream stream = conn.getInputStream();
-            Scanner s = new Scanner(stream).useDelimiter("\\A");
-            response += s.hasNext() ? s.next() : "";
-            s.close();
+
+            DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
+            wr.writeBytes(data);
+            wr.flush();
+            wr.close();
+
+
+            InputStream is = conn.getInputStream();
+            BufferedReader in = null;
+            String inputLine;
+            StringBuilder body;
+                in = new BufferedReader(new InputStreamReader(is));
+
+                body = new StringBuilder();
+
+                while ((inputLine = in.readLine()) != null) {
+                    body.append(inputLine);
+                }
+                in.close();
+                is.close();
+                response = body.toString();
+                Log.d(TAG, response);
+
         } catch (IOException e) {
             try {
                 Log.v("RespCode",""+conn.getResponseCode());
@@ -49,4 +72,5 @@ public class MakeHTTPPOSTRequest extends AsyncTask<String, Integer, String> {
     protected void onPostExecute(String responseBody) {
         context.ProcessHTTPResponseBody(responseBody);
     }
+
 }
