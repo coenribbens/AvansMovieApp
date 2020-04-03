@@ -25,7 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MainActivity extends AppCompatActivity implements HTTPRequestable,TitleSettable {
+public class MainActivity extends AppCompatActivity implements HTTPRequestable {
     private EditText searchBarField;
     private Button searchButton;
     private RecyclerView recyclerView;

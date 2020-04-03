@@ -1,9 +1,8 @@
 package com.avans.AvansMovieApp.Utilities.FetchingUtilities;
 
-import android.util.Log;
+import android.app.Activity;
 
 import com.avans.AvansMovieApp.Model.GlobalVariables;
-import com.avans.AvansMovieApp.TitleSettable;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.MakeHTTPGETRequest;
 
@@ -31,8 +30,8 @@ public class GetSearchedMovies {
 
     public void getSearchedMovies() {
 
-        TitleSettable  titleSettableContext = (TitleSettable) this.context; // lol what another abomicacle
-        titleSettableContext.changeTitle(this.searchTherm); // wouldve done "searched for: " + and then a resource string but cant even acces resources lol. Java is so great.
+        Activity titleSettableContext = (Activity) this.context;
+        titleSettableContext.setTitle(this.searchTherm);
 
         MakeHTTPGETRequest makeReq = new MakeHTTPGETRequest(this.context);
         makeReq.execute(GlobalVariables.V3_BASE_URL + API_ENDPOINT + HTTP_GET_PARAMETERS + this.searchTherm );
