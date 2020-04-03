@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.avans.AvansMovieApp.AddMovieToListActivity;
 import com.avans.AvansMovieApp.Model.DetailedMovie;
+import com.avans.AvansMovieApp.Model.GlobalVariables;
 import com.avans.AvansMovieApp.Model.ListMovie;
 import com.avans.AvansMovieApp.MovieListActivity;
 import com.avans.AvansMovieApp.R;
@@ -93,8 +94,8 @@ public class AddToListRecycleViewAdapter extends RecyclerView.Adapter<AddToListR
                 @Override
                 public void onClick(View v) {
                     AddMovieToList addMovieToList = new AddMovieToList();
-
-                    Toast.makeText(context, "Movie has been added to List: " + listName.getText().toString(), Toast.LENGTH_LONG);
+                    addMovieToList.initialiseCreateMovieList(GlobalVariables.getSessionToken(), listMovie.getId() + "", movieId + "");
+                    Toast.makeText(context, "Movie has been added to List: " + listName.getText().toString(), Toast.LENGTH_LONG).show();
                 }
             });
 

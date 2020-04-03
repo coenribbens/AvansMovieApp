@@ -12,6 +12,7 @@ public class RemoveMovieFromList implements HTTPRequestable {
     private String TAG = this.getClass().getSimpleName();
     private String API_ENDPOINT = "/list/";
     private String HTTP_GET_PARAMETERS = "?api_key=" + GlobalVariables.API_KEY_V3;
+    private String HTTP_SESSION_ID = "&session_id=" + GlobalVariables.getSessionToken();
 
     public void initialiseCreateMovieList(String userId, String listId, String movieId) {
         String HTTP_USER_SESSION = userId;
@@ -22,7 +23,8 @@ public class RemoveMovieFromList implements HTTPRequestable {
                     + listId
                     + "/remove_item"
                     + HTTP_GET_PARAMETERS
-                    + HTTP_USER_SESSION;
+                    + HTTP_SESSION_ID;
+            Log.d(TAG, requestURI);
 
             // Request Body
             JSONObject requestBody = new JSONObject();

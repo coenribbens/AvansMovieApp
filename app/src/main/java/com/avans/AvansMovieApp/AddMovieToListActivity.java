@@ -25,7 +25,7 @@ public class AddMovieToListActivity extends AppCompatActivity implements MovieLi
         setTitle("Add movie to list");
         this.recyclerView = findViewById(R.id.rv_list_items);
         MovieList movieList = new MovieList(GlobalVariables.SESSION_TOKEN, this);
-//        movieList.initialiseGetListRequest();
+        movieList.initialiseGetListRequest();
 
 
     }

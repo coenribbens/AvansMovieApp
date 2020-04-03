@@ -59,6 +59,9 @@ public class ListActivity extends AppCompatActivity implements MovieListsConvert
                 Intent intent = new Intent(this, CreateListActivity.class);
                 startActivity(intent);
                 return true;
+            case R.id.action_refresh:
+                this.recreate();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

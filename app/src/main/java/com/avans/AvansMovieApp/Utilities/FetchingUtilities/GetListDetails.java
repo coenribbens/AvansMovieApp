@@ -22,7 +22,7 @@ public class GetListDetails implements HTTPRequestable {
     private String TAG = this.getClass().getSimpleName();
     private String API_ENDPOINT = "/list/";
     private String HTTP_GET_PARAMETERS = String.format("?api_key=%s&language=%s&page=20", GlobalVariables.API_KEY_V3, GlobalVariables.LANG);
-    private String HTTP_USER_SESSION = GlobalVariables.getSessionToken();
+    private String HTTP_USER_SESSION = "&session_id=" + GlobalVariables.getSessionToken();
     private ArrayList<CompactMovie> compactMovies = new ArrayList<CompactMovie>();
     private String rawResponseBody;
 
@@ -32,18 +32,18 @@ public class GetListDetails implements HTTPRequestable {
 
     public void initialiseCreateMovieList(String listId) {
         try {
-            userId = db.getGuestToken();
-            String userId = db.getGuestToken();
             String requestURI = GlobalVariables.V3_BASE_URL
                     + API_ENDPOINT
+                    + listId
                     + HTTP_GET_PARAMETERS
                     + HTTP_USER_SESSION;
 
+            Log.d(TAG, requestURI);
             // Request Body
             JSONObject requestBody = new JSONObject();
             requestBody.put("list_id", listId);
 
-            MakeHTTPPOSTRequest makeReq = new MakeHTTPPOSTRequest(GetListDetails.this);
+            MakeHTTPGETRequest makeReq = new MakeHTTPGETRequest(GetListDetails.this);
             makeReq.execute(requestURI, requestBody.toString());
         } catch (Exception e) {
             Log.d(TAG, e.toString());
@@ -57,8 +57,8 @@ public class GetListDetails implements HTTPRequestable {
         Log.d(TAG, HTTPGETResponse);
 
         try {
-            JSONObject parentObject = new JSONObject(this.rawResponseBody);
-            JSONArray moviesArr = parentObject.getJSONArray("results");
+            JSONObject parentObject = new JSONObject(HTTPGETResponse);
+            JSONArray moviesArr = parentObject.getJSONArray("items");
 
             for (int i = 0; i < moviesArr.length(); ++i) {
                 final JSONObject movieJSONObj = moviesArr.getJSONObject(i);
