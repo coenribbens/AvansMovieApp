@@ -4,8 +4,7 @@ import android.util.Log;
 
 import com.avans.AvansMovieApp.Model.GlobalVariables;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
-import com.avans.AvansMovieApp.Utilities.NeworkUtilities.MakeHTTPGETRequest;
-import com.avans.AvansMovieApp.Utilities.NeworkUtilities.MakeHTTPPOSTRequest;
+import com.avans.AvansMovieApp.Utilities.NeworkUtilities.MakeHTTPDeleteRequest;
 
 import org.json.JSONObject;
 
@@ -24,13 +23,13 @@ public class RemoveMovieList implements HTTPRequestable {
                     + HTTP_GET_PARAMETERS
                     + HTTP_SESSION_ID;
 
-            Log.d(TAG, requestURI);
+            Log.d(TAG, "JUST TO BE SURE========" + requestURI);
 
             // Request Body
             JSONObject requestBody = new JSONObject();
 
             // Post Request
-            MakeHTTPGETRequest makeReq = new MakeHTTPGETRequest(RemoveMovieList.this);
+            MakeHTTPDeleteRequest makeReq = new MakeHTTPDeleteRequest(RemoveMovieList.this);
             makeReq.execute(requestURI, requestBody.toString());
         } catch (Exception e) {
             Log.d(TAG, e.toString());
