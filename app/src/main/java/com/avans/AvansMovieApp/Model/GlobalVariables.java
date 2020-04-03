@@ -28,6 +28,7 @@ public class GlobalVariables {
     public static String GUEST_SESSION_ID;
     public static String REQUEST_TOKEN;
     public static Context CURRENT_CONTEXT;
+    public static String USERID;
 
     public static void setCurrentContext(Context context) {
         CURRENT_CONTEXT = context;
@@ -75,5 +76,13 @@ public class GlobalVariables {
 
     public static String getSessionToken() {
         return SESSION_TOKEN;
+    }
+
+    public static String getUSERID() {
+        return USERID;
+    }
+
+    public static void setUSERID(String USERID) {
+        GlobalVariables.USERID = USERID;
     }
 }
