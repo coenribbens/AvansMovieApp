@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tv_movie_detail_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Title"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_movie_detail_year"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="(Year)"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_title" />
+
+        <ImageView
+            android:id="@+id/iv_movie_detail_image"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_year" />
+
+        <TextView
+            android:id="@+id/tv_movie_detail_overview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/lorem_ipsum"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_movie_detail_image" />
+
+        <ImageView
+            android:id="@+id/iv_movie_detail_divider"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:scaleX="2.00"
+            android:src="@drawable/ic_divider_black_24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_overview" />
+
+        <TextView
+            android:id="@+id/tv_movie_detail_release_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/release_date"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_movie_detail_release_date_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_movie_detail_release_date_content" />
+
+        <TextView
+            android:id="@+id/tv_movie_detail_release_date_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="65dp"
+            android:text="@string/unknown"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_movie_detail_release_date"
+            app:layout_constraintTop_toBottomOf="@+id/iv_movie_detail_divider" />
+
+        <TextView
+            android:id="@+id/tv_movie_detail_original_language"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/original_language"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_movie_detail_original_language_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_movie_detail_original_language_content" />
+
+        <TextView
+            android:id="@+id/tv_movie_detail_original_language_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/unknown"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tv_movie_detail_release_date_content"
+            app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_release_date_content" />
+
+        <TextView
+            android:id="@+id/tv_movie_detail_runtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/runtime"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_movie_detail_runtime_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_movie_detail_runtime_content" />
+
+        <TextView
+            android:id="@+id/tv_movie_detail_runtime_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/unknown"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tv_movie_detail_original_language_content"
+            app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_original_language_content" />
+
+        <TextView
+            android:id="@+id/tv_movie_detail_genres"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/genres"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_movie_detail_genres_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_movie_detail_genres_content" />
+
+        <TextView
+            android:id="@+id/tv_movie_detail_genres_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/unknown"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tv_movie_detail_runtime_content"
+            app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_runtime_content" />
+
+        <TextView
+            android:id="@+id/tv_movie_detail_production_companies"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/production_companies"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_movie_detail_production_companies_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_movie_detail_production_companies_content" />
+
+        <TextView
+            android:id="@+id/tv_movie_detail_production_companies_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/unknown"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tv_movie_detail_genres_content"
+            app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_genres_content" />
+
+
+
+
+        <ImageButton
+            android:id="@+id/ib_movie_detail_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_share_black_24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_production_companies_content" />
+
+        <ImageButton
+            android:id="@+id/ib_movie_detail_youtube"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_video_label_black_24dp"
+            app:layout_constraintStart_toEndOf="@+id/ib_movie_detail_share"
+            app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_production_companies_content" />
+
+        <ImageButton
+            android:id="@+id/ib_movie_detail_list_toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add_black_24dp"
+            app:layout_constraintStart_toEndOf="@+id/ib_movie_detail_youtube"
+            app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_production_companies_content" />
+
+        <RatingBar
+            android:id="@+id/rb_rating_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleX="0.5"
+            android:scaleY="0.5"
+            app:layout_constraintBottom_toBottomOf="@+id/b_send_button"
+            app:layout_constraintEnd_toStartOf="@+id/b_send_button"
+            app:layout_constraintStart_toEndOf="@+id/ib_movie_detail_list_toggle"
+            app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_production_companies_content" />
+
+        <Button
+            android:id="@+id/b_send_button"
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:text="@string/send"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_production_companies_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ll_reviews_wrapper"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/rb_rating_bar">
+        </LinearLayout>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

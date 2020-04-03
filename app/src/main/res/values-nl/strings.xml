@@ -1,4 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">AvansMovieApp </string>
+    <string name="release_date">Premiere datum:</string>
+    <string name="original_language">Originele taal:</string>
+    <string name="runtime">Draaitijd:</string>
+    <string name="genres">Genres:</string>
+    <string name="production_companies">Producitemaatschappijen:</string>
+    <string name="pop_main_ac_title">20 populariste films</string>
+    <string name="mov_detail_ac_title">"Details voor film: "</string>
+    <string name="sharing_text">Check deze film!\n</string>
+    <string name="searchbar_text">Zoek naar een film</string>
+    <string name="rating_sent_text">Beoordeling gestuurt</string>
+    <string name="send">stuur</string>
+    <string name="rating_bigger_5">beoordeling moet meer dan 1 ster hebben</string>
+    <string name="switch_lang_menu_text_str">Wissel taal</string>
+    <string name="go_to_list_menu_text_str">Ga naar gemaakte lijsten</string>
+    <string name="unknown">Onbekend</string>
+    <string name="Minutes">Minuten</string>
+    <string name="my_lists">My Lists</string>
+    <string name="language">Taal</string>
+    <string name="create">Maak aan</string>
+    <string name="description">Beschrijving</string>
+    <string name="name">Naam</string>
+    <string name="remove_list">Verwijder lijst</string>
 </resources>

@@ -1,109 +1,143 @@
 package com.avans.AvansMovieApp;
 
-import android.os.AsyncTask;
+import android.content.Intent;
+import android.os.Bundle;
+import android.text.InputType;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.avans.AvansMovieApp.Adapters.MovieRecycleViewAdapter;
+import com.avans.AvansMovieApp.Model.CompactMovie;
+import com.avans.AvansMovieApp.Model.GlobalVariables;
+import com.avans.AvansMovieApp.Utilities.FetchingUtilities.CreateRequestToken;
+import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetPopularMovies;
+import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetSearchedMovies;
+import com.avans.AvansMovieApp.Utilities.JSONUtiliies.ParseJSONPopularToCompactMovie;
+import com.avans.AvansMovieApp.Utilities.Miscellaneous.SwitchLanguagesHelper;
+import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
+
+import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-
-import com.avans.avans_movie_app.R;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.net.URL;
-import java.util.ArrayList;
-
-public class MainActivity extends AppCompatActivity {
-    private EditText searchBar;
+public class MainActivity extends AppCompatActivity implements HTTPRequestable {
+    private EditText searchBarField;
     private Button searchButton;
     private RecyclerView recyclerView;
-
+    private Integer page = 1;
+    private boolean backButtonBooleanIsInSearchRecyclerView = false;
+    private SwitchLanguagesHelper switchLanguagesHelper = new SwitchLanguagesHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        CreateRequestToken requestToken = new CreateRequestToken();
+        requestToken.initialiseCreateMovieList();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        this.recyclerView = findViewById(R.id.rv_movie_items);
+        GlobalVariables.setCurrentContext(this);
+        setTitle(getResources().getText(R.string.pop_main_ac_title));
 
-        //Objecten initialiseren
-        this.searchBar = findViewById(R.id.search_bar);
+
+        GetPopularMovies getPopularMovies = new GetPopularMovies(this);
+        getPopularMovies.getPopularMovies();
+
+
+        // search
         this.searchButton = findViewById(R.id.btn_search_button);
-        this.recyclerView = findViewById(R.id.rv_product_items);
-
-
-        //OnClick voor de searchknop activeren.
-        this.searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
+        this.searchBarField = findViewById(R.id.search_bar);
+        searchBarField.setInputType(InputType.TYPE_CLASS_TEXT);
+        searchButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                FetchSearchResults fetchSearchResults = new FetchSearchResults();
-
-                fetchSearchResults.execute(NetworkUtils.buildURL(searchBar.getText().toString()));
+                String searchText = MainActivity.this.searchBarField.getText().toString();
+                if(searchText != null && !searchText.isEmpty()){
+                    GetSearchedMovies getSearchedMovies = new GetSearchedMovies(
+                            MainActivity.this,searchText
+                    );
+                    getSearchedMovies.getSearchedMovies();
+                }
             }
         });
+
+
     }
 
-    protected void productsReceived(ArrayList<Product> products){
-        //TODO de products received in een arraylist van producten veranderen en deze naar de RecycleViewAdapter sturen.
-        RecycleViewAdapter recycleViewAdapter = new RecycleViewAdapter(products, this);
-        this.recyclerView.setAdapter(recycleViewAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+    public void changeTitle(String titleText) {
+        setTitle(titleText);
     }
 
-    protected class FetchSearchResults extends AsyncTask<URL, Void, ArrayList<Product>>{
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
 
-
-        @Override
-        protected ArrayList<Product> doInBackground(URL... urls) {
-
-            String jsonProductResponse = null;
-            ArrayList<Product> productArrayList = new ArrayList<>();
-
-            try{
-                //TODO Afmaken afhandeling van de JSON string.
-                jsonProductResponse = NetworkUtils
-                        .getResponseFromHttpUrl(urls[0]);
-
-                //JSON Parsing
-                //Classes aanmaken
-                JSONObject jsonRootObject = new JSONObject(jsonProductResponse);
-                JSONArray jsonProductsArray = jsonRootObject.getJSONArray("products");
-                JSONObject jsonProductObject;
-                JSONArray jsonProductImages;
-
-                //Informatie uit de JSON halen
-                for(int x = 0; x < jsonProductsArray.length();x++){
-                    jsonProductObject = jsonProductsArray.getJSONObject(x);
-                    String productName = jsonProductObject.getString("title");
-                    String productSummary = jsonProductObject.getString("summary");
-                    double productPrice = jsonProductObject.getJSONObject("offerData")
-                            .getJSONArray("offers")
-                            .getJSONObject(0).getDouble("price");
-
-                    ArrayList<String> productImages = new ArrayList<>();
-                    jsonProductImages = jsonProductObject.getJSONArray("images");
-
-                    for(int y = 0; y < jsonProductImages.length(); y++){
-                        productImages.add(jsonProductImages.getJSONObject(y).getString("url"));
-                    }
-                    productArrayList.add(new Product(productName, productSummary, productPrice, productImages));
-                }
-
-            } catch (Exception e){
-                e.printStackTrace();
-            }
-            return productArrayList;
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<Product> products) {
-            productsReceived(products);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.go_to_list_menu_item:
+                Intent intent = new Intent(this, ListActivity.class);
+                this.startActivity(intent);
+                return true;
+            case R.id.switch_languages_menu_item:
+                this.switchLanguagesHelper.flipLanguages();
+                recreate();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
+
+
+
+
+
+    @Override
+    public void onBackPressed() {
+        if (backButtonBooleanIsInSearchRecyclerView) {
+            searchBarField.getText().clear();
+            setTitle(getResources().getText(R.string.pop_main_ac_title));
+            GetPopularMovies getPopularMovies = new GetPopularMovies(this);
+            getPopularMovies.getPopularMovies();
+        } else {
+            super.onBackPressed();
+        }
+
+    }
+
+
+    @Override
+    public void ProcessHTTPResponseBody(String HTTPGETResponse) {
+
+        ParseJSONPopularToCompactMovie parser = new ParseJSONPopularToCompactMovie(HTTPGETResponse);
+
+        if (getTitle() != getResources().getString(R.string.pop_main_ac_title)) {
+            backButtonBooleanIsInSearchRecyclerView = true;
+        }
+
+
+        try {
+            parser.fetchSmallMovies();
+            ArrayList<CompactMovie> movies = parser.getCompactMovies();
+            MovieRecycleViewAdapter movieRecycleViewAdapter = new MovieRecycleViewAdapter(movies, this);
+            this.recyclerView.setAdapter(movieRecycleViewAdapter);
+            this.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+            // TODO reintroduce hot loading functionality
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }
+
 
