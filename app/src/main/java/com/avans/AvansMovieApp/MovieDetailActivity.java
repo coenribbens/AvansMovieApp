@@ -15,15 +15,19 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.avans.AvansMovieApp.Adapters.AddToListRecycleViewAdapter;
 import com.avans.AvansMovieApp.Adapters.ReviewAdapter;
 import com.avans.AvansMovieApp.Model.DetailedMovie;
 import com.avans.AvansMovieApp.Model.GlobalVariables;
+import com.avans.AvansMovieApp.Model.ListMovie;
 import com.avans.AvansMovieApp.Model.Review;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetDetailedMovieFromMovieId;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetReviews;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetYoutubeIdFromMovieId;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.MovieIdDetailedMovieConvertable;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.MovieIdYoutubeIdConvertable;
+import com.avans.AvansMovieApp.Utilities.FetchingUtilities.MovieList;
+import com.avans.AvansMovieApp.Utilities.FetchingUtilities.MovieListsConvertable;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.MovieReviewsConvertable;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.PostTokenAndAuthenticate;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
@@ -34,7 +38,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
-public class MovieDetailActivity extends AppCompatActivity implements MovieIdDetailedMovieConvertable, MovieIdYoutubeIdConvertable, MovieReviewsConvertable, HTTPRequestable {
+public class MovieDetailActivity extends AppCompatActivity implements MovieIdDetailedMovieConvertable, MovieIdYoutubeIdConvertable, MovieReviewsConvertable, HTTPRequestable{
     private TextView mTitle;
     private TextView mYear;
     private ImageView mImageView;
@@ -51,6 +55,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
     private TextView mProductionCompaniesContent;
     private ImageButton mShare;
     private ImageButton mTrailer;
+    private ImageButton mListToggle;
     private ListView mListview;
     private DetailedMovie movie;
     //private ReviewAdapter mReviewAdapter;
@@ -97,6 +102,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
         this.mProductionCompaniesContent = findViewById(R.id.tv_movie_detail_production_companies_content);
         this.mShare = findViewById(R.id.ib_movie_detail_share);
         this.mTrailer = findViewById(R.id.ib_movie_detail_youtube);
+        this.mListToggle = findViewById(R.id.ib_movie_detail_list_toggle);
         //this.mListview = findViewById(R.id.ib_listview_review);
         this.mRatingBar = findViewById(R.id.rb_rating_bar);
         this.mSendButton = findViewById(R.id.b_send_button);
@@ -122,6 +128,15 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
             }
         });
 
+        //TODO make click logic for mListToggle. Also check if the movie is already added to the list when starting up, change the drawable accordingly.
+        this.mListToggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent addMovieToListActivity = new Intent(MovieDetailActivity.this, AddMovieToListActivity.class);
+                addMovieToListActivity.putExtra("movieId", movieId);
+                MovieDetailActivity.this.startActivity(addMovieToListActivity);
+            }
+        });
 
 
         // get a token first
@@ -133,7 +148,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
                 mRatingBar = findViewById(R.id.rb_rating_bar);
                 mRating = mRatingBar.getRating() * 2;
                 if(mRating >= .5) {
-                    String JSONPostData = String.format("{'value':%.2f}", mRating).replace(",", ".");
+                    String JSONPostData = String.format("{\"value\":%.1f}", mRating).replace(",", ".");
                     MakeHTTPPOSTRequest makeReq = new MakeHTTPPOSTRequest(MovieDetailActivity.this);
                     Log.v("{{URL}}", GlobalVariables.V3_BASE_URL + API_ENDPOINT + String.format(HTTPParameters, movieId, GlobalVariables.API_KEY_V3, GlobalVariables.SESSION_TOKEN));
                     makeReq.execute(GlobalVariables.V3_BASE_URL + API_ENDPOINT + String.format(HTTPParameters, movieId, GlobalVariables.API_KEY_V3, GlobalVariables.SESSION_TOKEN), JSONPostData);
@@ -254,4 +269,5 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieIdDet
         Log.v("{{REPSO}}",HTTPGETResponse);
 
     }
+
 }

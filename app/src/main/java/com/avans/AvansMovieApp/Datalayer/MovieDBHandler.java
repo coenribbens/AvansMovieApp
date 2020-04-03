@@ -11,6 +11,8 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+
 //THIS CLASS IS EXECUTED WHEN THE APPLICATION IS STARTED
 public class MovieDBHandler extends SQLiteOpenHelper {
 
@@ -120,5 +122,55 @@ public class MovieDBHandler extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM userList WHERE listId = " + movieListId);
     }
 
+    public ArrayList<String> getListId() {
+
+        //Log for Debugging
+        Log.d(TAG, "getListId");
+
+        //Guest the database
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        //Query to execute
+        String query = "SELECT TOP(1) listId FROM userlist";
+
+        //Cursor to browse through
+        Cursor cursor = db.rawQuery(query, null);
+
+        //Token to return
+        ArrayList<String> movieLists = new ArrayList<String>();
+
+        if(cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            while (!cursor.isLast()) {
+
+                movieLists.add(cursor.getString(cursor.getColumnIndex("userId")));
+
+            }
+            cursor.close();
+        }
+
+        db.close();
+
+        return movieLists;
+    }
+
+    public void insertMovieListid(String userId, String listId) {
+        //Log for Debugging
+        Log.d(TAG, "insertMovieListId");
+
+        //Guest the database
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        //Prepare values
+    ContentValues values = new ContentValues();
+    values.put("userId", userId);
+    values.put("listId", listId);
+
+    //Insert into the databse
+    db.insert("userList", null, values);
+
+    //Close the database
+    db.close();
+    }
 
 }

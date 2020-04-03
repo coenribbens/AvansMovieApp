@@ -3,28 +3,28 @@ package com.avans.AvansMovieApp.Utilities.NeworkUtilities;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.avans.AvansMovieApp.Utilities.FetchingUtilities.RemoveMovieList;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Scanner;
 
-public class MakeHTTPPOSTRequest extends AsyncTask<String, Integer, String> {
-
+public class MakeHTTPDeleteRequest extends AsyncTask<String, Integer, String> {
     private String TAG = this.getClass().getSimpleName();
     private HTTPRequestable context;
     private HttpURLConnection conn;
 
-
-    public MakeHTTPPOSTRequest(HTTPRequestable context) {
+    public MakeHTTPDeleteRequest(HTTPRequestable  context) {
         this.context = context;
     }
 
 
+    @Override
     protected String doInBackground(String... args) {
+
         String response = "";
         try {
             URL url = new URL(args[0]);
@@ -32,7 +32,7 @@ public class MakeHTTPPOSTRequest extends AsyncTask<String, Integer, String> {
 
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestProperty("Content-Type", "application/json");
-            conn.setRequestMethod("POST");
+            conn.setRequestMethod("DELETE");
             conn.setDoOutput(true);
 
             DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
@@ -45,32 +45,22 @@ public class MakeHTTPPOSTRequest extends AsyncTask<String, Integer, String> {
             BufferedReader in = null;
             String inputLine;
             StringBuilder body;
-                in = new BufferedReader(new InputStreamReader(is));
+            in = new BufferedReader(new InputStreamReader(is));
 
-                body = new StringBuilder();
+            body = new StringBuilder();
 
-                while ((inputLine = in.readLine()) != null) {
-                    body.append(inputLine);
-                }
-                in.close();
-                is.close();
-                response = body.toString();
-                Log.d(TAG, response);
-
-        } catch (IOException e) {
-            try {
-                Log.v("RespCode",""+conn.getResponseCode());
-                // loooool, fucking java is sooo fuckig great lol. An exception in an exception to catch data from the exception. Lmaooooooooooooooooooooooooooooooooooooooooooooooooooo
-            } catch (IOException ex) {
-                ex.printStackTrace();
+            while ((inputLine = in.readLine()) != null) {
+                body.append(inputLine);
             }
-            e.printStackTrace();
+            in.close();
+            is.close();
+            response = body.toString();
+            Log.d(TAG, response);
+
+        } catch (Exception e) {
+        Log.d(TAG, e.toString());
         }
+
         return response;
     }
-
-    protected void onPostExecute(String responseBody) {
-        context.ProcessHTTPResponseBody(responseBody);
-    }
-
 }

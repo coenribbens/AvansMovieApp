@@ -1,8 +1,10 @@
 package com.avans.AvansMovieApp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,11 +12,11 @@ import android.widget.EditText;
 import com.avans.AvansMovieApp.Adapters.MovieRecycleViewAdapter;
 import com.avans.AvansMovieApp.Model.CompactMovie;
 import com.avans.AvansMovieApp.Model.GlobalVariables;
-import com.avans.AvansMovieApp.Utilities.FetchingUtilities.CreateNewSession;
-import com.avans.AvansMovieApp.Utilities.FetchingUtilities.FetchGuestSessionToken;
+import com.avans.AvansMovieApp.Utilities.FetchingUtilities.CreateRequestToken;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetPopularMovies;
 import com.avans.AvansMovieApp.Utilities.FetchingUtilities.GetSearchedMovies;
 import com.avans.AvansMovieApp.Utilities.JSONUtiliies.ParseJSONPopularToCompactMovie;
+import com.avans.AvansMovieApp.Utilities.Miscellaneous.SwitchLanguagesHelper;
 import com.avans.AvansMovieApp.Utilities.NeworkUtilities.HTTPRequestable;
 
 import java.util.ArrayList;
@@ -23,24 +25,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MainActivity extends AppCompatActivity implements HTTPRequestable,TitleSettable {
+public class MainActivity extends AppCompatActivity implements HTTPRequestable {
     private EditText searchBarField;
     private Button searchButton;
     private RecyclerView recyclerView;
     private Integer page = 1;
     private boolean backButtonBooleanIsInSearchRecyclerView = false;
-
-
-    // TODO: save session id on rotate,lifecyclevent
-
+    private SwitchLanguagesHelper switchLanguagesHelper = new SwitchLanguagesHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        CreateRequestToken requestToken = new CreateRequestToken();
+        requestToken.initialiseCreateMovieList();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.recyclerView = findViewById(R.id.rv_movie_items);
         GlobalVariables.setCurrentContext(this);
         setTitle(getResources().getText(R.string.pop_main_ac_title));
+
 
         GetPopularMovies getPopularMovies = new GetPopularMovies(this);
         getPopularMovies.getPopularMovies();
@@ -52,29 +54,49 @@ public class MainActivity extends AppCompatActivity implements HTTPRequestable,T
         searchBarField.setInputType(InputType.TYPE_CLASS_TEXT);
         searchButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                GetSearchedMovies getSearchedMovies = new GetSearchedMovies(
-                        (HTTPRequestable) MainActivity.this,
-                        MainActivity.this.searchBarField.getText().toString()
-                );
-                getSearchedMovies.getSearchedMovies();
+                String searchText = MainActivity.this.searchBarField.getText().toString();
+                if(searchText != null && !searchText.isEmpty()){
+                    GetSearchedMovies getSearchedMovies = new GetSearchedMovies(
+                            MainActivity.this,searchText
+                    );
+                    getSearchedMovies.getSearchedMovies();
+                }
             }
         });
 
 
-        //!!!! TODO work on sessions
-        CreateNewSession createNewSession = new CreateNewSession();
-        createNewSession.initializeCreateNewSessionRequest();
-        Log.v("{{SESS}}", "" + GlobalVariables.SESSION_TOKEN);
-        if (GlobalVariables.getGuestSessionID() == null) {
-            FetchGuestSessionToken fetchGuestSessionToken = new FetchGuestSessionToken();
-            fetchGuestSessionToken.initializeCreateNewGuestSessionRequest();
-        }
     }
 
 
     public void changeTitle(String titleText) {
         setTitle(titleText);
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.go_to_list_menu_item:
+                Intent intent = new Intent(this, ListActivity.class);
+                this.startActivity(intent);
+                return true;
+            case R.id.switch_languages_menu_item:
+                this.switchLanguagesHelper.flipLanguages();
+                recreate();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
+
 
 
     @Override
